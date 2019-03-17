@@ -1,0 +1,22 @@
+{
+  "name": "AAExtensions",
+  "version": "0.1.0",
+  "summary": "A short description of AAExtensions.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/EngrAhsanAli/AAExtensions",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "EngrAhsanAli": "hafiz.m.ahsan.ali@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/EngrAhsanAli/AAExtensions.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "AAExtensions/Classes/**/*"
+}

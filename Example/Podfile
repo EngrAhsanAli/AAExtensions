@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AAExtensions_Example' do
+  pod 'AAExtensions', :path => '../'
+
+  target 'AAExtensions_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

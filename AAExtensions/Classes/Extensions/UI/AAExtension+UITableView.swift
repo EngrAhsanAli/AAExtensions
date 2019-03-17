@@ -1,0 +1,74 @@
+//
+//  Extension+UITableView.swift
+//  AAExtensions
+//
+//  Created by M. Ahsan Ali on 14/03/2019.
+//
+
+
+//MARK:- UITableView
+public extension UITableView {
+    
+    func aa_insertRowAtBottom(_ scrollToBottom: Bool = true) {
+        DispatchQueue.main.async {
+            let lastSection = self.numberOfSections - 1
+            let lastRowIndex = self.numberOfRows(inSection: lastSection)
+            let indexPath = IndexPath(row: lastRowIndex, section: lastSection)
+            self.insertRows(at: [indexPath], with: .none)
+            if scrollToBottom {
+                self.scrollToRow(at: indexPath, at: .none, animated: false)
+            }
+        }
+    }
+    
+    func aa_reloadToLastRow(_ lastRow: Int) {
+        DispatchQueue.main.async {
+            let lastSection = self.numberOfSections - 1
+            let lastRowIndex = self.numberOfRows(inSection: lastSection)
+            guard lastRowIndex > lastRow else { return }
+            let indexPath = IndexPath(row: lastRowIndex - lastRow, section: lastSection)
+            self.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    func aa_scrollToBottom(_ animated: Bool = true) {
+        DispatchQueue.main.async {
+            if (self.numberOfSections > 0) {
+                let lastSection = self.numberOfSections - 1
+                let rows = self.numberOfRows(inSection: lastSection)
+                if (rows > 0 ) {
+                    let lastRowIndex = rows - 1
+                    let indexPath = IndexPath(row: lastRowIndex, section: lastSection)
+                    self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+                }
+            }
+        }
+    }
+    
+    func aa_setOffsetToBottom(animated: Bool) {
+        self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.frame.size.height), animated: true)
+    }
+    
+    func aa_showMenuOnLongPress() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressMenuController))
+        longPressGesture.minimumPressDuration = 1.0
+        addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func onLongPressMenuController(_ gestureRecognizer: UIGestureRecognizer) {
+        let menu = UIMenuController.shared
+        if !menu.isMenuVisible && gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: self)
+            if let indexPath = indexPathForRow(at: touchPoint) {
+                self.becomeFirstResponder()
+                self.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                menu.setTargetRect(rectForRow(at: indexPath), in: self)
+                menu.setMenuVisible(true, animated: true)
+            }
+        }
+        
+    }
+    
+    
+}
+

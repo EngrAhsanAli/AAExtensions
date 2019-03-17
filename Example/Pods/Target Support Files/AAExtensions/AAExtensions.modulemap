@@ -1,0 +1,6 @@
+framework module AAExtensions {
+  umbrella header "AAExtensions-umbrella.h"
+
+  export *
+  module * { export * }
+}

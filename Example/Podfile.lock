@@ -1,0 +1,16 @@
+PODS:
+  - AAExtensions (0.1.0)
+
+DEPENDENCIES:
+  - AAExtensions (from `../`)
+
+EXTERNAL SOURCES:
+  AAExtensions:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AAExtensions: 88bd1313f18aece5dbb5d08d5a646a16e20b9bf0
+
+PODFILE CHECKSUM: 235bd8c022839c4e590529843756dc80cca0c96b
+
+COCOAPODS: 1.6.0
