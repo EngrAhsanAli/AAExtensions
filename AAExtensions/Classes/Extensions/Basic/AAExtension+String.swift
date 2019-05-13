@@ -4,6 +4,25 @@
 //
 //  Created by M. Ahsan Ali on 14/03/2019.
 //
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+
 
 // MARK:- String
 public extension String {
@@ -25,6 +44,10 @@ public extension String {
         return dateFormatter.date(from: self)!
     }
 
+    var aa_url: URL {
+        return URL(string: addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
+    
     var aa_toDateTimeOffset: Date {
         let dataTime = self.trimMillisecond
         return dataTime.aa_toDate(fromFormat: "", currentTimeZone: true)
@@ -76,7 +99,7 @@ public extension String {
     }
     
     func aa_indexInt(of char: Character) -> Int? {
-        return index(of: char)?.encodedOffset
+        return firstIndex(of: char)?.encodedOffset
     }
     
     func aa_left(_ to: Int) -> String {
@@ -100,6 +123,42 @@ public extension String {
         let idx1 = index(startIndex, offsetBy: max(0, aa_range.lowerBound))
         let idx2 = index(startIndex, offsetBy: min(self.count, aa_range.upperBound))
         return String(self[idx1..<idx2])
+    }
+    
+    func aa_openURL() {
+        guard let url = URL(string: self) else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    func aa_containExtension(_ extensions: [String]) -> Bool {
+        if let ext = self.aa_fileExtension {
+            return extensions.contains(ext)
+        }
+        return false
+    }
+    
+    var aa_fileExtension: String? {
+        let ext = (self as NSString).pathExtension
+        if ext.isEmpty { return nil }
+        return ext
+    }
+    
+    var aa_localized: String {
+        return NSLocalizedString(self, comment:"")
+    }
+    
+    func aa_localized(withComment comment: String? = nil) -> String {
+        return NSLocalizedString(self, comment: comment ?? "")
+    }
+    
+    func aa_localized(lang:String) -> String {
+        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
     
 }

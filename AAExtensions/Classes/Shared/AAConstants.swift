@@ -1,5 +1,5 @@
 //
-//  Extension+UIControl.swift
+//  AAConstants.swift
 //  AAExtensions
 //
 //  Created by M. Ahsan Ali on 14/03/2019.
@@ -23,12 +23,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+var AA_AssociationKeyMaxLength: Int = 0
+var AA_AssociationKeyAnyCallback: Int = 0
 
-// MARK:- UIControl
-public extension UIControl {
-    func aa_addAction(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
-        let sleeve = AAClosureSleeve(closure)
-        addTarget(sleeve, action: #selector(AAClosureSleeve.invoke), for: controlEvents)
-        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
-    }
+public var aa_rootVC: UIViewController {
+    return UIApplication.shared.keyWindow!.rootViewController!
 }
+
+

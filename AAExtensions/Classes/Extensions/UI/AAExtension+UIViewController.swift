@@ -4,11 +4,41 @@
 //
 //  Created by M. Ahsan Ali on 14/03/2019.
 //
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
-import UIKit
+
+import AVKit
 
 // MARK:- UIViewController
 public extension UIViewController {
+    
+    var aa_topViewController: UIViewController {
+        switch self {
+        case is UINavigationController:
+            return (self as! UINavigationController).visibleViewController?.aa_topViewController ?? self
+        case is UITabBarController:
+            return (self as! UITabBarController).selectedViewController?.aa_topViewController ?? self
+        default:
+            return presentedViewController?.aa_topViewController ?? self
+        }
+    }
     
     var aa_tabbarHeight: CGFloat {
         return (self.tabBarController?.tabBar.frame.size.height)!
@@ -88,6 +118,84 @@ public extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func aa_showAlert(title: String,
+                      text: String,
+                      doneText: String,
+                      cancelText: String,
+                      numTextFields: Int,
+                      onTextFieldAdded: @escaping ((UITextField, Int) -> ()),
+                      onComplete: @escaping (([UITextField]) -> ()),
+                      onDismiss: (() -> ())? = nil) {
+        
+        let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
+
+        for i in 0...numTextFields {
+            alertController.addTextField {
+                onTextFieldAdded($0, i)
+            }
+        }
+       
+        let saveAction = UIAlertAction(title: doneText, style: .default, handler: { _ in
+            guard let textFields = alertController.textFields else { return }
+            onComplete(textFields)
+        })
+        
+        let cancelAction = UIAlertAction(title: cancelText, style: .default, handler: { _ in
+            onDismiss?()
+        })
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func aa_playVideo(_ url: URL) -> AVPlayerViewController {
+        let player = AVPlayer(url: url)
+        let playerVC = AVPlayerViewController()
+        playerVC.player = player
+        self.present(playerVC, animated: true) {
+            player.play()
+        }
+        return playerVC
+    }
+    
+    func aa_canPerformSegue(identifier: String, sender: Any? = nil) -> Bool {
+        guard let identifiers = value(forKey: "storyboardSegueTemplates") as? [NSObject] else {
+            return false
+        }
+        let canPerform = identifiers.contains { (object) -> Bool in
+            if let id = object.value(forKey: "_identifier") as? String {
+                return id == identifier
+            }else{
+                return false
+            }
+        }
+        return canPerform
+    }
+
+    func aa_performSegue(identifier: String, sender: Any? = nil) {
+        self.performSegue(withIdentifier: identifier, sender: sender ?? self)
+    }
+    
+    func aa_presentCurrentViewController(_ vc: UIViewController) {
+
+        guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
+
+        if let _vc = root.presentedViewController as? UINavigationController {
+            _vc.pushViewController(vc, animated: true)
+        }
+        else if let _vc = root as? UINavigationController {
+            _vc.pushViewController(vc, animated: true)
+        }
+        else if let _vc = root.presentedViewController {
+             _vc.present(vc, animated: true, completion: nil)
+        }
+        else {
+            root.present(vc, animated: true, completion: nil)
+        }
+
+    }
 }
 
 

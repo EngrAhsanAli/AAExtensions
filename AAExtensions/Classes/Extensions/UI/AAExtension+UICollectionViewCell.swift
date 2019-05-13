@@ -1,8 +1,8 @@
 //
-//  Extension+UIControl.swift
+//  AAExtension+UICollectionViewCell.swift
 //  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by M. Ahsan Ali on 12/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,11 +24,16 @@
 //  THE SOFTWARE.
 
 
-// MARK:- UIControl
-public extension UIControl {
-    func aa_addAction(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
-        let sleeve = AAClosureSleeve(closure)
-        addTarget(sleeve, action: #selector(AAClosureSleeve.invoke), for: controlEvents)
-        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+// MARK:- UICollectionViewCell
+public extension UICollectionViewCell {
+    var aa_selectionColor: UIColor {
+        set {
+            let view = UIView()
+            view.backgroundColor = newValue
+            self.selectedBackgroundView = view
+        }
+        get {
+            return self.selectedBackgroundView?.backgroundColor ?? .clear
+        }
     }
 }

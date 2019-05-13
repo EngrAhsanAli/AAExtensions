@@ -4,45 +4,35 @@
 //
 //  Created by M. Ahsan Ali on 14/03/2019.
 //
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+
 
 import UIKit
 
 // MARK:- UIApplication
 public extension UIApplication {
-    public static var aa_appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    }
     
-    public static var aa_isJailBroken: Bool {
-        #if arch(i386) || arch(x86_64)
-        return true // true for simulators
-        #else
-        let fileManager = FileManager.default
-        
-        if (fileManager.fileExists(atPath: "/bin/bash") ||
-            fileManager.fileExists(atPath: "/usr/sbin/sshd") ||
-            fileManager.fileExists(atPath: "/etc/apt")) ||
-            fileManager.fileExists(atPath: "/private/var/lib/apt/") ||
-            fileManager.fileExists(atPath: "/Applications/Cydia.app") ||
-            fileManager.fileExists(atPath: "/Library/MobileSubstrate/MobileSubstrate.dylib") {
-            return true
-        } else {
-            return false
-        }
-        #endif
-    }
+    
 }
 
 // MARK:- UIDevice
 public extension UIDevice {
-    public static var aa_deviceModel: String {
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value)))
-        }
-        return identifier
-    }
+    
 }

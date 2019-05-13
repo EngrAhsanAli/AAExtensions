@@ -1,8 +1,8 @@
 //
-//  Extension+UIControl.swift
+//  AAExtension+UIStoryboard.swift
 //  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by M. Ahsan Ali on 12/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,11 +24,19 @@
 //  THE SOFTWARE.
 
 
-// MARK:- UIControl
-public extension UIControl {
-    func aa_addAction(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
-        let sleeve = AAClosureSleeve(closure)
-        addTarget(sleeve, action: #selector(AAClosureSleeve.invoke), for: controlEvents)
-        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+import UIKit
+
+// MARK:- UIStoryboard
+public extension UIStoryboard {
+    
+    static var aa_main: UIStoryboard? {
+        let bundle = Bundle.main
+        guard let name = bundle.object(forInfoDictionaryKey: "UIMainStoryboardFile") as? String else { return nil }
+        return UIStoryboard(name: name, bundle: bundle)
     }
+    
+    func aa_viewController<T: UIViewController>(withClass name: T.Type) -> T? {
+        return instantiateViewController(withIdentifier: String(describing: name)) as? T
+    }
+    
 }
