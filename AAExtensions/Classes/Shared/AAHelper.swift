@@ -123,5 +123,26 @@ public extension AAHelper {
             completion?()
         })
     }
+    
+    // returns current country name and country code
+    var aa_currentCountry: (String, String) {
+        let countryLocale = NSLocale.current
+        let countryCode = countryLocale.regionCode!
+        let country = (countryLocale as NSLocale)
+            .displayName(forKey: NSLocale.Key.countryCode, value: countryCode)!
+        return (country, countryCode)
+    }
+    
+    func aa_performBackground(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
+    
 }
 

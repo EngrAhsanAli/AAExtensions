@@ -67,6 +67,12 @@
 		BD1C617A3DBB87C4C8609C38CFD029D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		E1C45F09B1A9CF1D38822430ACE700DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		E43703063B8519EEDC18CFCC84C3169D /* Pods-AAExtensions_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 75306F5AD7559779841E6F744EE75B9F /* Pods-AAExtensions_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAC363D32298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */; };
+		FAC363D52298EA5100A2DA4B /* Designable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */; };
+		FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */; };
+		FAC363D92298F05500A2DA4B /* AAExtension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D82298F05500A2DA4B /* AAExtension+UIImage.swift */; };
+		FAC363DB2298F0CC00A2DA4B /* AAExtension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363DA2298F0CC00A2DA4B /* AAExtension+UITextField.swift */; };
+		FAC363DD2298F10100A2DA4B /* AAExtension+DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363DC2298F10100A2DA4B /* AAExtension+DispatchQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +174,12 @@
 		E15CA71EA6EBCD9EE56A8DD3AAD9DB90 /* Pods_AAExtensions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AAExtensions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7294F151475E70488CD04273DE6B170 /* Pods-AAExtensions_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AAExtensions_Tests-umbrella.h"; sourceTree = "<group>"; };
 		EC801BF293C9A81FFFD0E23E48DFC441 /* Pods-AAExtensions_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AAExtensions_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIBarButtonItem.swift"; sourceTree = "<group>"; };
+		FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Designable+UIViewController.swift"; sourceTree = "<group>"; };
+		FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+ArrayElement.swift"; sourceTree = "<group>"; };
+		FAC363D82298F05500A2DA4B /* AAExtension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIImage.swift"; sourceTree = "<group>"; };
+		FAC363DA2298F0CC00A2DA4B /* AAExtension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UITextField.swift"; sourceTree = "<group>"; };
+		FAC363DC2298F10100A2DA4B /* AAExtension+DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+DispatchQueue.swift"; sourceTree = "<group>"; };
 		FCFA0EC55E8E60275106CFE7AB8807A7 /* AAExtensions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AAExtensions-prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -303,6 +315,8 @@
 			children = (
 				8F0D332B2239A1DC00AB7904 /* AAExtension+Date.swift */,
 				8F0D333F2239A5B900AB7904 /* AAExtension+PHAsset.swift */,
+				FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */,
+				FAC363DC2298F10100A2DA4B /* AAExtension+DispatchQueue.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -392,6 +406,7 @@
 				8F0D33272239A16700AB7904 /* Designable+UILabel.swift */,
 				8F0D332D2239A21100AB7904 /* Designable+UITextField.swift */,
 				8F0D333D2239A58F00AB7904 /* Designable+UIView.swift */,
+				FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */,
 			);
 			path = Designables;
 			sourceTree = "<group>";
@@ -410,11 +425,14 @@
 				8FBD0F082287A7B3006C3E5C /* AAExtension+UICollectionViewCell.swift */,
 				8F0D331922399FF400AB7904 /* AAExtension+UIView.swift */,
 				8F0D33252239A14600AB7904 /* AAExtension+UILabel.swift */,
+				FAC363D82298F05500A2DA4B /* AAExtension+UIImage.swift */,
+				FAC363DA2298F0CC00A2DA4B /* AAExtension+UITextField.swift */,
 				8F0D333B2239A4F100AB7904 /* AAExtension+UIButton.swift */,
 				8F0D331D2239A01700AB7904 /* AAExtension+UIControl.swift */,
 				8F0D33432239A69600AB7904 /* AAExtension+UIFont.swift */,
 				8FBD0F0A2287AD96006C3E5C /* AAExtension+UITabBar.swift */,
 				8F0D33232239A12B00AB7904 /* AAExtension+NSLayoutConstraint.swift */,
+				FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -678,7 +696,9 @@
 				8F0D33302239A33400AB7904 /* AAExtension+UIScrollView.swift in Sources */,
 				8F0D334C2239A96C00AB7904 /* Module+AATimerLabel.swift in Sources */,
 				8FBD0F04228796B3006C3E5C /* Module+AACarouselFlowLayout.swift in Sources */,
+				FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */,
 				52DA66D6223ED40600E5B965 /* Module+AABackButton.swift in Sources */,
+				FAC363D92298F05500A2DA4B /* AAExtension+UIImage.swift in Sources */,
 				8F0D333E2239A58F00AB7904 /* Designable+UIView.swift in Sources */,
 				8F0D331C2239A00000AB7904 /* AAExtension+UIViewController.swift in Sources */,
 				52F2795F223DB3E5004A95EE /* AAExtension+Bool.swift in Sources */,
@@ -697,14 +717,18 @@
 				8F0D334E2239AA6F00AB7904 /* Module+AACurvedView.swift in Sources */,
 				8F0D33502239AAC900AB7904 /* Module+AABorderLinesView.swift in Sources */,
 				8F0D33322239A35A00AB7904 /* AAExtension+Collection.swift in Sources */,
+				FAC363D52298EA5100A2DA4B /* Designable+UIViewController.swift in Sources */,
+				FAC363D32298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift in Sources */,
 				8F0D33542239AAFE00AB7904 /* Module+AALinedLabel.swift in Sources */,
 				8F0D333C2239A4F100AB7904 /* AAExtension+UIButton.swift in Sources */,
 				7AB27794E1E8F762406BB02084516058 /* AAExtensions-dummy.m in Sources */,
 				521F5E4E223D40D8009F02A5 /* AAExtension+Array.swift in Sources */,
+				FAC363DB2298F0CC00A2DA4B /* AAExtension+UITextField.swift in Sources */,
 				8F0D33462239A70300AB7904 /* AAExtension+UIStackView.swift in Sources */,
 				8F0D331E2239A01800AB7904 /* AAExtension+UIControl.swift in Sources */,
 				8F0D331A22399FF400AB7904 /* AAExtension+UIView.swift in Sources */,
 				52F2796A223E5D11004A95EE /* Module+AAStackViewSeparator.swift in Sources */,
+				FAC363DD2298F10100A2DA4B /* AAExtension+DispatchQueue.swift in Sources */,
 				8F0D332E2239A21100AB7904 /* Designable+UITextField.swift in Sources */,
 				8F0D33242239A12B00AB7904 /* AAExtension+NSLayoutConstraint.swift in Sources */,
 				52F27961223DB3EF004A95EE /* AAExtension+Float.swift in Sources */,

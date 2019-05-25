@@ -1,8 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  AAExtension+ArrayElement.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,17 +24,32 @@
 //  THE SOFTWARE.
 
 
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
+public extension Array where Element == UITextField {
+    func aa_clear() { forEach { $0.text = String() } }
+    
+    func aa_enabled(_ isEnabled: Bool) { forEach { $0.isEnabled = isEnabled } }
+    
+    var aa_validateEmpty: Bool {
+        return (filter { $0.text?.isEmpty ?? false }.count > 0)
     }
     
 }
 
-// MARK:- UIDevice
-public extension UIDevice {
+public extension Array where Element: Equatable {
+    
+    func aa_indexes(of item: Element) -> [Int]  {
+        return enumerated().compactMap { $0.element == item ? $0.offset : nil }
+    }
+    
+}
+
+public extension Array where Element == UIView {
+    
+    func aa_setVisibility(isHidden: Bool) { forEach { $0.isHidden = isHidden } }
+}
+
+public extension Array where Element == AAReversibleConstraint {
+    
+    func setVisibility(_ isHidden: Bool) { forEach { $0.showHide(isHidden) } }
     
 }

@@ -53,12 +53,12 @@ public class AAReversibleConstraint: NSLayoutConstraint {
     
     open func show() {
         guard !isShowing else { return }
-        super.constant = _constant
+        DispatchQueue.main.async { super.constant = self._constant }
     }
     
     open func hide() {
         guard isShowing else { return }
-        super.constant = 0
+        DispatchQueue.main.async { super.constant = 0 }
     }
     
     open var isShowing: Bool {
@@ -69,8 +69,8 @@ public class AAReversibleConstraint: NSLayoutConstraint {
         isShowing ? hide() : show()
     }
     
-    open func showHide(_ showView: Bool) {
-        showView ? show() : hide()
+    open func showHide(_ isHidden: Bool) {
+        isHidden ? hide() : show()
     }
     
 }

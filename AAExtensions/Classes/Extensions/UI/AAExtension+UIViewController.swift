@@ -65,6 +65,17 @@ public extension UIViewController {
         return webView
     }
     
+    func aa_pushWebView(_ url: String, bgColor: UIColor, completion: ((UIViewController, UIWebView) -> ())) {
+        
+        let vc = UIViewController()
+        vc.view.backgroundColor = bgColor
+        let webView = vc.aa_addWebView(url)
+        webView.isOpaque = false
+        webView.backgroundColor = bgColor
+        completion(vc, webView)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     var aa_callBack: ((Any) -> Void)?  {
         get {
             return objc_getAssociatedObject(self, &AA_AssociationKeyAnyCallback) as! ((Any) -> Void)?
@@ -194,8 +205,9 @@ public extension UIViewController {
         else {
             root.present(vc, animated: true, completion: nil)
         }
-
     }
+    
+    
 }
 
 

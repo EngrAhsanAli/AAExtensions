@@ -1,9 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  AAExtension+UIBarButtonItem.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
-//
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
-    }
+public extension UIBarButtonItem {
     
-}
-
-// MARK:- UIDevice
-public extension UIDevice {
+    var aa_isHidden: Bool {
+        get { return tintColor == .clear }
+        set {
+            tintColor = newValue ? .clear : .white
+            isEnabled = !newValue
+            isAccessibilityElement = !newValue
+        }
+    }
     
 }

@@ -1,8 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  AAExtension+UITextField.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,17 +24,10 @@
 //  THE SOFTWARE.
 
 
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
-    }
+public extension UITextField {
     
-}
-
-// MARK:- UIDevice
-public extension UIDevice {
+    func aa_textIfNil(_ defaultText: String = "") -> String {
+        return text ?? defaultText
+    }
     
 }

@@ -53,17 +53,13 @@ public extension String {
         return dataTime.aa_toDate(fromFormat: "", currentTimeZone: true)
     }
     
-    var aa_trimmed: String {
-        return self.trimmingCharacters(in: .whitespaces)
-    }
+    var aa_trimmed: String { return trimmingCharacters(in: .whitespaces) }
     
-    func aa_toInt() -> Int {
-        return Int(self) ?? 0
-    }
+    var aa_toInt: Int { return Int(self) ?? 0 }
     
-    func aa_toFloat() -> Float {
-        return Float(self) ?? 0
-    }
+    var aa_toFloat: Float { return Float(self) ?? 0 }
+    
+    var aa_toDouble: Double { return Double(self) ?? 0 }
     
     var aa_initialLetters: String {
         let components = self.components(separatedBy: " ")
@@ -161,14 +157,26 @@ public extension String {
         return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
     
+    func aa_makePhoneCall() {
+        if aa_isValid(regex: .phone) {
+            let filtredUnicodeScalars = unicodeScalars.filter{CharacterSet.decimalDigits.contains($0)}
+            let onlyDigits = String(String.UnicodeScalarView(filtredUnicodeScalars))
+            if let url = URL(string: "tel://\(onlyDigits)"), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) { UIApplication.shared.open(url) }
+                else { UIApplication.shared.openURL(url) }
+            }
+        }
+    }
+    
+    
 }
 
 //MARK:- String Comparision
 public extension String {
-
-//    static func ==(lhs: String, rhs: String) -> Bool {
-//        return lhs.compare(rhs, options: .numeric) == .orderedSame
-//    }
+    
+    static func ==(lhs: String, rhs: String) -> Bool {
+        return lhs.compare(rhs, options: .numeric) == .orderedSame
+    }
     
     static func <(lhs: String, rhs: String) -> Bool {
         return lhs.compare(rhs, options: .numeric) == .orderedAscending
@@ -185,4 +193,30 @@ public extension String {
     static func >=(lhs: String, rhs: String) -> Bool {
         return lhs.compare(rhs, options: .numeric) == .orderedDescending || lhs.compare(rhs, options: .numeric) == .orderedSame
     }
+}
+
+// test
+
+//MARK:- String Validations
+public extension String {
+    
+    /* Can extend
+    extension String.AARegularExpressions {
+        static var test = ""
+    } */
+
+    enum AARegularExpressions: String {
+        case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
+        case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    }
+    
+    func aa_isValid(regex: AARegularExpressions) -> Bool {
+        return aa_isValid(regex: regex.rawValue)
+    }
+    
+    func aa_isValid(regex: String) -> Bool {
+        let matches = range(of: regex, options: .regularExpression)
+        return matches != nil
+    }
+    
 }

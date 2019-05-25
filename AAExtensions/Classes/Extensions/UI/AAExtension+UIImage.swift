@@ -1,8 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  AAExtension+UIImage.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,17 +24,9 @@
 //  THE SOFTWARE.
 
 
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
+public extension UIImage {
+    var aa_toBase64: String? {
+        guard let imageData = self.pngData() else { return nil }
+        return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
     }
-    
-}
-
-// MARK:- UIDevice
-public extension UIDevice {
-    
 }

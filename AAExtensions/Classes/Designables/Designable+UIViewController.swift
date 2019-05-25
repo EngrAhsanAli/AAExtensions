@@ -1,8 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  Designable+UIViewController.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,18 +23,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
+@IBDesignable
+public extension UIViewController {
+    
+    @IBInspectable
+    var AABackButton: UIImage? {
+        get {
+            return self.AABackButton
+        }
+        set (value)  {
+            if let image = value {
+                let backBTN = UIBarButtonItem(image: image,
+                                              style: .plain,
+                                              target: navigationController,
+                                              action: #selector(UINavigationController.popViewController(animated:)))
+                navigationItem.leftBarButtonItem = backBTN
+            }
+        }
     }
-    
-}
 
-// MARK:- UIDevice
-public extension UIDevice {
-    
 }

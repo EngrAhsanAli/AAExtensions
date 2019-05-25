@@ -1,8 +1,8 @@
 //
-//  Extension+UIApplication.swift
-//  Extensions
+//  AAExtension+DispatchQueue.swift
+//  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by Ahsan ALI on 25/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,18 +23,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-import UIKit
-
-// MARK:- UIApplication
-public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa_topViewController
-    }
+public extension DispatchQueue {
     
-}
-
-// MARK:- UIDevice
-public extension UIDevice {
+    
     
 }

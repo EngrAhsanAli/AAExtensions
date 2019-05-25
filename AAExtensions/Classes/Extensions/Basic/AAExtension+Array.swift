@@ -32,24 +32,3 @@ public extension Array{
         self.append(contentsOf: copy)
     }
 }
-
-extension Array where Element == UITextField {
-    func aa_clear() {
-        forEach { $0.text = String() }
-    }
-    
-}
-
-extension Array where Element: Equatable {
-    
-    func aa_indexes(of item: Element) -> [Int]  {
-        return enumerated().compactMap { $0.element == item ? $0.offset : nil }
-    }
-}
-
-extension Array where Element == UIView {
-    
-    func aa_setVisibility(isHidden: Bool) {
-        forEach { $0.isHidden = isHidden }
-    }
-}
