@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 
 
-public class AALinedLabel: UIView {
+open class AALinedLabel: UIView {
     
     @IBInspectable var lineInsideOffset: CGFloat = 20
     @IBInspectable var lineOutsideOffset: CGFloat = 20
@@ -43,7 +43,7 @@ public class AALinedLabel: UIView {
         super.init(frame: frame)
         initLabel()
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initLabel()
     }
@@ -65,7 +65,7 @@ public class AALinedLabel: UIView {
         isOpaque = false
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         let lineWidth = label.frame.minX - rect.minX - lineInsideOffset - lineOutsideOffset
         if lineWidth <= 0 {return}
         

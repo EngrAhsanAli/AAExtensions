@@ -23,10 +23,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class AAGradientLabel: UILabel {
+open class AAGradientLabel: UILabel {
     public var gradientColors: [CGColor] = []
     
-    override public func drawText(in rect: CGRect) {
+    override open func drawText(in rect: CGRect) {
         if let gradientColor = drawGradientColor(in: rect, colors: gradientColors) {
             self.textColor = gradientColor
         }

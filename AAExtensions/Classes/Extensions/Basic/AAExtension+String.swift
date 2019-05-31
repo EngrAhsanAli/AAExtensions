@@ -168,6 +168,9 @@ public extension String {
         }
     }
     
+    func aa_capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
     
 }
 
@@ -208,6 +211,7 @@ public extension String {
     enum AARegularExpressions: String {
         case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
         case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        case url = "((www\\.|(http|https)+\\:\\/\\/)?[&#95;a-z0-9-]+\\.[a-z0-9\\/&#95;_:@=.+?,##%&~-]*[^.|\'|\\# |!|\\(|?|,| |>|<|;|\\)])"
     }
     
     func aa_isValid(regex: AARegularExpressions) -> Bool {

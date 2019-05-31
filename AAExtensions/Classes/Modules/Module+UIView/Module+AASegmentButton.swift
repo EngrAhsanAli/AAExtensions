@@ -23,8 +23,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-@IBDesignable public class AASegmentButton: UIView {
+@IBDesignable
+open class AASegmentButton: UIView {
     
     @IBInspectable public var leftText: String = "A"
     @IBInspectable public var rightText: String = "B"
@@ -54,7 +54,7 @@
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
@@ -72,7 +72,7 @@
         button.setAttributedTitle(newAttr, for: .selected)
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         super.draw(rect)
         
         setTextToButton(buttonLeft, leftText)
@@ -128,7 +128,7 @@
         }
     }
     
-    override public func updateConstraints() {
+    override open func updateConstraints() {
         if(shouldSetupConstraints) {
             // AutoLayout constraints
             shouldSetupConstraints = false

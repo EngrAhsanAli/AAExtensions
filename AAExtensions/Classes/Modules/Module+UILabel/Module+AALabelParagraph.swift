@@ -27,7 +27,7 @@
 
 @available(iOS 9.0, *)
 @IBDesignable
-public class AALabelParagraph: UILabel {
+open class AALabelParagraph: UILabel {
     
     @IBInspectable open var isHorizontal: Bool = true
     @IBInspectable open var firstColor: UIColor = .black

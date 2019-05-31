@@ -25,10 +25,10 @@
 
 
 @IBDesignable
-public class AACurvedView: UIView {
+open class AACurvedView: UIView {
     var isInterfaceBuilder: Bool = false
     
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         self.isInterfaceBuilder = true
     }
     
@@ -50,18 +50,18 @@ public class AACurvedView: UIView {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         super.draw(rect)
         if !isInterfaceBuilder {
             self.layer.insertSublayer(curvedLayer, at: 0)
         }
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         curvedLayer.path = pathOfArc(within: bounds.size)?.cgPath
     }

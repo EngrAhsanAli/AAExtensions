@@ -26,42 +26,42 @@
 
 import UIKit
 
-public class AAPlaceholderTextView: UITextView {
+open class AAPlaceholderTextView: UITextView {
     
     @IBInspectable open var placeholderColor: UIColor = .lightGray
     @IBInspectable open var placeholderText: String = ""
     
-    override public var font: UIFont? {
+    override open var font: UIFont? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var contentInset: UIEdgeInsets {
+    override open var contentInset: UIEdgeInsets {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var textAlignment: NSTextAlignment {
+    override open var textAlignment: NSTextAlignment {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var text: String? {
+    override open var text: String? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var attributedText: NSAttributedString? {
+    override open var attributedText: NSAttributedString? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
@@ -94,7 +94,7 @@ public class AAPlaceholderTextView: UITextView {
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         if text!.isEmpty && !placeholderText.isEmpty {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = textAlignment

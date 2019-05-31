@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 
 
-public class AATimerLabel: UILabel {
+open class AATimerLabel: UILabel {
     
     public var seconds: Double = 60
     var isTimerReverse: Bool = false

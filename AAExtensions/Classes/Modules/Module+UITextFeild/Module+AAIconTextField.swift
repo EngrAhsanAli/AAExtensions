@@ -27,9 +27,9 @@ import UIKit
 
 @available(iOS 9.0, *)
 @IBDesignable
-class AAIconTextField: UITextField {
+open class AAIconTextField: UITextField {
     
-    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+    override open func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         return super.leftViewRect(forBounds: bounds)
     }
     

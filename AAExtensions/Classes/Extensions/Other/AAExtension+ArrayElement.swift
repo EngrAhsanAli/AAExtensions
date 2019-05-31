@@ -36,7 +36,6 @@ public extension Array where Element == UITextField {
 }
 
 public extension Array where Element: Equatable {
-    
     func aa_indexes(of item: Element) -> [Int]  {
         return enumerated().compactMap { $0.element == item ? $0.offset : nil }
     }
@@ -44,12 +43,10 @@ public extension Array where Element: Equatable {
 }
 
 public extension Array where Element == UIView {
-    
     func aa_setVisibility(isHidden: Bool) { forEach { $0.isHidden = isHidden } }
 }
 
 public extension Array where Element == AAReversibleConstraint {
-    
     func setVisibility(_ isHidden: Bool) { forEach { $0.showHide(isHidden) } }
     
 }

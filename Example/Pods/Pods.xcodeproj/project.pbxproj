@@ -67,6 +67,10 @@
 		BD1C617A3DBB87C4C8609C38CFD029D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		E1C45F09B1A9CF1D38822430ACE700DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		E43703063B8519EEDC18CFCC84C3169D /* Pods-AAExtensions_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 75306F5AD7559779841E6F744EE75B9F /* Pods-AAExtensions_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA61399322A003EB001A14FD /* Module+AAVerticalAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */; };
+		FA6139CF22A007B0001A14FD /* AAExtension+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */; };
+		FA6139D722A13E35001A14FD /* Module+AAFloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */; };
+		FA6139DA22A142E1001A14FD /* Module+AARefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */; };
 		FAC363D32298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */; };
 		FAC363D52298EA5100A2DA4B /* Designable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */; };
 		FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */; };
@@ -174,6 +178,10 @@
 		E15CA71EA6EBCD9EE56A8DD3AAD9DB90 /* Pods_AAExtensions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AAExtensions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7294F151475E70488CD04273DE6B170 /* Pods-AAExtensions_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AAExtensions_Tests-umbrella.h"; sourceTree = "<group>"; };
 		EC801BF293C9A81FFFD0E23E48DFC441 /* Pods-AAExtensions_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AAExtensions_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAVerticalAlignLabel.swift"; sourceTree = "<group>"; };
+		FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+Optional.swift"; sourceTree = "<group>"; };
+		FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAFloatingTextField.swift"; sourceTree = "<group>"; };
+		FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AARefreshControl.swift"; sourceTree = "<group>"; };
 		FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIBarButtonItem.swift"; sourceTree = "<group>"; };
 		FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Designable+UIViewController.swift"; sourceTree = "<group>"; };
 		FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+ArrayElement.swift"; sourceTree = "<group>"; };
@@ -283,6 +291,7 @@
 		52DA66D8223ED58900E5B965 /* Module+UILabel */ = {
 			isa = PBXGroup;
 			children = (
+				FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */,
 				8F0D334B2239A96C00AB7904 /* Module+AATimerLabel.swift */,
 				8F0D33532239AAFE00AB7904 /* Module+AALinedLabel.swift */,
 				52DA66D3223E6A6900E5B965 /* Module+AAGradientLabel.swift */,
@@ -317,6 +326,7 @@
 				8F0D333F2239A5B900AB7904 /* AAExtension+PHAsset.swift */,
 				FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */,
 				FAC363DC2298F10100A2DA4B /* AAExtension+DispatchQueue.swift */,
+				FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -387,6 +397,7 @@
 			children = (
 				8FBD0F0C2287AED1006C3E5C /* Module+AAClosureSleeve.swift */,
 				8FBD0F1E228A086A006C3E5C /* Module+AAUpdateModule.swift */,
+				FA6139D822A142C8001A14FD /* Module+UIControl */,
 				8FBD0F0522879B69006C3E5C /* Module+UITextFeild */,
 				52DA66D9223ED59000E5B965 /* Module+UIView */,
 				52DA66D8223ED58900E5B965 /* Module+UILabel */,
@@ -460,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				8FBD0F0622879B7C006C3E5C /* Module+AAIconTextField.swift */,
+				FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */,
 			);
 			path = "Module+UITextFeild";
 			sourceTree = "<group>";
@@ -532,6 +544,14 @@
 				77260C0D0CE2E371591A90C9F1684B97 /* Pods_AAExtensions_Tests.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FA6139D822A142C8001A14FD /* Module+UIControl */ = {
+			isa = PBXGroup;
+			children = (
+				FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */,
+			);
+			path = "Module+UIControl";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -694,6 +714,7 @@
 				8F0D33362239A39F00AB7904 /* AAExtension+UITableView.swift in Sources */,
 				8F0D332A2239A1AE00AB7904 /* AAHelper.swift in Sources */,
 				8F0D33302239A33400AB7904 /* AAExtension+UIScrollView.swift in Sources */,
+				FA6139DA22A142E1001A14FD /* Module+AARefreshControl.swift in Sources */,
 				8F0D334C2239A96C00AB7904 /* Module+AATimerLabel.swift in Sources */,
 				8FBD0F04228796B3006C3E5C /* Module+AACarouselFlowLayout.swift in Sources */,
 				FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */,
@@ -737,9 +758,11 @@
 				8F0D332C2239A1DC00AB7904 /* AAExtension+Date.swift in Sources */,
 				8FBD0F1F228A086A006C3E5C /* Module+AAUpdateModule.swift in Sources */,
 				8F0D33282239A16700AB7904 /* Designable+UILabel.swift in Sources */,
+				FA6139D722A13E35001A14FD /* Module+AAFloatingTextField.swift in Sources */,
 				52F27965223DB403004A95EE /* AAExtension+Int.swift in Sources */,
 				8FBD0F0722879B7C006C3E5C /* Module+AAIconTextField.swift in Sources */,
 				8F0D33582239AB6E00AB7904 /* Module+AAProgressWebView.swift in Sources */,
+				FA6139CF22A007B0001A14FD /* AAExtension+Optional.swift in Sources */,
 				8F0D33262239A14600AB7904 /* AAExtension+UILabel.swift in Sources */,
 				8F0D335A2239AC1F00AB7904 /* Module+AASegmentButton.swift in Sources */,
 				8F0D33202239A04800AB7904 /* AAConstants.swift in Sources */,
@@ -749,6 +772,7 @@
 				8F0D33222239A11000AB7904 /* AAExtension+UICollectionView.swift in Sources */,
 				8F0D334A2239A94400AB7904 /* Module+AAKeyboardLayoutConstraint.swift in Sources */,
 				52F2795D223DB318004A95EE /* AAExtension+Dictionary.swift in Sources */,
+				FA61399322A003EB001A14FD /* Module+AAVerticalAlignLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

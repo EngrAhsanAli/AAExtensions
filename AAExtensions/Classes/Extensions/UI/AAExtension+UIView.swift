@@ -373,6 +373,50 @@ public extension UIView {
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
+    func aa_roundCorners(topLeft : Bool, topRight : Bool, bottomLeft : Bool, bottomRight: Bool, strokeColor : UIColor?, lineWidth : CGFloat, radius : CGFloat) -> Void {
+        
+        if #available(iOS 11.0, *) {
+            var corner  = CACornerMask()
+            if topLeft {
+                corner = corner.union(.layerMinXMinYCorner)
+            }
+            if topRight {
+                corner = corner.union(.layerMaxXMinYCorner)
+            }
+            if bottomLeft {
+                corner = corner.union(.layerMinXMaxYCorner)
+            }
+            if bottomRight {
+                corner = corner.union(.layerMaxXMaxYCorner)
+            }
+            self.layer.cornerRadius = radius
+            self.layer.maskedCorners = corner
+        }
+        else{
+            var corner  = UIRectCorner()
+            if topLeft {
+                corner = corner.union(.topLeft)
+            }
+            if topRight {
+                corner = corner.union(.topRight)
+            }
+            if bottomLeft {
+                corner = corner.union(.bottomLeft)
+            }
+            if bottomRight {
+                corner = corner.union(.bottomRight)
+            }
+            
+            let maskPath1 = UIBezierPath(roundedRect: bounds,
+                                         byRoundingCorners:corner,
+                                         cornerRadii: CGSize(width: radius, height: radius))
+            let maskLayer1 = CAShapeLayer()
+            maskLayer1.frame = bounds
+            maskLayer1.path = maskPath1.cgPath
+            layer.mask = maskLayer1
+        }
+    }
+    
     var aa_screenshot: UIImage? {
         UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, 0)
         defer {

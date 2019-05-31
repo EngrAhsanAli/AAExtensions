@@ -24,9 +24,8 @@
 //  THE SOFTWARE.
 
 
-
 @IBDesignable
-public class AABorderLinesView: UIView {
+open class AABorderLinesView: UIView {
         
     @IBInspectable open var paddingX: CGFloat = 0
     @IBInspectable open var paddingY: CGFloat = 0
@@ -42,15 +41,15 @@ public class AABorderLinesView: UIView {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         self.isInterfaceBuilder = true
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         super.draw(rect)
         
         if !isInterfaceBuilder {

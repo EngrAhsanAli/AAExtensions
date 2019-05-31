@@ -76,9 +76,9 @@ public extension UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    var aa_callBack: ((Any) -> Void)?  {
+    var aa_callBack: ((Any?) -> Void)?  {
         get {
-            return objc_getAssociatedObject(self, &AA_AssociationKeyAnyCallback) as! ((Any) -> Void)?
+            return objc_getAssociatedObject(self, &AA_AssociationKeyAnyCallback) as! ((Any?) -> Void)?
         }
         set {
             objc_setAssociatedObject(self, &AA_AssociationKeyAnyCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
@@ -86,13 +86,10 @@ public extension UIViewController {
     }
     
     func aa_selectTab(_ index: Int) {
-        guard let tabbar = self.tabBarController else { return }
+        guard let tabbar = self.tabBarController, let nav = tabbar.viewControllers?[aa_optional: 1] as? UINavigationController
+            else { return }
         tabbar.selectedIndex = index
-        let nav = tabbar.viewControllers![index] as! UINavigationController
-        guard nav.viewControllers.count > 1 else { return }
-        for _ in 0...nav.viewControllers.count - 1 {
-            nav.popViewController(animated: false)
-        }
+        nav.popToRootViewController(animated: true)
     }
     
     func aa_rightBarButton(_ image: String, selector: Selector) {

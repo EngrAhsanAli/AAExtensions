@@ -1,8 +1,8 @@
 //
-//  AAExtension+Int.swift
+//  AAExtension+Optional.swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Ahsan ALI on 30/05/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,35 +23,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-//MARK:- Int
-public extension Int {
+public extension Optional {
     
-    var aa_to_mmss : String {
-        return "\(((self % 3600) / 60).aa_twoDigit):\(((self % 3600) % 60).aa_twoDigit)"
+    func aa_unwrap(_ block: (Wrapped) throws -> Void) rethrows {
+        if let value = self {
+            try block(value)
+        }
     }
-    
-    var aa_twoDigit: String {
-        return String(format: "%02d", self)
-    }
-    
-    var aa_toString: String {
-        return String(self)
-    }
-    
-    var aa_boolValue: Bool {
-        return self != 0
-    }
-    
-    var aa_kiloMeters: Int {
-        return self/1000
-    }
-    
-    func aa_toLocalizedString(locale: Locale = .current) -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = locale // Locale(identifier: "ar")
-        return formatter.string(from: NSNumber(integerLiteral: self)) ?? aa_toString
-    }
-
 }
-
