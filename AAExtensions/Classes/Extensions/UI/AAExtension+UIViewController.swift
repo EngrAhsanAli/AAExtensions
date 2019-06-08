@@ -158,6 +158,7 @@ public extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    @discardableResult
     func aa_playVideo(_ url: URL) -> AVPlayerViewController {
         let player = AVPlayer(url: url)
         let playerVC = AVPlayerViewController()
@@ -182,10 +183,6 @@ public extension UIViewController {
         return canPerform
     }
 
-    func aa_performSegue(identifier: String, sender: Any? = nil) {
-        self.performSegue(withIdentifier: identifier, sender: sender ?? self)
-    }
-    
     func aa_presentCurrentViewController(_ vc: UIViewController) {
 
         guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
@@ -222,9 +219,7 @@ public extension UIViewController {
         self.addChild(child)
         container.addSubview(child.view)
         child.didMove(toParent: parent)
-        let w = container.frame.size.width
-        let h = container.frame.size.height
-        child.view.frame = CGRect(x: 0, y: 0, width: w, height: h)
+        child.view.frame = CGRect(x: 0, y: 0, width: container.frame.size.width, height: container.frame.size.height)
     }
     
     func aa_embed(withIdentifier id:String,

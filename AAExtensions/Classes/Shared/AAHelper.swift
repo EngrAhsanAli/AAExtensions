@@ -34,6 +34,7 @@ open class AAHelper {
     
 }
 
+// MARK: - AAHelper methods
 public extension AAHelper {
     
     var aa_appVersion: String? {
@@ -124,7 +125,7 @@ public extension AAHelper {
         })
     }
     
-    // returns current country name and country code
+    /// returns current country name and country code
     var aa_currentCountry: (String, String) {
         let countryLocale = NSLocale.current
         let countryCode = countryLocale.regionCode!

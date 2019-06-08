@@ -25,7 +25,7 @@
 
 
 @available(iOS 9.0, *)
-@IBDesignable class AAStackViewSeparator: UIStackView {
+@IBDesignable open class AAStackViewSeparator: UIStackView {
     
     @IBInspectable open var leftSide: UIColor? = nil
     @IBInspectable open var rightSide: UIColor? = nil
@@ -60,16 +60,16 @@
         }
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         invalidateSeparators()
     }
     
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    override func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
     }
     

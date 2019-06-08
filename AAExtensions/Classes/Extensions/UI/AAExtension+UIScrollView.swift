@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 
 
-// MARK:- ScrollView
+// MARK:- UIScrollView
 public extension UIScrollView {
     func aa_addRefreshControl(_ completion: @escaping (() -> ())) -> UIRefreshControl {
         let refreshControl = UIRefreshControl()

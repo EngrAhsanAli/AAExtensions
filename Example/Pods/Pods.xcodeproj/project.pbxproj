@@ -71,6 +71,11 @@
 		FA6139CF22A007B0001A14FD /* AAExtension+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */; };
 		FA6139D722A13E35001A14FD /* Module+AAFloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */; };
 		FA6139DA22A142E1001A14FD /* Module+AARefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */; };
+		FA6139DC22A1EF52001A14FD /* Module+AATimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */; };
+		FA6139E422A573AB001A14FD /* AAExtension+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139E322A573AB001A14FD /* AAExtension+NSAttributedString.swift */; };
+		FA613A5D22AC58B8001A14FD /* AAExtension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA613A5C22AC58B8001A14FD /* AAExtension+Data.swift */; };
+		FA613A5F22AC59EA001A14FD /* AAExtension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA613A5E22AC59EA001A14FD /* AAExtension+UINavigationController.swift */; };
+		FA613A6122AC5B81001A14FD /* Module+AAExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA613A6022AC5B81001A14FD /* Module+AAExpandableLabel.swift */; };
 		FAC363D32298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */; };
 		FAC363D52298EA5100A2DA4B /* Designable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */; };
 		FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */; };
@@ -182,6 +187,11 @@
 		FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+Optional.swift"; sourceTree = "<group>"; };
 		FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAFloatingTextField.swift"; sourceTree = "<group>"; };
 		FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AARefreshControl.swift"; sourceTree = "<group>"; };
+		FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AATimer.swift"; sourceTree = "<group>"; };
+		FA6139E322A573AB001A14FD /* AAExtension+NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+NSAttributedString.swift"; sourceTree = "<group>"; };
+		FA613A5C22AC58B8001A14FD /* AAExtension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+Data.swift"; sourceTree = "<group>"; };
+		FA613A5E22AC59EA001A14FD /* AAExtension+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UINavigationController.swift"; sourceTree = "<group>"; };
+		FA613A6022AC5B81001A14FD /* Module+AAExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAExpandableLabel.swift"; sourceTree = "<group>"; };
 		FAC363D22298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIBarButtonItem.swift"; sourceTree = "<group>"; };
 		FAC363D42298EA5100A2DA4B /* Designable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Designable+UIViewController.swift"; sourceTree = "<group>"; };
 		FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+ArrayElement.swift"; sourceTree = "<group>"; };
@@ -241,6 +251,7 @@
 				52F2795A223DB300004A95EE /* AAExtension+Sequence.swift */,
 				52F2795C223DB318004A95EE /* AAExtension+Dictionary.swift */,
 				8F0D33392239A49000AB7904 /* AAExtension+String.swift */,
+				FA613A5C22AC58B8001A14FD /* AAExtension+Data.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -292,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */,
+				FA613A6022AC5B81001A14FD /* Module+AAExpandableLabel.swift */,
 				8F0D334B2239A96C00AB7904 /* Module+AATimerLabel.swift */,
 				8F0D33532239AAFE00AB7904 /* Module+AALinedLabel.swift */,
 				52DA66D3223E6A6900E5B965 /* Module+AAGradientLabel.swift */,
@@ -327,6 +339,7 @@
 				FAC363D62298EFFC00A2DA4B /* AAExtension+ArrayElement.swift */,
 				FAC363DC2298F10100A2DA4B /* AAExtension+DispatchQueue.swift */,
 				FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */,
+				FA6139E322A573AB001A14FD /* AAExtension+NSAttributedString.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -397,6 +410,7 @@
 			children = (
 				8FBD0F0C2287AED1006C3E5C /* Module+AAClosureSleeve.swift */,
 				8FBD0F1E228A086A006C3E5C /* Module+AAUpdateModule.swift */,
+				FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */,
 				FA6139D822A142C8001A14FD /* Module+UIControl */,
 				8FBD0F0522879B69006C3E5C /* Module+UITextFeild */,
 				52DA66D9223ED59000E5B965 /* Module+UIView */,
@@ -427,6 +441,7 @@
 			children = (
 				8F0D331722399FA500AB7904 /* AAExtension+UIApplication.swift */,
 				8FBD0F0022879261006C3E5C /* AAExtension+UIStoryboard.swift */,
+				FA613A5E22AC59EA001A14FD /* AAExtension+UINavigationController.swift */,
 				8F0D331B2239A00000AB7904 /* AAExtension+UIViewController.swift */,
 				8F0D33212239A11000AB7904 /* AAExtension+UICollectionView.swift */,
 				8F0D33352239A39F00AB7904 /* AAExtension+UITableView.swift */,
@@ -740,6 +755,7 @@
 				8F0D33322239A35A00AB7904 /* AAExtension+Collection.swift in Sources */,
 				FAC363D52298EA5100A2DA4B /* Designable+UIViewController.swift in Sources */,
 				FAC363D32298E97E00A2DA4B /* AAExtension+UIBarButtonItem.swift in Sources */,
+				FA613A5F22AC59EA001A14FD /* AAExtension+UINavigationController.swift in Sources */,
 				8F0D33542239AAFE00AB7904 /* Module+AALinedLabel.swift in Sources */,
 				8F0D333C2239A4F100AB7904 /* AAExtension+UIButton.swift in Sources */,
 				7AB27794E1E8F762406BB02084516058 /* AAExtensions-dummy.m in Sources */,
@@ -752,21 +768,25 @@
 				FAC363DD2298F10100A2DA4B /* AAExtension+DispatchQueue.swift in Sources */,
 				8F0D332E2239A21100AB7904 /* Designable+UITextField.swift in Sources */,
 				8F0D33242239A12B00AB7904 /* AAExtension+NSLayoutConstraint.swift in Sources */,
+				FA6139E422A573AB001A14FD /* AAExtension+NSAttributedString.swift in Sources */,
 				52F27961223DB3EF004A95EE /* AAExtension+Float.swift in Sources */,
 				8F0D33422239A65300AB7904 /* Module+AAReversibleConstraint.swift in Sources */,
 				52F27963223DB3FA004A95EE /* AAExtension+Double.swift in Sources */,
 				8F0D332C2239A1DC00AB7904 /* AAExtension+Date.swift in Sources */,
 				8FBD0F1F228A086A006C3E5C /* Module+AAUpdateModule.swift in Sources */,
+				FA613A5D22AC58B8001A14FD /* AAExtension+Data.swift in Sources */,
 				8F0D33282239A16700AB7904 /* Designable+UILabel.swift in Sources */,
 				FA6139D722A13E35001A14FD /* Module+AAFloatingTextField.swift in Sources */,
 				52F27965223DB403004A95EE /* AAExtension+Int.swift in Sources */,
 				8FBD0F0722879B7C006C3E5C /* Module+AAIconTextField.swift in Sources */,
 				8F0D33582239AB6E00AB7904 /* Module+AAProgressWebView.swift in Sources */,
+				FA613A6122AC5B81001A14FD /* Module+AAExpandableLabel.swift in Sources */,
 				FA6139CF22A007B0001A14FD /* AAExtension+Optional.swift in Sources */,
 				8F0D33262239A14600AB7904 /* AAExtension+UILabel.swift in Sources */,
 				8F0D335A2239AC1F00AB7904 /* Module+AASegmentButton.swift in Sources */,
 				8F0D33202239A04800AB7904 /* AAConstants.swift in Sources */,
 				8F0D33482239A8D100AB7904 /* Module+AARoundedButton.swift in Sources */,
+				FA6139DC22A1EF52001A14FD /* Module+AATimer.swift in Sources */,
 				52F2795B223DB300004A95EE /* AAExtension+Sequence.swift in Sources */,
 				8F0D33442239A69600AB7904 /* AAExtension+UIFont.swift in Sources */,
 				8F0D33222239A11000AB7904 /* AAExtension+UICollectionView.swift in Sources */,

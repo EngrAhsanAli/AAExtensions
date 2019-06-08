@@ -24,8 +24,7 @@
 //  THE SOFTWARE.
 
 
-import UIKit
-
+/// AACarouselFlowLayout
 open class AACarouselFlowLayout: UICollectionViewFlowLayout {
     
     @IBInspectable open var sideItemScale: CGFloat = 0.6

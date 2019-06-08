@@ -33,8 +33,7 @@ public extension UITextField {
             return leftView!.frame.size.width
         }
         set {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
-            leftView = paddingView
+            leftView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
             leftViewMode = .always
         }
     }
@@ -44,8 +43,7 @@ public extension UITextField {
             return rightView!.frame.size.width
         }
         set {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
-            rightView = paddingView
+            rightView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
             rightViewMode = .always
         }
     }

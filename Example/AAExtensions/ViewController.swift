@@ -24,23 +24,8 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         
-        let gg = Date().aa_timeAgo(numericDates: true)
-        print(gg)
+        let timeAgp = Date().aa_timeAgo(numericDates: true)
+        print(timeAgp)
     }
     
-    
-
-}
-
-extension UINavigationController {
-    
-    func backToViewController(viewController: Swift.AnyClass) {
-        
-        for element in viewControllers as Array {
-            if element.isKind(of: viewController) {
-                self.popToViewController(element, animated: true)
-                break
-            }
-        }
-    }
 }

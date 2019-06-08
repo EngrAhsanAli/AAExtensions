@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 
 
-public class AARoundedButton: UIButton {
+/// AARoundedButton
+open class AARoundedButton: UIButton {
     
     public var buttonColor: UIColor = .blue {
         didSet {
@@ -33,7 +34,7 @@ public class AARoundedButton: UIButton {
         }
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         super.draw(rect)
         
         self.layer.borderColor = UIColor.blue.cgColor
@@ -44,7 +45,7 @@ public class AARoundedButton: UIButton {
         (buttonColor = buttonColor)
     }
     
-    override public var isHighlighted: Bool {
+    override open var isHighlighted: Bool {
         didSet {
             self.backgroundColor = isHighlighted ? buttonColor : .clear
         }

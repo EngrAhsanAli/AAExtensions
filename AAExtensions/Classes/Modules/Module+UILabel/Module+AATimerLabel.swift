@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 
+/// AATimerLabel
 open class AATimerLabel: UILabel {
     
     public var seconds: Double = 60

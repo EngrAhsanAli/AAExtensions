@@ -30,4 +30,49 @@ public extension UITextField {
         return text ?? defaultText
     }
     
+    enum AATextType {
+        case emailAddress, password, generic
+    }
+    
+    var aa_textType: AATextType {
+        get {
+            if keyboardType == .emailAddress {
+                return .emailAddress
+            } else if isSecureTextEntry {
+                return .password
+            }
+            return .generic
+        }
+        set {
+            switch newValue {
+            case .emailAddress:
+                keyboardType = .emailAddress
+                autocorrectionType = .no
+                autocapitalizationType = .none
+                isSecureTextEntry = false
+                
+            case .password:
+                keyboardType = .asciiCapable
+                autocorrectionType = .no
+                autocapitalizationType = .none
+                isSecureTextEntry = true
+                
+            case .generic:
+                isSecureTextEntry = false
+            }
+        }
+    }
+    
+    var aa_isEmpty: Bool {
+        return text?.isEmpty == true
+    }
+    
+    var aa_trimmedText: String? {
+        return text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func aa_hintColor(_ color: UIColor) {
+        guard let holder = placeholder, !holder.isEmpty else { return }
+        attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
+    }
 }

@@ -31,7 +31,7 @@ open class AASegmentButton: UIView {
     private var shouldSetupConstraints = true
     
     lazy public var buttonLeft: UIButton = {
-        let btn = UIButton(frame: CGRect.zero)
+        let btn = UIButton(frame: .zero)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(self.buttonTrueClicked), for: .touchUpInside)
         btn.isSelected = true
@@ -39,7 +39,7 @@ open class AASegmentButton: UIView {
     }()
     
     lazy public var buttonRight: UIButton = {
-        let btn = UIButton(frame: CGRect.zero)
+        let btn = UIButton(frame: .zero)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(self.buttonFalseClicked), for: .touchUpInside)
         return btn
@@ -59,17 +59,12 @@ open class AASegmentButton: UIView {
         
     }
     
-    private func setTextToButton(_ button: UIButton, _ value: String) {
-        let attrs = NSMutableAttributedString(string: value)
-        var range = NSMakeRange(0, 1)
-        button.setAttributedTitle(attrs, for: .normal)
-        
-        let newAttr = NSMutableAttributedString(string: value)
-        range = NSMakeRange(0, 1)
-        let text = button.titleLabel!.text!
-        range = NSMakeRange(0, text.count)
-        newAttr.addAttribute(.foregroundColor, value: UIColor.green, range: range)
-        button.setAttributedTitle(newAttr, for: .selected)
+    override open func updateConstraints() {
+        if(shouldSetupConstraints) {
+            // AutoLayout constraints
+            shouldSetupConstraints = false
+        }
+        super.updateConstraints()
     }
     
     override open func draw(_ rect: CGRect) {
@@ -96,18 +91,17 @@ open class AASegmentButton: UIView {
         setBorderColor()
     }
     
-    @objc private func buttonTrueClicked() {
-        buttonLeft.isSelected = true
-        buttonRight.isSelected = false
-        setBorderColor()
-        callback?(result)
-    }
-    
-    @objc private func buttonFalseClicked() {
-        buttonRight.isSelected = true
-        buttonLeft.isSelected = false
-        setBorderColor()
-        callback?(result)
+    private func setTextToButton(_ button: UIButton, _ value: String) {
+        let attrs = NSMutableAttributedString(string: value)
+        var range = NSMakeRange(0, 1)
+        button.setAttributedTitle(attrs, for: .normal)
+        
+        let newAttr = NSMutableAttributedString(string: value)
+        range = NSMakeRange(0, 1)
+        let text = button.titleLabel!.text!
+        range = NSMakeRange(0, text.count)
+        newAttr.addAttribute(.foregroundColor, value: UIColor.green, range: range)
+        button.setAttributedTitle(newAttr, for: .selected)
     }
     
     func toggleSelection() {
@@ -128,11 +122,17 @@ open class AASegmentButton: UIView {
         }
     }
     
-    override open func updateConstraints() {
-        if(shouldSetupConstraints) {
-            // AutoLayout constraints
-            shouldSetupConstraints = false
-        }
-        super.updateConstraints()
+    @objc private func buttonTrueClicked() {
+        buttonLeft.isSelected = true
+        buttonRight.isSelected = false
+        setBorderColor()
+        callback?(result)
+    }
+    
+    @objc private func buttonFalseClicked() {
+        buttonRight.isSelected = true
+        buttonLeft.isSelected = false
+        setBorderColor()
+        callback?(result)
     }
 }

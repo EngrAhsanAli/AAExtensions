@@ -1,5 +1,5 @@
 //
-//  Module+LoadingButton.swift
+//  Module+AALoadingButton.swift
 //  AAExtensions
 //
 //  Created by M. Ahsan Ali on 14/03/2019.
@@ -23,8 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-// UIButton Indicator
+/// AALoadingButton for UIButton Indicator
 
 fileprivate var originalButtonText: String?
 fileprivate var activityIndicator: UIActivityIndicatorView!

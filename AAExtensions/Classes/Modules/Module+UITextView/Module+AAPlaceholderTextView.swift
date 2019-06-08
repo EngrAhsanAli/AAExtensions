@@ -24,8 +24,7 @@
 //  THE SOFTWARE.
 
 
-import UIKit
-
+/// AAPlaceholderTextView
 open class AAPlaceholderTextView: UITextView {
     
     @IBInspectable open var placeholderColor: UIColor = .lightGray

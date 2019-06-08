@@ -6,6 +6,7 @@
 //
 
 
+/// AARefreshControl for UITableView and UICollectionView
 open class AARefreshControl: UIControl {
     
     var kTotalViewHeight   : CGFloat = 400

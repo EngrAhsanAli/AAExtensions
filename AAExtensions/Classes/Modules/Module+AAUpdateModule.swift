@@ -23,8 +23,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
 
+/// AAUpdateModule
 open class AAUpdateModule: NSObject {
     private static var _instance: AAUpdateModule?
     

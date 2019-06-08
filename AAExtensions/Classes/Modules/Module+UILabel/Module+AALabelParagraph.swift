@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 
 
-
 @available(iOS 9.0, *)
 @IBDesignable
 open class AALabelParagraph: UILabel {

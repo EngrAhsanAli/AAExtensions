@@ -24,8 +24,7 @@
 //  THE SOFTWARE.
 
 
-import Foundation
-
+/// AAClosureSleeve
 open class AAClosureSleeve {
     let closure: ()->()
     

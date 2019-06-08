@@ -23,14 +23,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+
+/// Constant variables
 var AA_AssociationKeyMaxLength: Int = 0
 var AA_AssociationKeyAnyCallback: Int = 0
 
+/// Contant typealias
+typealias AACompletionVoid = (() -> ())
+typealias AACompletionAny = ((Any) -> ())
+
+/// Constant computations
 public var aa_rootVC: UIViewController {
     return UIApplication.shared.keyWindow!.rootViewController!
 }
 
 
+// MARK: - Validation Regex
 public extension String.AARegularExpressions {
     static let
     AlphaRegex: String = "[a-zA-Z]+",

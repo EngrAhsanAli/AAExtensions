@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 
+/// AAKeyboardLayoutConstraint
 public class AAKeyboardLayoutConstraint: NSLayoutConstraint {
     
     private var offset : CGFloat = 0

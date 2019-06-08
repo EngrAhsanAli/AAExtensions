@@ -87,11 +87,7 @@ public extension String {
     }
     
     var aa_decryptBase64: String? {
-        let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters)
-        if let base64Data = data {
-            return String(data: base64Data, encoding: .utf8)
-        }
-        return nil
+        return String(data: aa_decryptDataBase64, encoding: .utf8)
     }
     
     func aa_indexInt(of char: Character) -> Int? {
@@ -172,7 +168,40 @@ public extension String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
     
+    var aa_htmlToAttributed: NSAttributedString? {
+        guard
+            let data = self.data(using: .utf8)
+            else { return nil }
+        do {
+            return try NSAttributedString(data: data, options: [
+                NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue
+                ], documentAttributes: nil)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+            return  nil
+        }
+    }
+    
+    var aa_noHtml: String {
+        guard let data = self.data(using: .utf8) else { return self }
+        
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+        
+        guard let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil) else {
+            return self
+        }
+        
+        return attributedString.string
+    }
+    
+
+    
 }
+
 
 //MARK:- String Comparision
 public extension String {
@@ -197,8 +226,6 @@ public extension String {
         return lhs.compare(rhs, options: .numeric) == .orderedDescending || lhs.compare(rhs, options: .numeric) == .orderedSame
     }
 }
-
-// test
 
 //MARK:- String Validations
 public extension String {

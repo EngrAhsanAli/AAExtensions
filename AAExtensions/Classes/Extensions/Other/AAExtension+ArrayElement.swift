@@ -25,7 +25,12 @@
 
 
 public extension Array where Element == UITextField {
-    func aa_clear() { forEach { $0.text = String() } }
+    func aa_clear() {
+        forEach {
+            $0.text = String()
+            $0.attributedText = NSAttributedString(string: String())
+        }
+    }
     
     func aa_enabled(_ isEnabled: Bool) { forEach { $0.isEnabled = isEnabled } }
     

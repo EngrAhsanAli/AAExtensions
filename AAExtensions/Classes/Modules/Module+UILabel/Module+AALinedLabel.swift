@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 
+/// AALinedLabel
 open class AALinedLabel: UIView {
     
     @IBInspectable var lineInsideOffset: CGFloat = 20
