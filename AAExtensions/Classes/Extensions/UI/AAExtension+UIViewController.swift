@@ -29,6 +29,43 @@ import AVKit
 // MARK:- UIViewController
 public extension UIViewController {
     
+    /// Get View Controller from given stoaryboard with same ID as ViewController class
+    class func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> UIViewController? {
+        
+        var storyboard: UIStoryboard
+        if let _storyboard = inStroryboard { storyboard = _storyboard }
+        else { storyboard = UIStoryboard(name: String(describing: viewController), bundle: nil) }
+        
+        guard let vc = (inStroryboard ?? storyboard).aa_viewController(withClass: viewController) else { return nil }
+        instance?(vc)
+        return vc
+    }
+    
+    class func aa_replaceRootViewController(
+        to viewController: UIViewController,
+        animated: Bool = true,
+        duration: TimeInterval = 0.5,
+        options: UIView.AnimationOptions = .transitionFlipFromRight,
+        _ completion: AACompletionVoid? = nil) {
+        
+        let keyWindow = UIApplication.shared.keyWindow!
+        
+        guard animated else {
+            keyWindow.rootViewController = viewController
+            completion?()
+            return
+        }
+        
+        UIView.transition(with: keyWindow, duration: duration, options: options, animations: {
+            let oldState = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(false)
+            keyWindow.rootViewController = viewController
+            UIView.setAnimationsEnabled(oldState)
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    
     var aa_topViewController: UIViewController {
         switch self {
         case is UINavigationController:

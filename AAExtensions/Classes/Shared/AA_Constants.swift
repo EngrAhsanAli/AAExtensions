@@ -38,7 +38,6 @@ public var aa_rootVC: UIViewController {
     return UIApplication.shared.keyWindow!.rootViewController!
 }
 
-
 // MARK: - Extenders and default strings
 public extension String {
     
@@ -49,6 +48,7 @@ public extension String {
      if regex.rawValue == AARegularExpressions.test { }
      */
     
+    /// AARegularExpressions
     enum AARegularExpressions: String {
         case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
         case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -62,10 +62,11 @@ public extension String {
         case numeric = "[-+]?[0-9]+"
         case float = "([\\+-]?\\d+)?\\.?\\d*([eE][\\+-]\\d+)?"
         case creditcard =  "(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])case [0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})"
-        
-        
     }
     
+    
+    
+    /// AADateFormatters
     enum AADateFormatters: String {
         case format1 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"             // 2019-06-15T08:40:19+000000
         case format2 = "EEEE, MMM d, yyyy"                      // Saturday, Jun 15, 2019

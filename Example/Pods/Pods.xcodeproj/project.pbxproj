@@ -74,7 +74,6 @@
 		FA61399322A003EB001A14FD /* Module+AAVerticalAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */; };
 		FA6139CF22A007B0001A14FD /* AAExtension+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */; };
 		FA6139D722A13E35001A14FD /* Module+AAFloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */; };
-		FA6139DA22A142E1001A14FD /* Module+AARefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */; };
 		FA6139DC22A1EF52001A14FD /* Module+AATimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */; };
 		FA6139E422A573AB001A14FD /* AAExtension+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6139E322A573AB001A14FD /* AAExtension+NSAttributedString.swift */; };
 		FA613A5D22AC58B8001A14FD /* AAExtension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA613A5C22AC58B8001A14FD /* AAExtension+Data.swift */; };
@@ -194,7 +193,6 @@
 		FA61399222A003EB001A14FD /* Module+AAVerticalAlignLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAVerticalAlignLabel.swift"; sourceTree = "<group>"; };
 		FA6139CE22A007B0001A14FD /* AAExtension+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+Optional.swift"; sourceTree = "<group>"; };
 		FA6139D622A13E35001A14FD /* Module+AAFloatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AAFloatingTextField.swift"; sourceTree = "<group>"; };
-		FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AARefreshControl.swift"; sourceTree = "<group>"; };
 		FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AATimer.swift"; sourceTree = "<group>"; };
 		FA6139E322A573AB001A14FD /* AAExtension+NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+NSAttributedString.swift"; sourceTree = "<group>"; };
 		FA613A5C22AC58B8001A14FD /* AAExtension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+Data.swift"; sourceTree = "<group>"; };
@@ -576,7 +574,6 @@
 		FA6139D822A142C8001A14FD /* Module+UIControl */ = {
 			isa = PBXGroup;
 			children = (
-				FA6139D922A142E1001A14FD /* Module+AARefreshControl.swift */,
 			);
 			path = "Module+UIControl";
 			sourceTree = "<group>";
@@ -741,7 +738,6 @@
 				8F0D33362239A39F00AB7904 /* AAExtension+UITableView.swift in Sources */,
 				8F0D332A2239A1AE00AB7904 /* AA_Helper.swift in Sources */,
 				8F0D33302239A33400AB7904 /* AAExtension+UIScrollView.swift in Sources */,
-				FA6139DA22A142E1001A14FD /* Module+AARefreshControl.swift in Sources */,
 				8F0D334C2239A96C00AB7904 /* Module+AATimerLabel.swift in Sources */,
 				8FBD0F04228796B3006C3E5C /* Module+AACarouselFlowLayout.swift in Sources */,
 				FAC363D72298EFFC00A2DA4B /* AAExtension+ArrayElement.swift in Sources */,

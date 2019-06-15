@@ -23,10 +23,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+import Foundation
 import AVFoundation
 import SystemConfiguration
 
-// MARK:- AAHelper
+// MARK:- AA_Helper
 open class AA_Helper {
  
     private init() { }
@@ -35,7 +36,7 @@ open class AA_Helper {
     
 }
 
-// MARK: - AAHelper methods
+// MARK: - AA_Helper methods
 public extension AA_Helper {
     
     var aa_appVersion: String? {
@@ -88,6 +89,17 @@ public extension AA_Helper {
         #endif
     }
     
+    func aa_isfileExist(fileName : String) -> String? {
+        
+        var documentsUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
+        documentsUrl = documentsUrl.appendingPathComponent(fileName)
+        let documentsPath = documentsUrl.path
+        if FileManager.default.fileExists(atPath: documentsPath) {
+            return documentsPath
+        }
+        return nil
+    }
+    
     var aa_deviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -124,68 +136,5 @@ public extension AA_Helper {
         }
     }
     
-    func aa_replaceRootViewController(
-        to viewController: UIViewController,
-        animated: Bool = true,
-        duration: TimeInterval = 0.5,
-        options: UIView.AnimationOptions = .transitionFlipFromRight,
-        _ completion: AACompletionVoid? = nil) {
-        
-        let keyWindow = UIApplication.shared.keyWindow!
-
-        guard animated else {
-            keyWindow.rootViewController = viewController
-            completion?()
-            return
-        }
-        
-        UIView.transition(with: keyWindow, duration: duration, options: options, animations: {
-            let oldState = UIView.areAnimationsEnabled
-            UIView.setAnimationsEnabled(false)
-            keyWindow.rootViewController = viewController
-            UIView.setAnimationsEnabled(oldState)
-        }, completion: { _ in
-            completion?()
-        })
-    }
-    
-    /// returns current country name and country code
-    var aa_currentCountry: (String, String) {
-        let countryLocale = NSLocale.current
-        let countryCode = countryLocale.regionCode!
-        let country = (countryLocale as NSLocale)
-            .displayName(forKey: NSLocale.Key.countryCode, value: countryCode)!
-        return (country, countryCode)
-    }
-    
-    func aa_getLangName(identifier: String) -> String {
-        let locale = NSLocale(localeIdentifier: identifier)
-        return locale.displayName(forKey: NSLocale.Key.identifier , value: identifier)!
-    }
-    
-    func aa_performBackground(delay: Double = 0.0,
-                              background: AACompletionVoid? = nil,
-                              completion: AACompletionVoid? = nil) {
-        DispatchQueue.global(qos: .background).async {
-            background?()
-            if let completion = completion {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-                    completion()
-                })
-            }
-        }
-    }
-    
-    
-    func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> UIViewController? {
-        
-        var storyboard: UIStoryboard
-        if let _storyboard = inStroryboard { storyboard = _storyboard }
-        else { storyboard = UIStoryboard(name: String(describing: viewController), bundle: nil) }
-        
-        guard let vc = (inStroryboard ?? storyboard).aa_viewController(withClass: viewController) else { return nil }
-        instance?(vc)
-        return vc
-    }
 }
 

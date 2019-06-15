@@ -25,7 +25,19 @@
 
 public extension NSLocale {
     
-
+    /// returns current country name and country code
+    static var aa_currentCountry: (String, String) {
+        let countryLocale = NSLocale.current
+        let countryCode = countryLocale.regionCode!
+        let country = (countryLocale as NSLocale)
+            .displayName(forKey: NSLocale.Key.countryCode, value: countryCode)!
+        return (country, countryCode)
+    }
+    
+    class func aa_languageName(identifier: String) -> String {
+        let locale = NSLocale(localeIdentifier: identifier)
+        return locale.displayName(forKey: NSLocale.Key.identifier , value: identifier)!
+    }
 }
 
 

@@ -29,3 +29,11 @@ public extension Sequence {
         return Dictionary.init(grouping: self, by: key)
     }
 }
+
+// MARK: - Sequence
+public extension Sequence where Iterator.Element: Hashable {
+    var aa_unique: [Iterator.Element] {
+        var seen: [Iterator.Element: Bool] = [:]
+        return self.filter { seen.updateValue(true, forKey: $0) == nil }
+    }
+}

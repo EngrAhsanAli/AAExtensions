@@ -25,6 +25,17 @@
 
 public extension DispatchQueue {
     
-    
+    class func aa_performBackground(delay: Double = 0.0,
+                              background: AACompletionVoid? = nil,
+                              completion: AACompletionVoid? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
     
 }

@@ -53,8 +53,8 @@ open class AALinedLabel: UIView {
     func initLabel() {
         label.text = labelText
         label.textAlignment = .center
-        
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         let top = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: label, attribute: .top, multiplier: 1, constant: 0)
         let bot = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 0)
         let lead = NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .lessThanOrEqual, toItem: label, attribute: .leading, multiplier: 1, constant: 0)

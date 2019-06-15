@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 
+// MARK: - Array UITextField
 public extension Array where Element == UITextField {
     func aa_clear() {
         forEach {
@@ -40,6 +41,7 @@ public extension Array where Element == UITextField {
     
 }
 
+// MARK: - Array Equatable
 public extension Array where Element: Equatable {
     func aa_indexes(of item: Element) -> [Int]  {
         return enumerated().compactMap { $0.element == item ? $0.offset : nil }
@@ -47,11 +49,37 @@ public extension Array where Element: Equatable {
     
 }
 
+// MARK: - Array UIView
 public extension Array where Element == UIView {
     func aa_setVisibility(isHidden: Bool) { forEach { $0.isHidden = isHidden } }
 }
 
+// MARK: - Array AAReversibleConstraint
 public extension Array where Element == AAReversibleConstraint {
     func setVisibility(_ isHidden: Bool) { forEach { $0.showHide(isHidden) } }
     
+}
+
+// MARK: - RangeReplaceableCollection
+public extension RangeReplaceableCollection where Element: Equatable {
+    
+    mutating func aa_appendOrRemove(_ element: Element) {
+        if let index = firstIndex(of: element) {
+            remove(at: index)
+        }
+        else {
+            insert(element, at: endIndex)
+        }
+    }
+    
+    mutating func aa_appendUnique(_ element: Element) {
+        if firstIndex(of: element) == nil {
+            insert(element, at: endIndex)
+        }
+    }
+    
+    mutating func aa_remove(_ element: Element) {
+        guard let index = firstIndex(of: element) else { return }
+        remove(at: index)
+    }
 }
