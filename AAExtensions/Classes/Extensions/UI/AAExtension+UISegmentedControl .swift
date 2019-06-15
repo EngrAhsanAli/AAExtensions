@@ -1,8 +1,8 @@
 //
-//  AAExtension+Dictionary.swift
+//  AAExtension+UISegmentedControl .swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Ahsan Ali on 15/06/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,29 +23,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-// MARK:- Dictionary
-public extension Dictionary {
-    var aa_json: String? {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
-            return String(bytes: jsonData, encoding: String.Encoding.utf8)
-        } catch {
-            return nil
-        }
-    }
-    
-    func aa_printJson() {
-        print(aa_json ?? "AAExtension: Invalid JSON String")
-    }
-    
-    static func += (left: inout Dictionary, right: Dictionary) {
-        for (key, value) in right {
-            left[key] = value
-        }
-    }
-    
-    subscript(i: Int) -> (key: Key, value: Value) {
-        return self[index(startIndex, offsetBy: i)]
+// MARK: - UISegmentedControl
+public extension UISegmentedControl{
+    func aa_changeTitleFont(newFont: UIFont){
+        let attributedSegmentFont = NSDictionary(object: newFont, forKey: NSAttributedString.Key.font as NSCopying)
+        setTitleTextAttributes(attributedSegmentFont as? [NSAttributedString.Key : Any], for: .normal)
     }
 }

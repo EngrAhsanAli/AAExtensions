@@ -1,8 +1,8 @@
 //
-//  AAExtension+Dictionary.swift
+//  AAExtension+StringProtocol.swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Ahsan Ali on 15/06/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,28 +24,9 @@
 //  THE SOFTWARE.
 
 
-// MARK:- Dictionary
-public extension Dictionary {
-    var aa_json: String? {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
-            return String(bytes: jsonData, encoding: String.Encoding.utf8)
-        } catch {
-            return nil
-        }
-    }
-    
-    func aa_printJson() {
-        print(aa_json ?? "AAExtension: Invalid JSON String")
-    }
-    
-    static func += (left: inout Dictionary, right: Dictionary) {
-        for (key, value) in right {
-            left[key] = value
-        }
-    }
-    
-    subscript(i: Int) -> (key: Key, value: Value) {
-        return self[index(startIndex, offsetBy: i)]
+// MARK: - StringProtocol
+public extension StringProtocol {
+    func aa_nsRange(from range: Range<Index>) -> NSRange {
+        return .init(range, in: self)
     }
 }

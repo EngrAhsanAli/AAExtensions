@@ -24,18 +24,19 @@
 //  THE SOFTWARE.
 
 import AVFoundation
+import SystemConfiguration
 
 // MARK:- AAHelper
-open class AAHelper {
+open class AA_Helper {
  
     private init() { }
     
-    public static let shared = AAHelper()
+    public static let shared = AA_Helper()
     
 }
 
 // MARK: - AAHelper methods
-public extension AAHelper {
+public extension AA_Helper {
     
     var aa_appVersion: String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
@@ -43,6 +44,29 @@ public extension AAHelper {
     
     var aa_visibleViewController: UIViewController? {
         return aa_rootVC.aa_topViewController
+    }
+    
+    var aa_isNetworkAvailable: Bool {
+        
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+            return false
+        }
+        
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        let ret = (isReachable && !needsConnection)
+        return ret
     }
     
     var aa_isJailBroken: Bool {
@@ -105,7 +129,7 @@ public extension AAHelper {
         animated: Bool = true,
         duration: TimeInterval = 0.5,
         options: UIView.AnimationOptions = .transitionFlipFromRight,
-        _ completion: (() -> Void)? = nil) {
+        _ completion: AACompletionVoid? = nil) {
         
         let keyWindow = UIApplication.shared.keyWindow!
 
@@ -134,7 +158,14 @@ public extension AAHelper {
         return (country, countryCode)
     }
     
-    func aa_performBackground(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+    func aa_getLangName(identifier: String) -> String {
+        let locale = NSLocale(localeIdentifier: identifier)
+        return locale.displayName(forKey: NSLocale.Key.identifier , value: identifier)!
+    }
+    
+    func aa_performBackground(delay: Double = 0.0,
+                              background: AACompletionVoid? = nil,
+                              completion: AACompletionVoid? = nil) {
         DispatchQueue.global(qos: .background).async {
             background?()
             if let completion = completion {
@@ -145,5 +176,16 @@ public extension AAHelper {
         }
     }
     
+    
+    func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> UIViewController? {
+        
+        var storyboard: UIStoryboard
+        if let _storyboard = inStroryboard { storyboard = _storyboard }
+        else { storyboard = UIStoryboard(name: String(describing: viewController), bundle: nil) }
+        
+        guard let vc = (inStroryboard ?? storyboard).aa_viewController(withClass: viewController) else { return nil }
+        instance?(vc)
+        return vc
+    }
 }
 
