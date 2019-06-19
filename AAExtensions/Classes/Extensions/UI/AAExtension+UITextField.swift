@@ -72,11 +72,11 @@ public extension UITextField {
         attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
     }
     
-    func aa_setIcon(with size: CGFloat = 18, padding: CGFloat = 8, isRight: Bool = true) {
+    func aa_setIcon(with size: CGFloat = 18, padding: CGFloat = 8, image: UIImage, isRight: Bool = true) {
         
         let outerView = UIView(frame: CGRect(x: 0, y: 0, width: size+padding, height: size))
         let iconView  = UIImageView(frame: CGRect(x: padding, y: 0, width: size, height: size))
-        iconView.image = #imageLiteral(resourceName: "down_arrow")
+        iconView.image = image
         outerView.addSubview(iconView)
         
         if isRight {
