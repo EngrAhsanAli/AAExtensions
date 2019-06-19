@@ -30,10 +30,6 @@ public extension UITextField {
         return text ?? defaultText
     }
     
-    enum AATextType {
-        case emailAddress, password, generic
-    }
-    
     var aa_textType: AATextType {
         get {
             if keyboardType == .emailAddress {
@@ -74,5 +70,22 @@ public extension UITextField {
     func aa_hintColor(_ color: UIColor) {
         guard let holder = placeholder, !holder.isEmpty else { return }
         attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
+    }
+    
+    func aa_setIcon(with size: CGFloat = 18, padding: CGFloat = 8, isRight: Bool = true) {
+        
+        let outerView = UIView(frame: CGRect(x: 0, y: 0, width: size+padding, height: size))
+        let iconView  = UIImageView(frame: CGRect(x: padding, y: 0, width: size, height: size))
+        iconView.image = #imageLiteral(resourceName: "down_arrow")
+        outerView.addSubview(iconView)
+        
+        if isRight {
+            rightView = outerView
+            rightViewMode = .always
+        }
+        else {
+            leftView = outerView
+            leftViewMode = .always
+        }
     }
 }

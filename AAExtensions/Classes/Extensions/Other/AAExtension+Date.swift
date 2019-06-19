@@ -27,6 +27,17 @@
 // MARK:- Date
 public extension Date {
 
+    func aa_toString(fromFormat: String, currentTimeZone: Bool) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = fromFormat
+        dateFormatter.timeZone = currentTimeZone ? TimeZone.current : TimeZone(abbreviation: "UTC")
+        return dateFormatter.string(from: self)
+    }
+    
+    func aa_toString(fromFormat: AADateFormatters, currentTimeZone: Bool) -> String {
+        return aa_toString(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
+    }
+    
     func aa_timeAgo(numericDates: Bool) -> String {
         let calendar = Calendar.current
         let now = Date()

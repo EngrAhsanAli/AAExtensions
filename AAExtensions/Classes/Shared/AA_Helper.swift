@@ -117,6 +117,12 @@ public extension AA_Helper {
         statusBar.setValue(style == .lightContent ? UIColor.white : .black, forKey: "foregroundColor")
     }
     
+    func aa_setStatusBar(_ color: UIColor) {
+        
+        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+        statusBar.backgroundColor = color
+    }
+    
     func aa_videoThumb(videoURL: String,
                        completion: @escaping ((UIImage) -> ())) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -131,10 +137,49 @@ public extension AA_Helper {
                     completion(thumbnail)
                 }
             } catch {
-                print("AAExtensions:- Error Creating Video Thumbnail")
+                print("\(AA_TAG) Error Creating Video Thumbnail")
             }
         }
     }
     
+    func aa_navBarAppearance(bg: UIImage, tintColor: UIColor, height: CGFloat) {
+        let appearance = UINavigationBar.appearance()
+        appearance.setBackgroundImage(bg, for: .default)
+        appearance.isTranslucent = false
+        appearance.barTintColor = tintColor
+        appearance.tintColor = tintColor
+        appearance.titleTextAttributes = [ NSAttributedString.Key.foregroundColor: tintColor ]
+        appearance.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
+    }
+    
+    func aa_toolBarAppearance(bg: UIImage, barTintColor: UIColor, tintColor: UIColor) {
+        let appearance = UIToolbar.appearance()
+        
+        appearance.barTintColor = barTintColor
+        appearance.tintColor = tintColor
+        
+    }
+    
+    func aa_tabBarAppearance(bg: UIImage, tintColor: UIColor, font: UIFont, foregroundColor: UIColor) {
+        let appearance = UITabBarItem.appearance()
+        
+        appearance.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: tintColor as Any
+            ], for: .selected)
+        
+        appearance.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: tintColor as Any
+            ], for: .normal)
+        
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font as Any, NSAttributedString.Key.foregroundColor: foregroundColor], for: .normal)
+        
+        if #available(iOS 11.0, *) {
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).setTitleTextAttributes([
+                .foregroundColor : tintColor as Any
+                ], for: .normal)
+        }
+        
+    }
 }
 

@@ -148,7 +148,7 @@ public extension UIView {
 
     func aa_fitInSuperview(with insets: UIEdgeInsets = .zero) {
         guard let superview = superview else {
-            assertionFailure("AAExtension: fitInSuperview was called but view was not in a view hierarchy.")
+            assertionFailure("\(AA_TAG) fitInSuperview was called but view was not in a view hierarchy.")
             return
         }
 

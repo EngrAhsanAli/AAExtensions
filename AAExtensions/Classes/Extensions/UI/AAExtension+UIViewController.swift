@@ -30,7 +30,7 @@ import AVKit
 public extension UIViewController {
     
     /// Get View Controller from given stoaryboard with same ID as ViewController class
-    class func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> UIViewController? {
+    class func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> T? {
         
         var storyboard: UIStoryboard
         if let _storyboard = inStroryboard { storyboard = _storyboard }
@@ -123,7 +123,8 @@ public extension UIViewController {
     }
     
     func aa_selectTab(_ index: Int) {
-        guard let tabbar = self.tabBarController, let nav = tabbar.viewControllers?[aa_optional: 1] as? UINavigationController
+        guard let tabbar = self.tabBarController,
+            let nav = tabbar.viewControllers?[aa_optional: index] as? UINavigationController
             else { return }
         tabbar.selectedIndex = index
         nav.popToRootViewController(animated: true)
@@ -163,36 +164,39 @@ public extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func aa_showAlert(title: String,
-                      text: String,
-                      doneText: String,
-                      cancelText: String,
-                      numTextFields: Int,
-                      onTextFieldAdded: @escaping ((UITextField, Int) -> ()),
-                      onComplete: @escaping (([UITextField]) -> ()),
-                      onDismiss: (() -> ())? = nil) {
+    func aa_showAlert(title: String?,
+                   message: String?,
+                   doneText: String = "Done",
+                   cancelText: String = "Cancel",
+                   numTextFields: Int,
+                   applyEmptyValidation: Bool = true,
+                   onTextFieldAdded: @escaping ((UITextField, UIAlertAction) -> ()),
+                   onComplete: @escaping (([UITextField]) -> ()),
+                   onDismiss: (() -> ())? = nil) {
         
-        let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
-
-        for i in 0...numTextFields {
-            alertController.addTextField {
-                onTextFieldAdded($0, i)
-            }
-        }
-       
-        let saveAction = UIAlertAction(title: doneText, style: .default, handler: { _ in
-            guard let textFields = alertController.textFields else { return }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: cancelText, style: .cancel, handler: { _ in
+            onDismiss?()
+        }))
+        
+        let saveAction = UIAlertAction(title: doneText, style: .destructive, handler: { _ in
+            guard let textFields = alert.textFields else { return }
             onComplete(textFields)
         })
+        alert.addAction(saveAction)
+        saveAction.isEnabled = false
         
-        let cancelAction = UIAlertAction(title: cancelText, style: .default, handler: { _ in
-            onDismiss?()
-        })
-
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-
-        self.present(alertController, animated: true, completion: nil)
+        for _ in 0..<numTextFields {
+            alert.addTextField { textField in
+                if applyEmptyValidation {
+                    NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
+                        saveAction.isEnabled = (textField.text?.count ?? 0) > 0
+                    }
+                }
+                onTextFieldAdded(textField, saveAction)
+            }
+        }
+        present(alert, animated: true, completion: nil)
     }
     
     @discardableResult

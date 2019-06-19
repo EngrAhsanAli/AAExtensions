@@ -26,11 +26,11 @@
 
 public extension Data {
     
-    func aa_toJson() -> Any? {
+    var aa_toJson: Any? {
         do {
             return try JSONSerialization.jsonObject(with: self) as Any
         } catch {
-            print("AAExtension:- Error Parsing JSON from Data")
+            print("\(AA_TAG) Error Parsing JSON from Data")
         }
         return nil
     }

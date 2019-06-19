@@ -33,19 +33,12 @@ public extension UITabBar {
         item: UIColor? = nil,
         selectedItem: UIColor? = nil) {
         
-        // background
         barTintColor = background ?? barTintColor
-        
-        // selectedItem
         tintColor = selectedItem ?? tintColor
-        // shadowImage = UIImage()
         backgroundImage = UIImage()
         isTranslucent = false
         
-        // selectedBackgoundColor
-        guard let barItems = items else {
-            return
-        }
+        guard let barItems = items else { return }
         
         if let selectedbg = selectedBackground {
             let rect = CGSize(width: frame.width/CGFloat(barItems.count), height: frame.height)
@@ -62,7 +55,7 @@ public extension UITabBar {
         
         if let itemColor = item {
             for barItem in barItems as [UITabBarItem] {
-                // item
+
                 guard let image = barItem.image else { continue }
                 
                 barItem.image = { (image: UIImage, color: UIColor) -> UIImage in

@@ -27,7 +27,7 @@
 // MARK:- UIButton
 public extension UIButton {
     
-    func initLeftIcon(_ string: String? = nil,
+    func aa_LeftIcon(_ string: String? = nil,
                       icon: String,
                       selected: String,
                       color: UIColor,

@@ -36,7 +36,7 @@ public extension Dictionary {
     }
     
     func aa_printJson() {
-        print(aa_json ?? "AAExtension: Invalid JSON String")
+        print(aa_json ?? "\(AA_TAG) Invalid JSON String")
     }
     
     static func += (left: inout Dictionary, right: Dictionary) {

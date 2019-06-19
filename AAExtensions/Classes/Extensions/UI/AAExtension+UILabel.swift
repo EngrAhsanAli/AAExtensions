@@ -37,5 +37,11 @@ public extension UILabel {
         layoutManager.glyphRange(for: textContainter)
         return layoutManager.usedRect(for: textContainter).size.height
     }
+    
+    func aa_changeColor(of searchString: String, with color: UIColor) {
+        do { attributedText = try NSAttributedString(aa_withText: self.text ?? "", keywords: searchString, color: color) }
+        catch {
+            print(AA_TAG, error.localizedDescription)
+        }
+    }
 }
-
