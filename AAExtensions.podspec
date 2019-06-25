@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AAExtensions'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'AAExtensions are a set of UI Extensions and Helper functions for iOS applications which is written in Swift 5.0'
 
 # This description is used to generate tags and improve search results.
