@@ -189,6 +189,12 @@ public extension String {
         return matches != nil
     }
     
+    subscript (aa_range: CountableClosedRange<Int>) -> String {
+        let startIndex =  self.index(self.startIndex, offsetBy: aa_range.lowerBound)
+        let endIndex = self.index(startIndex, offsetBy: aa_range.upperBound - aa_range.lowerBound)
+        return String(self[startIndex...endIndex])
+    }
+    
 }
 
 

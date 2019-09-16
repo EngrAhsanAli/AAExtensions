@@ -106,6 +106,11 @@ public extension UITableView {
         
     }
     
+    func aa_setEstimatedHeight(_ estimatedHeight: CGFloat) {
+        estimatedRowHeight = estimatedHeight
+        rowHeight = UITableView.automaticDimension
+    }
+    
     
 }
 

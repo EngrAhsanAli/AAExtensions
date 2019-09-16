@@ -41,7 +41,7 @@ public extension UIViewController {
         return vc
     }
     
-    class func aa_replaceRootViewController(
+    class func aa_replaceRootViewController (
         to viewController: UIViewController,
         animated: Bool = true,
         duration: TimeInterval = 0.5,
@@ -89,6 +89,7 @@ public extension UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @discardableResult
     func aa_addWebView(_ urlString: String) -> UIWebView {
         let webView = UIWebView()
         if #available(iOS 9.0, *) {
@@ -131,10 +132,11 @@ public extension UIViewController {
     }
     
     func aa_rightBarButton(_ image: String, selector: Selector) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: image),
-                                                                 style: .plain,
-                                                                 target: self,
-                                                                 action: selector)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: image),
+            style: .plain,
+            target: self,
+            action: selector)
     }
     
     func aa_showActionSheet(_ title: String? = nil, message:String? = nil, actions: [[String:UIAlertAction.Style]], completion: @escaping (_ index: Int) -> ()) {

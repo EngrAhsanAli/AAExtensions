@@ -181,5 +181,19 @@ public extension AA_Helper {
         }
         
     }
+    
+    func aa_mapObject<T: Codable>(_ jsonString: String, type: T.Type) -> T? {
+        do {
+            let objectData: Data = jsonString.data(using: .utf8)!
+            let jsonArray = try JSONSerialization.jsonObject(with: objectData, options: .mutableContainers)
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonArray, options: .prettyPrinted)
+            let model = try JSONDecoder().decode(T.self, from: jsonData)
+            return model
+        } catch {
+            print(AA_TAG, error.localizedDescription)
+        }
+        return nil
+    }
+    
 }
 

@@ -1,8 +1,8 @@
 //
-//  Extension+UIScrollView.swift
+//  AAExtension+UIRefreshControl.swift
 //  AAExtensions
 //
-//  Created by M. Ahsan Ali on 14/03/2019.
+//  Created by M. Ahsan Ali on 16/09/2019.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,34 +23,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-// MARK:- UIScrollView
-public extension UIScrollView {
-    @discardableResult
-    func aa_addRefreshControl(_ completion: @escaping (() -> ())) -> UIRefreshControl {
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .gray
-        if #available(iOS 10.0, *) {
-            self.refreshControl = refreshControl
-        } else {
-            self.addSubview(refreshControl)
+// MARK: - UIRefreshControl
+public extension UIRefreshControl {
+    
+    /// Trigger the refresh control programmatically
+    func aa_trigger() {
+        if let scrollView = superview as? UIScrollView {
+            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - frame.height), animated: false)
         }
-        refreshControl.aa_addAction(for: .valueChanged) {
-            guard refreshControl.isRefreshing else {
-                refreshControl.endRefreshing()
-                return
-            }
-            refreshControl.endRefreshing()
-            completion()
-        }
-        return refreshControl
+        beginRefreshing()
+        sendActions(for: .valueChanged)
     }
     
-    func aa_scrollToBottomOffset(_ animated: Bool) {
-        if self.contentSize.height < self.bounds.size.height { return }
-        let bottomOffset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
-        self.setContentOffset(bottomOffset, animated: animated)
-    }
 }
-
 
