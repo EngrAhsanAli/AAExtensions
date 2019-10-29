@@ -120,6 +120,49 @@ If you prefer not to use either of the above mentioned dependency managers, you 
 
 TODO:- Description and demo will be coming soon :-)
 
+## AAExtensions List
+
+<details>
+<summary>Designables</summary> 
+</br>
+<ul>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Designables/Designable%2BUILabel.swift"><code>UILabel Designable Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Designables/Designable%2BUITableView.swift"><code>UITableView Designable Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Designables/Designable%2BUITextField.swift"><code>UITextField Designable Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Designables/Designable%2BUIView.swift"><code>UIView Designable Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Designables/Designable%2BUIViewController.swift"><code>UIViewController Designable Extensions</code></a></li>
+</ul>
+</details>
+
+<details>
+<summary>Extensions</summary> 
+</br>
+<ul>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BArray.swift"><code>Array Extensions</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BCollection.swift"><code>Collection Extensions</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BData.swift"><code>Data Extensions</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BDictionary.swift"><code>Dictionary Extensions</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BSequence.swift"><code>Sequence Extensions</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/Basic/AAExtension%2BString.swift"><code>String Extensions</code></a></li>
+
+</ul>
+
+<ul>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/DataTypes/AAExtension%2BBool.swift"><code>Bool Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/DataTypes/AAExtension%2BDouble.swift"><code>Double Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/DataTypes/AAExtension%2BFloat.swift"><code>Float Extensions</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Extensions/DataTypes/AAExtension%2BInt.swift"><code>Int Extensions</code></a></li>
+
+
+</ul>
+
+</details>
 
 <div id='section-id-156'/>
 
