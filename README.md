@@ -118,8 +118,6 @@ If you prefer not to use either of the above mentioned dependency managers, you 
 #Getting Started
 ----------
 
-TODO:- Description and demo will be coming soon :-)
-
 ## AAExtensions List
 
 <details>
@@ -204,6 +202,61 @@ TODO:- Description and demo will be coming soon :-)
 
 
 </details>
+
+<details>
+<summary>Modules</summary> 
+</br>
+<ul>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BAAClosureSleeve.swift"><code>AAClosureSleeve</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BAATimer.swift"><code>AATimer</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BAAUpdateModule.swift"><code>AAUpdateModule</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BNSLayoutConstraint/Module%2BAADualConstantConstraint.swift"><code>AADualConstantConstraint</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BNSLayoutConstraint/Module%2BAAKeyboardLayoutConstraint.swift"><code>AAKeyboardLayoutConstraint</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BNSLayoutConstraint/Module%2BAAReversibleConstraint.swift"><code>AAReversibleConstraint</code></a></li>
+
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BStackView/Module%2BAAStackViewSeparator.swift"><code>AAStackViewSeparator</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIButton/Module%2BAABackButton.swift"><code>AABackButton</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIButton/Module%2BAALoadingButton.swift"><code>AALoadingButton</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIButton/Module%2BAARoundedButton.swift"><code>AARoundedButton</code></a></li>
+
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUICollection/Module%2BAACarouselFlowLayout.swift"><code>AACarouselFlowLayout</code></a></li>
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAAExpandableLabel.swift"><code>AAExpandableLabel</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAAGradientLabel.swift"><code>AAGradientLabel</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAALabelParagraph.swift"><code>AALabelParagraph</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAALinedLabel.swift"><code>AALinedLabel</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAATimerLabel.swift"><code>AATimerLabel</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUILabel/Module%2BAAVerticalAlignLabel.swift"><code>AAVerticalAlignLabel</code></a></li>
+
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUITextFeild/Module%2BAAFloatingTextField.swift"><code>AAFloatingTextField</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUITextFeild/Module%2BAAIconTextField.swift"><code>AAIconTextField</code></a></li>
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUITextView/Module%2BAAPlaceholderTextView.swift"><code>AAPlaceholderTextView</code></a></li>
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIView/Module%2BAABorderLinesView.swift"><code>AABorderLinesView</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIView/Module%2BAACurvedView.swift"><code>AACurvedView</code></a></li>
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIView/Module%2BAASegmentButton.swift"><code>AASegmentButton</code></a></li>
+
+
+<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIWebView/Module%2BAAProgressWebView.swift"><code>AAProgressWebView</code></a></li>
+
+
+</ul>
+
+
+
+</details>
+
 
 <div id='section-id-156'/>
 
