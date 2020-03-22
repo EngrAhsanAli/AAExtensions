@@ -58,6 +58,27 @@ open class AAExpandableLabel: UILabel {
     
     open var isExpaded = false
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
+    }
+
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    func sharedInit() { }
+    
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
         

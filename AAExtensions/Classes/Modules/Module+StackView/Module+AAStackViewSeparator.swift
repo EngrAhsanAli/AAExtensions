@@ -33,6 +33,23 @@
     @IBInspectable open var bottomSide: UIColor? = nil
     @IBInspectable open var separatorWidth: CGFloat = 0.5
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init(coder: NSCoder) {
+        super.init(coder: coder)
+        sharedInit()
+    }
+    
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
+    }
+
+    func sharedInit() { }
+    
     @IBInspectable private var separatorTopPadding: CGFloat = 0 {
         didSet {
             separatorInsets.top = separatorTopPadding
@@ -67,10 +84,6 @@
     
     override open func awakeFromNib() {
         super.awakeFromNib()
-    }
-    
-    override open func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
     }
     
     private func invalidateSeparators() {

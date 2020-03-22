@@ -71,13 +71,26 @@ open class AAFloatingTextField: UITextField {
     }
     
     // MARK:- Init
-    required public init?(coder aDecoder:NSCoder) {
-        super.init(coder:aDecoder)
-        setup()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
     }
     
-    override init(frame:CGRect) {
-        super.init(frame:frame)
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
+    func sharedInit() {
         setup()
     }
     

@@ -28,9 +28,27 @@
 open class AACurvedView: UIView {
     var isInterfaceBuilder: Bool = false
     
-    override open func prepareForInterfaceBuilder() {
-        self.isInterfaceBuilder = true
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.isInterfaceBuilder = true
+        sharedInit()
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
+    func sharedInit() { }
     
     @IBInspectable open var fillColor: UIColor = .white {
         didSet {
@@ -45,14 +63,6 @@ open class AACurvedView: UIView {
         layer.lineWidth = 0
         return layer
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override open func draw(_ rect: CGRect) {
         super.draw(rect)

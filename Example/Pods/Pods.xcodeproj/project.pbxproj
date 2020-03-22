@@ -426,7 +426,6 @@
 				8FBD0F0C2287AED1006C3E5C /* Module+AAClosureSleeve.swift */,
 				8FBD0F1E228A086A006C3E5C /* Module+AAUpdateModule.swift */,
 				FA6139DB22A1EF52001A14FD /* Module+AATimer.swift */,
-				FA6139D822A142C8001A14FD /* Module+UIControl */,
 				8FBD0F0522879B69006C3E5C /* Module+UITextFeild */,
 				52DA66D9223ED59000E5B965 /* Module+UIView */,
 				52DA66D8223ED58900E5B965 /* Module+UILabel */,
@@ -578,13 +577,6 @@
 				77260C0D0CE2E371591A90C9F1684B97 /* Pods_AAExtensions_Tests.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		FA6139D822A142C8001A14FD /* Module+UIControl */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Module+UIControl";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

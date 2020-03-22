@@ -28,6 +28,28 @@
 @IBDesignable
 open class AAIconTextField: UITextField {
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
+    }
+
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    func sharedInit() {}
+    
+
     override open func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         return super.leftViewRect(forBounds: bounds)
     }

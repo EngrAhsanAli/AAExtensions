@@ -52,12 +52,20 @@ open class AASegmentButton: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        sharedInit()
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        sharedInit()
     }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
+    }
+
+    func sharedInit() { }
     
     override open func updateConstraints() {
         if(shouldSetupConstraints) {

@@ -52,11 +52,23 @@ open class AAVerticalAlignLabel: UILabel {
         self.applyAlignmentCode()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        
+        sharedInit()
         self.applyAlignmentCode()
     }
+
+    func sharedInit() { }
     
     enum VerticalAlignment {
         case top

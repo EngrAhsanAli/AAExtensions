@@ -33,6 +33,27 @@ open class AALabelParagraph: UILabel {
     @IBInspectable open var secondOther: UIColor = .black
     @IBInspectable open var tabsSize: Int = 1
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        sharedInit()
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
+    func sharedInit() { }
+    
     func setAttrText(first: [String], second: [String]) {
         
         guard first.count == second.count else { return }
