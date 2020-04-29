@@ -111,18 +111,6 @@ public extension AA_Helper {
         return identifier
     }
     
-    func aa_setStatusBarStyle(_ style: UIStatusBarStyle) {
-        guard let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView else { return }
-        statusBar.backgroundColor = style == .lightContent ? .clear : .white
-        statusBar.setValue(style == .lightContent ? UIColor.white : .black, forKey: "foregroundColor")
-    }
-    
-    func aa_setStatusBar(_ color: UIColor) {
-        
-        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
-        statusBar.backgroundColor = color
-    }
-    
     func aa_videoThumb(videoURL: String,
                        completion: @escaping ((UIImage) -> ())) {
         DispatchQueue.global(qos: .userInitiated).async {

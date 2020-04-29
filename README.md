@@ -248,9 +248,6 @@ If you prefer not to use either of the above mentioned dependency managers, you 
 <li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIView/Module%2BAASegmentButton.swift"><code>AASegmentButton</code></a></li>
 
 
-<li><a href="https://github.com/EngrAhsanAli/AAExtensions/blob/master/AAExtensions/Classes/Modules/Module%2BUIWebView/Module%2BAAProgressWebView.swift"><code>AAProgressWebView</code></a></li>
-
-
 </ul>
 
 

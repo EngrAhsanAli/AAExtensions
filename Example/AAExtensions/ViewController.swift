@@ -15,6 +15,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
+        self.view.aa_addTapGesture(self) {
+            self.aa_callBack?("Some Value")
+        }
+        
+        self.aa_callBack = {
+            print($0)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

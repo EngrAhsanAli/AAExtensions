@@ -33,6 +33,7 @@ let AA_TAG = "AAExtensions:- "
 /// Contant typealias
 public typealias AACompletionVoid  = (() -> ())
 public typealias AACompletionAny   = ((Any) -> ())
+public typealias AAKeyValue        = [String: Any]
 
 /// Constant computations
 public var aa_rootVC: UIViewController { return UIApplication.shared.keyWindow!.rootViewController! }

@@ -114,9 +114,12 @@ public extension UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    var aa_callBack: ((Any?) -> Void)?  {
+    /// Callbacks the value stored and removes the object immediately
+    var aa_callBack: ((Any?) -> ())?  {
         get {
-            return objc_getAssociatedObject(self, &AA_AssociationKeyAnyCallback) as! ((Any?) -> Void)?
+            let value = objc_getAssociatedObject(self, &AA_AssociationKeyAnyCallback) as? (Any?) -> ()
+            objc_removeAssociatedObjects(self) // Enhanced to keep memory optimization
+            return value
         }
         set {
             objc_setAssociatedObject(self, &AA_AssociationKeyAnyCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
@@ -170,34 +173,32 @@ public extension UIViewController {
                    message: String?,
                    doneText: String = "Done",
                    cancelText: String = "Cancel",
-                   numTextFields: Int,
-                   applyEmptyValidation: Bool = true,
-                   onTextFieldAdded: @escaping ((UITextField, UIAlertAction) -> ()),
-                   onComplete: @escaping (([UITextField]) -> ()),
-                   onDismiss: (() -> ())? = nil) {
+                   textFields: Int,
+                   onTextFieldAdded:(([UITextField]) -> ())?,
+                   onComplete: @escaping (([String]) -> ()),
+                   onDismiss: AACompletionVoid? = nil) {
+        
+        guard textFields > 0 else {
+            return
+        }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancelText, style: .cancel, handler: { _ in
             onDismiss?()
         }))
         
-        let saveAction = UIAlertAction(title: doneText, style: .destructive, handler: { _ in
+        let saveAction = UIAlertAction(title: doneText, style: .default, handler: { _ in
             guard let textFields = alert.textFields else { return }
-            onComplete(textFields)
+            let values = textFields.compactMap { $0.text }
+            onComplete(values)
         })
         alert.addAction(saveAction)
         saveAction.isEnabled = false
         
-        for _ in 0..<numTextFields {
-            alert.addTextField { textField in
-                if applyEmptyValidation {
-                    NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
-                        saveAction.isEnabled = (textField.text?.count ?? 0) > 0
-                    }
-                }
-                onTextFieldAdded(textField, saveAction)
-            }
+        for _ in 0..<textFields {
+            alert.addTextField(configurationHandler: nil)
         }
+        onTextFieldAdded?(alert.textFields!)
         present(alert, animated: true, completion: nil)
     }
     

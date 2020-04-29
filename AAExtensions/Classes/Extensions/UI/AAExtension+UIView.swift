@@ -344,11 +344,15 @@ public extension UIView {
         self.layer.addSublayer(shapeLayer)
     }
 
-    func aa_addTapGesture(_ target: Any, action: Selector) {
-        let tap = UITapGestureRecognizer(target: target, action: action)
+    func aa_addTapGesture(_ target: Any, _ closure: @escaping ()->()) {
+        
+        let sleeve = AAClosureSleeve(closure)
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(sleeve, action: #selector(sleeve.invoke))
         tap.numberOfTapsRequired = 1
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, .OBJC_ASSOCIATION_RETAIN)
     }
     
     func aa_dropShadow(scale: Bool = true) {
@@ -427,5 +431,24 @@ public extension UIView {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
     
+    var aa_statusBarSize: CGSize {
+        let statusBarFrame: CGSize
+        if #available(iOS 13.0, *) {
+            statusBarFrame = self.window?.windowScene?.statusBarManager?.statusBarFrame.size ?? .zero
+        } else {
+            statusBarFrame = UIApplication.shared.statusBarFrame.size
+        }
+        return statusBarFrame
+    }
+    
+    var aa_statusBarStyle: UIStatusBarStyle? {
+        let style: UIStatusBarStyle?
+        if #available(iOS 13.0, *) {
+            style = self.window?.windowScene?.statusBarManager?.statusBarStyle
+        } else {
+            style = UIApplication.shared.statusBarStyle
+        }
+        return style
+    }
 }
 
