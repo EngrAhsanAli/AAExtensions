@@ -221,3 +221,41 @@ public extension String {
         return lhs.compare(rhs, options: .numeric) == .orderedDescending || lhs.compare(rhs, options: .numeric) == .orderedSame
     }
 }
+
+public extension String {
+    fileprivate var aa_fileURL: URL {
+        return URL(fileURLWithPath: self)
+    }
+    var aa_pathExtension: String {
+        return aa_fileURL.pathExtension
+    }
+    var aa_lastPathComponent: String {
+        return aa_fileURL.lastPathComponent
+    }
+    
+    var aa_formattedFileSize: String? {
+        guard let size = try? FileManager.default.attributesOfItem(atPath: self)[FileAttributeKey.size],
+            let fileSize = size as? UInt64 else {
+            return nil
+        }
+
+        // bytes
+        if fileSize < 1023 {
+            return String(format: "%lu bytes", CUnsignedLong(fileSize))
+        }
+        // KB
+        var floatSize = Float(fileSize / 1024)
+        if floatSize < 1023 {
+            return String(format: "%.1f KB", floatSize)
+        }
+        // MB
+        floatSize = floatSize / 1024
+        if floatSize < 1023 {
+            return String(format: "%.1f MB", floatSize)
+        }
+        // GB
+        floatSize = floatSize / 1024
+        return String(format: "%.1f GB", floatSize)
+    }
+}
+

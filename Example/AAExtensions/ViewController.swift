@@ -24,6 +24,9 @@ class ViewController: UIViewController {
             print($0)
         }
         
+
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,4 +40,12 @@ class ViewController: UIViewController {
         print(timeAgp)
     }
     
+    
+    func aa_presentDocumentPicker() {
+        let extensions = ".pdf,.jpeg,.png,.gif,.doc,.docx,.rtf,.txt,.odf,.xlsx,.ppt"
+
+        aa.presentDocumentPicker(extensions) {
+             print($0)
+        }
+    }
 }

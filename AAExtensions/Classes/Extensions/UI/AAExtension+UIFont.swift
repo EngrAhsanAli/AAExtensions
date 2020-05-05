@@ -63,5 +63,10 @@ public extension UIFont {
             print("\(AA_TAG) Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
         }
     }
+    
+    func aa_changeFont(_ fontName: String) -> UIFont {
+        UIFont(name: fontName, size: self.pointSize) ?? self
+    }
+    
 }
 

@@ -25,33 +25,38 @@
 
 
 // MARK: - UINavigationController
-public extension UINavigationController {
-    
-    func aa_backToViewController(viewController: Swift.AnyClass) {
-        for element in viewControllers as Array {
+public extension AA where Base: UINavigationController {
+
+
+    func backToViewController(viewController: Swift.AnyClass) {
+        for element in base.viewControllers as Array {
             if element.isKind(of: viewController) {
-                self.popToViewController(element, animated: true)
+                base.popToViewController(element, animated: true)
                 break
             }
         }
     }
     
-    func aa_pop(transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
-        self.addTransition(transitionType: type, duration: duration)
-        self.popViewController(animated: false)
+    func pop(transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
+        base.addTransition(transitionType: type, duration: duration)
+        base.popViewController(animated: false)
     }
     
-    func aa_push(viewController vc: UIViewController, transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
-        self.addTransition(transitionType: type, duration: duration)
-        self.pushViewController(vc, animated: false)
+    func push(viewController vc: UIViewController, transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
+        base.addTransition(transitionType: type, duration: duration)
+        base.pushViewController(vc, animated: false)
     }
-    
-    private func addTransition(transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
+
+}
+
+
+fileprivate extension UINavigationController {
+
+    func addTransition(transitionType type: String = CATransitionType.fade.rawValue, duration: CFTimeInterval = 0.3) {
         let transition = CATransition()
         transition.duration = duration
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         transition.type = CATransitionType(rawValue: type)
         self.view.layer.add(transition, forKey: nil)
     }
-    
 }

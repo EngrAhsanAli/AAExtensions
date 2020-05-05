@@ -60,3 +60,12 @@ public extension UIButton {
         self.isSelected = !self.isSelected
     }
 }
+
+
+public extension UIBarButtonItem {
+    
+    var aa_view: UIView? {
+        value(forKey: "view") as? UIView
+    }
+    
+}

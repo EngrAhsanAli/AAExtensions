@@ -26,7 +26,7 @@
 //MARK:- UIView IBDesignable
 @IBDesignable
 public extension UIView {
-    @IBInspectable var AABorderColor:UIColor? {
+    @IBInspectable var AABorderColor: UIColor? {
         set {
             layer.borderColor = newValue!.cgColor
         }
@@ -38,7 +38,7 @@ public extension UIView {
         }
     }
     
-    @IBInspectable var AABorderWidth:CGFloat {
+    @IBInspectable var AABorderWidth: CGFloat {
         set {
             layer.borderWidth = newValue
         }
@@ -46,7 +46,7 @@ public extension UIView {
             return layer.borderWidth
         }
     }
-    @IBInspectable var AACornerRadius:CGFloat {
+    @IBInspectable var AACornerRadius: CGFloat {
         set {
             layer.cornerRadius = newValue
             clipsToBounds = newValue > 0
@@ -62,53 +62,6 @@ public extension UIView {
         }
         set (value) {
             layer.cornerRadius = frame.width * value
-        }
-    }
-    
-    @IBInspectable
-    var AAShadowRadius: CGFloat {
-        get {
-            return layer.shadowRadius
-        }
-        set {
-            layer.shadowRadius = newValue
-        }
-    }
-    
-    @IBInspectable
-    var AAShadowOpacity: Float {
-        get {
-            return layer.shadowOpacity
-        }
-        set {
-            layer.shadowOpacity = newValue
-        }
-    }
-    
-    @IBInspectable
-    var AAShadowOffset: CGSize {
-        get {
-            return layer.shadowOffset
-        }
-        set {
-            layer.shadowOffset = newValue
-        }
-    }
-    
-    @IBInspectable
-    var AAShadowColor: UIColor? {
-        get {
-            if let color = layer.shadowColor {
-                return UIColor(cgColor: color)
-            }
-            return nil
-        }
-        set {
-            if let color = newValue {
-                layer.shadowColor = color.cgColor
-            } else {
-                layer.shadowColor = nil
-            }
         }
     }
     

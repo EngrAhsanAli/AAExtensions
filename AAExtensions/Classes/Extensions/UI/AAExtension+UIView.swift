@@ -450,5 +450,21 @@ public extension UIView {
         }
         return style
     }
+    
+    func aa_findViews<T: UIView>(subclassOf: T.Type) -> [T] {
+         return aa_recursiveSubviews.compactMap { $0 as? T }
+     }
+
+     var aa_recursiveSubviews: [UIView] {
+         return subviews + subviews.flatMap { $0.aa_recursiveSubviews }
+     }
 }
 
+public extension AA where Base: UIView {
+
+    static func fromNib<A: UIView> (nibName name: String, bundle: Bundle) -> A? {
+        let nibViews = bundle.loadNibNamed(name, owner: self, options: nil)
+        return nibViews?.first as? A
+    }
+    
+}

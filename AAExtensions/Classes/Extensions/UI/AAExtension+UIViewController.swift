@@ -286,3 +286,59 @@ public extension UIViewController {
         self.removeFromParent()
     }
 }
+
+
+public extension AA where Base: UIViewController {
+
+    func setCurvedNavigation(_ model: AAGradientModel,
+                                curveRadius: CGFloat = 17,
+                                shadowColor: UIColor = .darkGray,
+                                shadowRadius: CGFloat = 4,
+                                heightOffset: CGFloat = 0) {
+        
+        let instance = self.base
+        guard let navigationController = instance.navigationController else { return }
+    
+        navigationController.navigationBar.isTranslucent = true
+        navigationController.navigationBar.shadowImage = UIImage()
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
+        totalHeight += instance.view.aa_statusBarSize.height
+    
+        let y1: CGFloat = totalHeight
+        let y2: CGFloat = totalHeight + curveRadius
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0.0, y: y1))
+        path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
+        path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
+        path.addLine(to: CGPoint(x: screenWidth, y: 0))
+        path.addLine(to: .zero)
+        
+        let shape = CAShapeLayer()
+        shape.frame = instance.view.frame
+        shape.path =  path.cgPath
+
+        let gradient = CAGradientLayer()
+        gradient.frame = instance.view.frame
+        gradient.colors = model.colors.map { $0.cgColor }
+        gradient.startPoint = model.startPoint.point
+        gradient.endPoint = model.endPoint.point
+        gradient.mask = shape
+        
+        let shadowLayer = CALayer()
+        shadowLayer.shadowColor = shadowColor.cgColor
+        shadowLayer.shadowOffset = .zero
+        shadowLayer.shadowRadius = shadowRadius
+        shadowLayer.shadowOpacity = 0.8
+        shadowLayer.backgroundColor = UIColor.clear.cgColor
+        shadowLayer.insertSublayer(gradient, at: 0)
+        shadowLayer.name = "AACurvedView"
+        
+        instance.view.layer.addSublayer(shadowLayer)
+
+    }
+
+}

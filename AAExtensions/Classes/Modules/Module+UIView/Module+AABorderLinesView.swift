@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 
 
-@IBDesignable
 open class AABorderLinesView: UIView {
         
     @IBInspectable open var paddingX: CGFloat = 0
