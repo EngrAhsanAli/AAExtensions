@@ -39,9 +39,6 @@ public extension UILabel {
     }
     
     func aa_changeColor(of searchString: String, with color: UIColor) {
-        do { attributedText = try NSAttributedString(aa_withText: self.text ?? "", keywords: searchString, color: color) }
-        catch {
-            print(AA_TAG, error.localizedDescription)
-        }
+        attributedText = NSAttributedString(aa_withText: self.text ?? "", keywords: searchString, color: color)
     }
 }

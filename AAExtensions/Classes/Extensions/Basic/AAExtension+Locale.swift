@@ -38,6 +38,10 @@ public extension NSLocale {
         let locale = NSLocale(localeIdentifier: identifier)
         return locale.displayName(forKey: NSLocale.Key.identifier , value: identifier)!
     }
+    
+    static var aa_currentLocale: String {
+        Bundle.main.preferredLocalizations.first!
+    }
 }
 
 

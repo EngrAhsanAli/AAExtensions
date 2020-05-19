@@ -27,7 +27,6 @@
 // MARK: - UINavigationController
 public extension AA where Base: UINavigationController {
 
-
     func backToViewController(viewController: Swift.AnyClass) {
         for element in base.viewControllers as Array {
             if element.isKind(of: viewController) {

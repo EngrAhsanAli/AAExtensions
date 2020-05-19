@@ -60,7 +60,7 @@ public extension NSAttributedString {
         self.init(attributedString: attr)
     }
     
-    convenience init(aa_withText text: String, keywords: String, color: UIColor) throws {
+    convenience init(aa_withText text: String, keywords: String, color: UIColor) {
         let allString = NSMutableAttributedString(string: text)
         
         keywords.components(separatedBy: " ").forEach({ (word) in
@@ -76,6 +76,28 @@ public extension NSAttributedString {
         self.init(attributedString: allString)
     }
     
+    convenience init(aa_pairAttibutes strings: [String], fonts: [UIFont], colors: [UIColor]) {
+        
+        guard (strings.count == fonts.count) && (fonts.count == colors.count) else {
+            fatalError()
+        }
+        
+        let mutableAttributedString = NSMutableAttributedString()
+        
+        for i in 0...strings.count - 1 {
+            let text = strings[i]
+            let font = fonts[i]
+            let color = colors[i]
+            
+            let attibutes = [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: color
+            ]
+            let attString = NSAttributedString(string: text, attributes: attibutes)
+            mutableAttributedString.append(attString)
+        }
+        
+        
+        self.init(attributedString: mutableAttributedString)
+    }
 }
-
-

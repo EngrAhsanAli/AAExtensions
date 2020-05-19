@@ -99,7 +99,7 @@ public enum AAPoint {
     case bottomRight, bottomLeft
     case custom(point: CGPoint)
 
-    var point: CGPoint {
+    public var point: CGPoint {
         switch self {
             case .topRight: return CGPoint(x: 1, y: 0)
             case .topLeft: return CGPoint(x: 0, y: 0)

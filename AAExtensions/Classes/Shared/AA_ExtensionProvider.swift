@@ -28,5 +28,5 @@ public struct AA<Base> {
 
 extension UIView: AAExtensionsProvider {}
 extension UIViewController: AAExtensionsProvider {}
-extension UINavigationController: AAExtensionsProvider {}
+
 

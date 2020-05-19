@@ -29,3 +29,4 @@ public extension Collection {
         return self.indices.contains(i) ? self[i] : nil
     }
 }
+

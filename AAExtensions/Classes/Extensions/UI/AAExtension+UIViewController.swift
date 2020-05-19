@@ -29,18 +29,6 @@ import AVKit
 // MARK:- UIViewController
 public extension UIViewController {
     
-    /// Get View Controller from given stoaryboard with same ID as ViewController class
-    class func aa_viewController<T: UIViewController>(_ viewController: T.Type, instance: ((T) -> ())? = nil, inStroryboard: UIStoryboard? = nil) -> T? {
-        
-        var storyboard: UIStoryboard
-        if let _storyboard = inStroryboard { storyboard = _storyboard }
-        else { storyboard = UIStoryboard(name: String(describing: viewController), bundle: nil) }
-        
-        guard let vc = (inStroryboard ?? storyboard).aa_viewController(withClass: viewController) else { return nil }
-        instance?(vc)
-        return vc
-    }
-    
     class func aa_replaceRootViewController (
         to viewController: UIViewController,
         animated: Bool = true,
@@ -80,12 +68,40 @@ public extension UIViewController {
     var aa_tabbarHeight: CGFloat {
         return (self.tabBarController?.tabBar.frame.size.height)!
     }
-    
-    func aa_pushViewController(_ vc: UIViewController)  {
-        self.navigationController?.pushViewController(vc, animated: true)
+
+    func aa_push(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        navigationController?.pushViewController(vc, animated: true)
     }
     
-    func aa_dismiss() {
+    func aa_pop(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func aa_pop(to n: Int, result: Any? = nil) {
+        guard let viewControllers = navigationController?.viewControllers,
+            let destination = viewControllers[aa_optional: viewControllers.count - (n + 1)] else {
+                print("AAExtensions:- ", "View controller not found at \(n)")
+            return
+        }
+        
+        if let result = result, let callback = aa_callBack {
+            callback(result)
+        }
+        self.navigationController!.popToViewController(destination, animated: true)
+    }
+    
+    func aa_present(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
+    func aa_dismiss(_ result: Any? = nil) {
+        if let result = result, let callback = aa_callBack {
+            callback(result)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -156,27 +172,21 @@ public extension UIViewController {
         self.present(alertViewController, animated: true, completion: nil)
     }
     
-    func aa_showAlert(_ title: String,
-                      text: String,
-                      doneText: String = "OK",
-                      onDismiss: (() -> ())? = nil) {
+    func aa_showAlert(_ title: String, text: String,
+                      doneText: String, onDismiss: (() -> ())? = nil) {
         let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: doneText, style: .default) {
+        let action = UIAlertAction(title: doneText, style: .default) {
             (action: UIAlertAction) in
             onDismiss?()
         }
-        alertController.addAction(OKAction)
+        alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func aa_showAlert(title: String?,
-                   message: String?,
-                   doneText: String = "Done",
-                   cancelText: String = "Cancel",
-                   textFields: Int,
-                   onTextFieldAdded:(([UITextField]) -> ())?,
-                   onComplete: @escaping (([String]) -> ()),
-                   onDismiss: AACompletionVoid? = nil) {
+    func aa_showAlert(title: String?, message: String?,
+                      doneText: String, cancelText: String,
+                      textFields: Int, onTextFieldAdded:(([UITextField]) -> ())?,
+                      onComplete: @escaping (([String]) -> ()), onDismiss: AACompletionVoid? = nil) {
         
         guard textFields > 0 else {
             return
@@ -227,24 +237,60 @@ public extension UIViewController {
         return canPerform
     }
 
-    func aa_presentCurrentViewController(_ vc: UIViewController) {
+    func aa_presentThis(_ forced: Bool = false, result: ((Any?) -> ())?) {
 
         guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
-
+        self.aa_callBack = result
+        
+        guard !forced else {
+            root.present(self, animated: true, completion: nil)
+            return
+        }
+        
         if let _vc = root.presentedViewController as? UINavigationController {
-            _vc.pushViewController(vc, animated: true)
+            _vc.pushViewController(self, animated: true)
         }
         else if let _vc = root as? UINavigationController {
-            _vc.pushViewController(vc, animated: true)
+            _vc.pushViewController(self, animated: true)
         }
         else if let _vc = root.presentedViewController {
-             _vc.present(vc, animated: true, completion: nil)
+             _vc.present(self, animated: true, completion: nil)
         }
         else {
-            root.present(vc, animated: true, completion: nil)
+            root.present(self, animated: true, completion: nil)
         }
     }
     
+    func aa_dismissThis(_ result: Any? = nil) {
+        
+        guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
+        
+        if let result = result, let callback = aa_callBack {
+            callback(result)
+        }
+        
+        if let _vc = root.presentedViewController as? UINavigationController {
+            _vc.popViewController(animated: true)
+        }
+        else if let _vc = root as? UINavigationController {
+            _vc.popViewController(animated: true)
+        }
+        else if let _vc = root.presentedViewController {
+            _vc.dismiss(animated: true, completion: nil)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+    }
+    
+    func aa_rightBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
+        self.navigationItem.rightBarButtonItem = BindableBarButton(image, action: closure)
+    }
+    
+    func aa_leftBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
+        self.navigationItem.leftBarButtonItem = BindableBarButton(image, action: closure)
+    }
     
 }
 
@@ -290,43 +336,49 @@ public extension UIViewController {
 
 public extension AA where Base: UIViewController {
 
-    func setCurvedNavigation(_ model: AAGradientModel,
-                                curveRadius: CGFloat = 17,
-                                shadowColor: UIColor = .darkGray,
-                                shadowRadius: CGFloat = 4,
+    func setCurvedNavigation(_ model: AAGradientModel, curveRadius: CGFloat = 17,
+                                shadowColor: UIColor = .darkGray, shadowRadius: CGFloat = 4,
                                 heightOffset: CGFloat = 0) {
         
+        let viewName = "AACurvedView"
         let instance = self.base
         guard let navigationController = instance.navigationController else { return }
     
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.shadowImage = UIImage()
-        navigationController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
-        let screenWidth = UIScreen.main.bounds.size.width
-        var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
-        totalHeight += instance.view.aa_statusBarSize.height
-    
-        let y1: CGFloat = totalHeight
-        let y2: CGFloat = totalHeight + curveRadius
+        let gradient: CAGradientLayer = {
+            let gradient = CAGradientLayer()
+            gradient.frame = instance.view.frame
+            gradient.colors = model.colors.map { $0.cgColor }
+            gradient.startPoint = model.startPoint.point
+            gradient.endPoint = model.endPoint.point
+            return gradient
+        }()
         
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0.0, y: y1))
-        path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
-        path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
-        path.addLine(to: CGPoint(x: screenWidth, y: 0))
-        path.addLine(to: .zero)
-        
-        let shape = CAShapeLayer()
-        shape.frame = instance.view.frame
-        shape.path =  path.cgPath
-
-        let gradient = CAGradientLayer()
-        gradient.frame = instance.view.frame
-        gradient.colors = model.colors.map { $0.cgColor }
-        gradient.startPoint = model.startPoint.point
-        gradient.endPoint = model.endPoint.point
-        gradient.mask = shape
+        gradient.mask = {
+         
+         let screenWidth = UIScreen.main.bounds.size.width
+         var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
+         totalHeight += instance.view.aa_statusBarSize.height
+         
+         let y1: CGFloat = totalHeight
+         let y2: CGFloat = totalHeight + curveRadius
+         
+         let path = UIBezierPath()
+         path.move(to: CGPoint(x: 0.0, y: y1))
+         path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
+         path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
+         path.addLine(to: CGPoint(x: screenWidth, y: 0))
+         path.addLine(to: .zero)
+         
+         let shape = CAShapeLayer()
+         shape.frame = instance.view.frame
+         shape.path =  path.cgPath
+             return shape
+         
+        }()
         
         let shadowLayer = CALayer()
         shadowLayer.shadowColor = shadowColor.cgColor
@@ -335,10 +387,13 @@ public extension AA where Base: UIViewController {
         shadowLayer.shadowOpacity = 0.8
         shadowLayer.backgroundColor = UIColor.clear.cgColor
         shadowLayer.insertSublayer(gradient, at: 0)
-        shadowLayer.name = "AACurvedView"
+        shadowLayer.name = viewName
         
-        instance.view.layer.addSublayer(shadowLayer)
-
+        navigationController.view.layer.insertSublayer(shadowLayer, at: 1)
+        
     }
-
+    
+   
+    
+    
 }

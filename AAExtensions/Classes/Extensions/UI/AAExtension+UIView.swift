@@ -24,6 +24,46 @@
 //  THE SOFTWARE.
 
 
+final class BindableGestureRecognizer: UITapGestureRecognizer {
+    
+    var _action: AACompletionVoid
+    
+    init(_ target: Any, action: @escaping AACompletionVoid) {
+        self._action = action
+        super.init(target: nil, action: nil)
+        self.addTarget(self, action: #selector(execute))
+    }
+    
+    @objc private func execute() {
+        _action()
+    }
+}
+
+final class BindableBarButton: UIBarButtonItem {
+
+    var _action: AACompletionVoid?
+
+    init(_ image: UIImage, action: @escaping AACompletionVoid) {
+        self._action = action
+        
+        super.init()
+        
+        self.image = image
+        self.style = .plain
+        self.target = self
+        self.action = #selector(execute)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    @objc func execute() {
+        _action?()
+    }
+}
+
 // MARK:- UIView
 public extension UIView {
     
@@ -346,13 +386,10 @@ public extension UIView {
 
     func aa_addTapGesture(_ target: Any, _ closure: @escaping ()->()) {
         
-        let sleeve = AAClosureSleeve(closure)
-        let tap = UITapGestureRecognizer()
-        tap.addTarget(sleeve, action: #selector(sleeve.invoke))
-        tap.numberOfTapsRequired = 1
-        addGestureRecognizer(tap)
+        let gestureRecognizer =  BindableGestureRecognizer(target, action: closure)
+        gestureRecognizer.numberOfTapsRequired = 1
         isUserInteractionEnabled = true
-        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, .OBJC_ASSOCIATION_RETAIN)
+        self.addGestureRecognizer(gestureRecognizer)
     }
     
     func aa_dropShadow(scale: Bool = true) {
@@ -460,7 +497,7 @@ public extension UIView {
      }
 }
 
-public extension AA where Base: UIView {
+public extension UIView {
 
     static func fromNib<A: UIView> (nibName name: String, bundle: Bundle) -> A? {
         let nibViews = bundle.loadNibNamed(name, owner: self, options: nil)
@@ -468,3 +505,4 @@ public extension AA where Base: UIView {
     }
     
 }
+

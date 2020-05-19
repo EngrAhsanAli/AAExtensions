@@ -48,4 +48,10 @@ public extension Dictionary {
     subscript(i: Int) -> (key: Key, value: Value) {
         return self[index(startIndex, offsetBy: i)]
     }
+    
+    var aa_keys: [Any] {
+        return self.compactMap { (anEntry) -> Any? in
+            return anEntry.key
+        }
+    }
 }

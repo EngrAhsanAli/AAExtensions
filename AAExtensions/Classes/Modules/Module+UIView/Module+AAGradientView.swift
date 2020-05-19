@@ -25,9 +25,9 @@
 
 
 public struct AAGradientModel {
-    let colors: [UIColor]
-    let startPoint, endPoint: AAPoint
-    let locations: [NSNumber]
+    public let colors: [UIColor]
+    public let startPoint, endPoint: AAPoint
+    public let locations: [NSNumber]
     
     public init(colors: [UIColor], startPoint: AAPoint, endPoint: AAPoint, locations: [NSNumber]) {
         self.colors = colors
@@ -40,13 +40,13 @@ public struct AAGradientModel {
 
 
 @available(iOS 9.0, *)
-class AAGradientView: UIView {
+public class AAGradientView: UIView {
     
     weak var gradientLayer: CAGradientLayer!
     
     var model: AAGradientModel!
 
-    convenience init(_ model: AAGradientModel) {
+    public convenience init(_ model: AAGradientModel) {
         
         self.init(frame: .zero)
         self.model = model
@@ -66,7 +66,7 @@ class AAGradientView: UIView {
         gradientLayer.locations = model.locations
     }
 
-    func setupConstraints() {
+    open func setupConstraints() {
         guard let parentView = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
         topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
@@ -75,7 +75,7 @@ class AAGradientView: UIView {
         parentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         guard let gradientLayer = gradientLayer else { return }
         gradientLayer.frame = frame
@@ -86,7 +86,7 @@ class AAGradientView: UIView {
 
 
 // MARK: - UINavigationController
-public extension AA where Base: UINavigationController {
+public extension AA where Base: UIViewController {
     
     @available(iOS 9.0, *)
     func setGradientNavigation(_ model: AAGradientModel) {
