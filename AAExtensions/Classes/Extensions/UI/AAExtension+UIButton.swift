@@ -27,7 +27,7 @@
 // MARK:- UIButton
 public extension UIButton {
     
-    func aa_LeftIcon(_ string: String? = nil,
+    func aa_leftIcon(_ string: String? = nil,
                       icon: String,
                       selected: String,
                       color: UIColor,
@@ -58,6 +58,18 @@ public extension UIButton {
     
     @objc private func leftIconClicked() {
         self.isSelected = !self.isSelected
+    }
+    
+    func aa_setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
     }
 }
 

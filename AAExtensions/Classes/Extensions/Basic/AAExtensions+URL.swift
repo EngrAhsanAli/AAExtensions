@@ -77,4 +77,16 @@ public extension URL {
         return attributes?[.creationDate] as? Date
     }
 
+    var fileSizeMb: Float? {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = [.useMB]
+        formatter.countStyle = .file
+        let string = formatter.string(fromByteCount: Int64(fileSize))
+        if let digit = string.components(separatedBy: " ").first,
+            let value = Float(digit) {
+            return value
+        }
+        return nil
+    }
+    
 }

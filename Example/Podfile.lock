@@ -1,5 +1,5 @@
 PODS:
-  - AAExtensions (0.1.0)
+  - AAExtensions (0.1.5)
 
 DEPENDENCIES:
   - AAExtensions (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AAExtensions: 88bd1313f18aece5dbb5d08d5a646a16e20b9bf0
+  AAExtensions: 0f410c70bf38a319957a55cf62e5f04bbf572f1e
 
 PODFILE CHECKSUM: 235bd8c022839c4e590529843756dc80cca0c96b
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.9.3

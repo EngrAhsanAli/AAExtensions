@@ -51,6 +51,7 @@ public class AAGradientView: UIView {
         self.init(frame: .zero)
         self.model = model
         let gradientLayer = CAGradientLayer()
+        gradientLayer.name = "AAGradientView"
         gradientLayer.frame = frame
         layer.addSublayer(gradientLayer)
         self.gradientLayer = gradientLayer
@@ -80,6 +81,7 @@ public class AAGradientView: UIView {
         guard let gradientLayer = gradientLayer else { return }
         gradientLayer.frame = frame
         superview?.addSubview(self)
+        superview?.sendSubviewToBack(self)
     }
 }
 

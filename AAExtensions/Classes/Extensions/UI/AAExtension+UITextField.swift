@@ -88,4 +88,44 @@ public extension UITextField {
             leftViewMode = .always
         }
     }
+    
+    func aa_inputDatePicker(_ onComplete: ((String) -> ())?) {
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        inputView = datePicker
+        
+        let toolBar = UIToolbar()
+        
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancel = AABindableBarButton(systemItem: .cancel) {
+            self.tapCancel()
+        }
+        let doneBtn = AABindableBarButton(systemItem: .done) {
+            self.tapDone(onComplete)
+        }
+        
+        toolBar.setItems([cancel, flexible, doneBtn], animated: false)
+        toolBar.sizeToFit()
+        inputAccessoryView = toolBar
+        
+    }
+    
+}
+
+fileprivate extension UITextField {
+    
+    func tapCancel() {
+        resignFirstResponder()
+    }
+    
+    func tapDone(_ onComplete: ((String) -> ())?) {
+        if let datePicker = inputView as? UIDatePicker {
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .medium
+            text = dateformatter.string(from: datePicker.date)
+        }
+        resignFirstResponder()
+        onComplete?(text ?? "")
+    }
 }

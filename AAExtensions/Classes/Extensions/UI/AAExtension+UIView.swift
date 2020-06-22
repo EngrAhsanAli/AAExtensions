@@ -23,47 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-final class BindableGestureRecognizer: UITapGestureRecognizer {
-    
-    var _action: AACompletionVoid
-    
-    init(_ target: Any, action: @escaping AACompletionVoid) {
-        self._action = action
-        super.init(target: nil, action: nil)
-        self.addTarget(self, action: #selector(execute))
-    }
-    
-    @objc private func execute() {
-        _action()
-    }
-}
-
-final class BindableBarButton: UIBarButtonItem {
-
-    var _action: AACompletionVoid?
-
-    init(_ image: UIImage, action: @escaping AACompletionVoid) {
-        self._action = action
-        
-        super.init()
-        
-        self.image = image
-        self.style = .plain
-        self.target = self
-        self.action = #selector(execute)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    @objc func execute() {
-        _action?()
-    }
-}
-
 // MARK:- UIView
 public extension UIView {
     
@@ -237,10 +196,10 @@ public extension UIView {
         return line
     }
 
-    func aa_addTopBorderWithColor(color: UIColor, width: CGFloat, paddingX: CGFloat, paddingY: CGFloat) {
+    func aa_addTopBorderWithColor(color: UIColor, height: CGFloat, paddingX: CGFloat, paddingY: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: paddingX, y: paddingY, width: self.frame.size.width, height: width)
+        border.frame = CGRect(x: paddingX, y: paddingY, width: self.frame.size.width, height: height)
         self.layer.addSublayer(border)
     }
     
@@ -251,10 +210,10 @@ public extension UIView {
         self.layer.addSublayer(border)
     }
     
-    func aa_addBottomBorderWithColor(color: UIColor, width: CGFloat, paddingX: CGFloat, paddingY: CGFloat) {
+    func aa_addBottomBorderWithColor(color: UIColor, height: CGFloat, paddingX: CGFloat, paddingY: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: paddingX, y: (self.frame.size.height - width) + paddingY, width: self.frame.size.width, height: width)
+        border.frame = CGRect(x: paddingX, y: (self.frame.size.height - height) + paddingY, width: self.frame.size.width, height: height)
         self.layer.addSublayer(border)
     }
     
@@ -386,7 +345,7 @@ public extension UIView {
 
     func aa_addTapGesture(_ target: Any, _ closure: @escaping ()->()) {
         
-        let gestureRecognizer =  BindableGestureRecognizer(target, action: closure)
+        let gestureRecognizer = BindableGestureRecognizer(target, action: closure)
         gestureRecognizer.numberOfTapsRequired = 1
         isUserInteractionEnabled = true
         self.addGestureRecognizer(gestureRecognizer)
@@ -495,6 +454,37 @@ public extension UIView {
      var aa_recursiveSubviews: [UIView] {
          return subviews + subviews.flatMap { $0.aa_recursiveSubviews }
      }
+    
+    func aa_updateTableView() {
+        var superView = self.superview
+        
+        while (superView != nil) {
+            if let tableView = superView as? UITableView {
+                tableView.beginUpdates()
+                tableView.endUpdates()
+                break
+            }
+            superView = superView?.superview
+        }
+    }
+    
+    @available(iOS 9.0, *)
+    func aa_setGradient(_ model: AAGradientModel) {
+        aa_removeGradient()
+        let gradientView = AAGradientView(model)
+        addSubview(gradientView)
+        gradientView.setupConstraints()
+        sendSubviewToBack(gradientView)
+    }
+    
+    @available(iOS 9.0, *)
+    func aa_removeGradient() {
+        guard let gradientView = subviews.first?.layer.sublayers?.first,
+            gradientView.name == "AAGradientView" else {
+                return
+        }
+        gradientView.removeFromSuperlayer()
+    }
 }
 
 public extension UIView {

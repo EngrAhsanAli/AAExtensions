@@ -43,6 +43,24 @@ public extension AA_Helper {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
     
+    var aa_hasTopNotch: Bool {
+        if #available(iOS 11.0,  *) {
+            
+            var safeAreaInset: CGFloat?
+            if (UIApplication.shared.statusBarOrientation == .portrait) {
+                safeAreaInset = UIApplication.shared.delegate?.window??.safeAreaInsets.top
+            }
+            else if (UIApplication.shared.statusBarOrientation == .landscapeLeft) {
+                safeAreaInset = UIApplication.shared.delegate?.window??.safeAreaInsets.left
+            }
+            else if (UIApplication.shared.statusBarOrientation == .landscapeRight) {
+                safeAreaInset = UIApplication.shared.delegate?.window??.safeAreaInsets.right
+            }
+            return safeAreaInset ?? 0 > 24
+        }
+        return false
+    }
+    
     var aa_visibleViewController: UIViewController? {
         return aa_rootVC.aa_topViewController
     }

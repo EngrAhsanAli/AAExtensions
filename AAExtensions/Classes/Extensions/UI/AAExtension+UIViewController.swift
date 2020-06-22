@@ -71,7 +71,12 @@ public extension UIViewController {
 
     func aa_push(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
         vc.aa_callBack = result
-        navigationController?.pushViewController(vc, animated: true)
+        if let navigation = self as? UINavigationController {
+            navigation.pushViewController(vc, animated: true)
+        }
+        else {
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func aa_pop(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
@@ -285,11 +290,11 @@ public extension UIViewController {
     }
     
     func aa_rightBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
-        self.navigationItem.rightBarButtonItem = BindableBarButton(image, action: closure)
+        self.navigationItem.rightBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
     }
     
     func aa_leftBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
-        self.navigationItem.leftBarButtonItem = BindableBarButton(image, action: closure)
+        self.navigationItem.leftBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
     }
     
 }
@@ -337,20 +342,21 @@ public extension UIViewController {
 public extension AA where Base: UIViewController {
 
     func setCurvedNavigation(_ model: AAGradientModel, curveRadius: CGFloat = 17,
-                                shadowColor: UIColor = .darkGray, shadowRadius: CGFloat = 4,
-                                heightOffset: CGFloat = 0) {
+                             shadowColor: UIColor = .darkGray, shadowRadius: CGFloat = 4,
+                             heightOffset: CGFloat = 0, curveHeight: CGFloat) {
         
         let viewName = "AACurvedView"
         let instance = self.base
         guard let navigationController = instance.navigationController else { return }
-    
+        
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
         let gradient: CAGradientLayer = {
             let gradient = CAGradientLayer()
-            gradient.frame = instance.view.frame
+            gradient.frame = navigationController.navigationBar.frame
+            gradient.frame.size.height = curveHeight
             gradient.colors = model.colors.map { $0.cgColor }
             gradient.startPoint = model.startPoint.point
             gradient.endPoint = model.endPoint.point
@@ -358,26 +364,27 @@ public extension AA where Base: UIViewController {
         }()
         
         gradient.mask = {
-         
-         let screenWidth = UIScreen.main.bounds.size.width
-         var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
-         totalHeight += instance.view.aa_statusBarSize.height
-         
-         let y1: CGFloat = totalHeight
-         let y2: CGFloat = totalHeight + curveRadius
-         
-         let path = UIBezierPath()
-         path.move(to: CGPoint(x: 0.0, y: y1))
-         path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
-         path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
-         path.addLine(to: CGPoint(x: screenWidth, y: 0))
-         path.addLine(to: .zero)
-         
-         let shape = CAShapeLayer()
-         shape.frame = instance.view.frame
-         shape.path =  path.cgPath
-             return shape
-         
+            
+            let screenWidth = UIScreen.main.bounds.size.width
+            var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
+            
+            totalHeight += instance.view.aa_statusBarSize.height
+            
+            let y1: CGFloat = totalHeight
+            let y2: CGFloat = totalHeight + curveRadius
+            
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: 0.0, y: y1))
+            path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
+            path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
+            path.addLine(to: CGPoint(x: screenWidth, y: 0))
+            path.addLine(to: .zero)
+            
+            let shape = CAShapeLayer()
+            shape.frame = instance.view.frame
+            shape.path =  path.cgPath
+            return shape
+            
         }()
         
         let shadowLayer = CALayer()
@@ -385,7 +392,7 @@ public extension AA where Base: UIViewController {
         shadowLayer.shadowOffset = .zero
         shadowLayer.shadowRadius = shadowRadius
         shadowLayer.shadowOpacity = 0.8
-        shadowLayer.backgroundColor = UIColor.clear.cgColor
+        shadowLayer.backgroundColor = UIColor.white.cgColor
         shadowLayer.insertSublayer(gradient, at: 0)
         shadowLayer.name = viewName
         

@@ -1,8 +1,8 @@
 {
   "name": "AAExtensions",
-  "version": "0.1.0",
-  "summary": "A short description of AAExtensions.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "0.1.5",
+  "summary": "AAExtensions are a set of UI Extensions and Helper functions for iOS applications which is written in Swift 5.0",
+  "description": "AAExtensions are a set of UI Extensions and Helper functions for iOS applications which is written in Swift 5.0.",
   "homepage": "https://github.com/EngrAhsanAli/AAExtensions",
   "license": {
     "type": "MIT",
@@ -13,10 +13,12 @@
   },
   "source": {
     "git": "https://github.com/EngrAhsanAli/AAExtensions.git",
-    "tag": "0.1.0"
+    "tag": "0.1.5"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "AAExtensions/Classes/**/*"
+  "swift_versions": "5.0",
+  "source_files": "AAExtensions/Classes/**/*",
+  "swift_version": "5.0"
 }

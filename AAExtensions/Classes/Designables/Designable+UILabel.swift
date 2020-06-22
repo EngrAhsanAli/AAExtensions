@@ -25,21 +25,3 @@
 
 
 // MARK:- UILabel IBDesignable
-@IBDesignable
-public extension UILabel {
-    
-    @IBInspectable
-    var AAFixFont: Bool {
-        get {
-            return self.AAFixFont
-        }
-        set (value)  {
-            guard value else { return }
-            self.minimumScaleFactor = 0.1
-            self.adjustsFontSizeToFitWidth = true
-            self.lineBreakMode = .byClipping
-            self.numberOfLines = 0
-        }
-    }
-    
-}

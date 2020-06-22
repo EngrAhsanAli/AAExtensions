@@ -63,13 +63,13 @@ open class AABorderLinesView: UIView {
         
         if !isInterfaceBuilder {
             if let side = topSide {
-                aa_addTopBorderWithColor(color: side, width: lineWidth, paddingX: paddingX, paddingY: paddingY)
+                aa_addTopBorderWithColor(color: side, height: lineWidth, paddingX: paddingX, paddingY: paddingY)
             } else if let side = leftSide {
                 aa_addLeftBorderWithColor(color: side, width: lineWidth, paddingX: paddingX, paddingY: paddingY)
             } else if let side = rightSide {
                 aa_addRightBorderWithColor(color: side, width: lineWidth, paddingX: paddingX, paddingY: paddingY)
             } else if let side = bottomSide {
-                aa_addBottomBorderWithColor(color: side, width: lineWidth, paddingX: paddingX, paddingY: paddingY)
+                aa_addBottomBorderWithColor(color: side, height: lineWidth, paddingX: paddingX, paddingY: paddingY)
             }
         }
     }

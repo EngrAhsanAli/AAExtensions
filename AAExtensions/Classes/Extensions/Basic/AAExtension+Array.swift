@@ -31,4 +31,13 @@ public extension Array{
         self.append(newItem)
         self.append(contentsOf: copy)
     }
+    
+    mutating func aa_mutateEach(by transform: (inout Element) throws -> ()) rethrows {
+        self = try map { el in
+            var el = el
+            try transform(&el)
+            return el
+        }
+    }
 }
+

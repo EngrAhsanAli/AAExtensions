@@ -35,12 +35,13 @@ public extension UIScrollView {
         } else {
             self.addSubview(refreshControl)
         }
+        
         refreshControl.aa_addAction(for: .valueChanged) {
-            guard refreshControl.isRefreshing else {
-                refreshControl.endRefreshing()
+            guard $0.isRefreshing else {
+                $0.endRefreshing()
                 return
             }
-            refreshControl.endRefreshing()
+            $0.endRefreshing()
             completion()
         }
         return refreshControl
@@ -50,6 +51,12 @@ public extension UIScrollView {
         if self.contentSize.height < self.bounds.size.height { return }
         let bottomOffset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
         self.setContentOffset(bottomOffset, animated: animated)
+    }
+    
+    func aa_isOnBottom(with distance: Float = 10) -> Bool {
+        let y: Float = Float(contentOffset.y) + Float(bounds.size.height) + Float(contentInset.bottom)
+        let height = Float(contentSize.height)
+        return y > height + distance
     }
 }
 
