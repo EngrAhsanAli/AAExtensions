@@ -42,21 +42,17 @@ fileprivate class WrappedFilePicker: NSObject, UIDocumentPickerDelegate {
     private var callback : ((URL?) -> ())?
 
     func present(allowdExtensions: String?, presenter:UIViewController, callback: @escaping (URL?) -> ()) {
-        var controller: UIDocumentPickerViewController
-        if let allowed = allowdExtensions {
-            controller = UIDocumentPickerViewController(documentTypes: parseFileTypes(allowed), in: .import)
-        }
-        else {
-            controller = UIDocumentPickerViewController()
-        }
-        
+        let controller = UIDocumentPickerViewController(documentTypes: parseFileTypes(allowdExtensions), in: .import)
         controller.delegate = self
         self.callback = callback
         controller.modalPresentationStyle = .formSheet
         presenter.present(controller, animated: true, completion: nil)
     }
     
-    func parseFileTypes(_ allowdExtensions: String) -> [String] {
+    func parseFileTypes(_ allowdExtensions: String?) -> [String] {
+        guard let allowdExtensions = allowdExtensions else {
+            return ["public.data", "public.content"]
+        }
         var fileTypes = [String]()
         let fileExtensions = allowdExtensions.replacingOccurrences(of: ".", with: "")
             .components(separatedBy: ",")

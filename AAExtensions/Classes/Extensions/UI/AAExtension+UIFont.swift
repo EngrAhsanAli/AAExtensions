@@ -82,3 +82,29 @@ public extension UIFont {
     }
 }
 
+@available(iOS 8.2, *)
+public extension UIFont.Weight {
+    
+    var aa_string: String? {
+        switch self {
+        case .regular:
+            return "Regular"
+        case .bold:
+            return "Bold"
+        case .medium:
+            return "Medium"
+        case .light:
+            return "Light"
+        case .heavy:
+            return "Heavy"
+        case .semibold:
+            return "Semibold"
+        case .thin:
+            return "Thin"
+        case .ultraLight:
+            return "UltraLight"
+        default:
+            return nil
+        }
+    }
+}

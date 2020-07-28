@@ -71,30 +71,34 @@ public extension UIViewController {
 
     func aa_push(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
         vc.aa_callBack = result
-        if let navigation = self as? UINavigationController {
-            navigation.pushViewController(vc, animated: true)
-        }
-        else {
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let navigation = (self as? UINavigationController) ?? navigationController
+        navigation?.pushViewController(vc, animated: true)
     }
     
     func aa_pop(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
         vc.aa_callBack = result
-        navigationController?.popViewController(animated: true)
+        let navigation = (self as? UINavigationController) ?? navigationController
+        navigation?.popViewController(animated: true)
     }
     
     func aa_pop(to n: Int, result: Any? = nil) {
-        guard let viewControllers = navigationController?.viewControllers,
-            let destination = viewControllers[aa_optional: viewControllers.count - (n + 1)] else {
-                print("AAExtensions:- ", "View controller not found at \(n)")
+        
+        guard let navigation = (self as? UINavigationController) ?? navigationController else {
             return
         }
         
         if let result = result, let callback = aa_callBack {
             callback(result)
         }
-        self.navigationController!.popToViewController(destination, animated: true)
+        
+        let viewControllers = navigation.viewControllers
+        if let destination = viewControllers[aa_optional: viewControllers.count - (n + 1)] {
+            navigation.popToViewController(destination, animated: true)
+        }
+        else {
+            navigation.popToRootViewController(animated: true)
+        }
+        
     }
     
     func aa_present(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
@@ -208,7 +212,6 @@ public extension UIViewController {
             onComplete(values)
         })
         alert.addAction(saveAction)
-        saveAction.isEnabled = false
         
         for _ in 0..<textFields {
             alert.addTextField(configurationHandler: nil)
@@ -295,6 +298,16 @@ public extension UIViewController {
     
     func aa_leftBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
         self.navigationItem.leftBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
+    }
+    
+    func aa_leftBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
+        let color = navigationController?.navigationBar.barTintColor ?? .white
+        self.navigationItem.leftBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
+    }
+    
+    func aa_rightBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
+        let color = navigationController?.navigationBar.barTintColor ?? .white
+        self.navigationItem.rightBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
     }
     
 }
