@@ -22,6 +22,22 @@ public class AABindableBarButton: UIBarButtonItem {
         self.target = self
         self.actionHandler = actionHandler
     }
+    public convenience init(title: String?, font: UIFont, foregroundColor: UIColor, actionHandler: (() -> ())?) {
+        self.init(title: title, style: .plain, target: nil, action: #selector(barButtonItemPressed))
+        self.target = self
+        
+        setTitleTextAttributes([
+            NSAttributedString.Key.font : font,
+            NSAttributedString.Key.foregroundColor : foregroundColor,
+        ], for: .normal)
+        
+        setTitleTextAttributes([
+            NSAttributedString.Key.font : font,
+            NSAttributedString.Key.foregroundColor : foregroundColor,
+        ], for: .highlighted)
+        
+        self.actionHandler = actionHandler
+    }
     
     @objc func barButtonItemPressed(sender: UIBarButtonItem) {
         actionHandler?()

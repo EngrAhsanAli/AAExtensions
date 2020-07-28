@@ -25,54 +25,83 @@
 
 
 // MARK:- UIButton
-public extension UIButton {
+public extension AA where Base: UIButton {
     
-    func aa_leftIcon(_ string: String? = nil,
-                      icon: String,
-                      selected: String,
-                      color: UIColor,
-                      unselectedColor: UIColor,
+    func setFontIcon(string: (String?, String?)?,
+                      icons: (String, String?),
+                      color: (UIColor?, UIColor?)?,
+                      textColor: (UIColor?, UIColor?)?,
                       iconFont: UIFont,
-                      textFont: UIFont) {
+                      isLeft: Bool) {
         
-        let buttonText = string ?? self.titleLabel!.text ?? ""
-        self.contentHorizontalAlignment = .left
+        let buttonText = string?.0 ?? base.title(for: .normal) ?? ""
+        let selectedText = string?.1 ?? string?.0 ?? base.title(for: .selected) ?? buttonText
+        let normalColor = textColor?.0 ?? base.titleColor(for: .normal)
+        let selectedColor = textColor?.1 ?? textColor?.0 ?? base.titleColor(for: .selected)
         
-        self.tintColor = self.titleLabel?.textColor
+        let titleString, selectedString: String
+        let icon = icons.0
+        let selectedIcon = icons.1 ?? icons.0
+        let textRange, textRangeSelected: NSRange
         
-        let range = NSMakeRange(0, 1)
-        let textRange = NSMakeRange(1, buttonText.count + 1)
-        let attrs = NSMutableAttributedString(string: "\(icon) \(buttonText)")
+        if isLeft {
+            titleString = "\(icon) \(buttonText)"
+            selectedString = "\(selectedIcon) \(selectedText)"
+        }
+        else {
+            titleString = "\(buttonText) \(icon)"
+            selectedString = "\(selectedText) \(selectedIcon)"
+        }
+        
+        
+        textRange = NSRange(titleString.range(of: buttonText)!, in: titleString)
+        textRangeSelected = NSRange(selectedString.range(of: selectedText)!, in: selectedString)
+        
+        let rangeIcon = NSRange(titleString.range(of: icon)!, in: titleString)
+        
+        let attrs = NSMutableAttributedString(string: titleString)
         attrs.addAttribute(.baselineOffset, value: 3, range: textRange)
-        attrs.addAttribute(.font, value: iconFont, range: range)
-        attrs.addAttribute(NSAttributedString.Key.foregroundColor, value: color , range: range)
-        self.setAttributedTitle(attrs, for: .normal)
+        attrs.addAttribute(.font, value: iconFont, range: rangeIcon)
+        if let color = color, let normalColor = color.0 {
+            attrs.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor , range: rangeIcon)
+        }
+        attrs.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor as Any , range: textRange)
+        base.setAttributedTitle(attrs, for: .normal)
         
-        let attrsS = NSMutableAttributedString(string: "\(selected) \(buttonText)")
-        attrsS.addAttribute(.baselineOffset, value: 3, range: textRange)
-        attrsS.addAttribute(.font, value: textFont, range: range)
-        attrsS.addAttribute(NSAttributedString.Key.foregroundColor, value: unselectedColor , range: range)
-        self.setAttributedTitle(attrsS, for: .selected)
-        self.addTarget(self, action: #selector(self.leftIconClicked), for: .touchUpInside)
+        let attrsS = NSMutableAttributedString(string: selectedString)
+        attrsS.addAttribute(.baselineOffset, value: 3, range: textRangeSelected)
+        attrsS.addAttribute(NSAttributedString.Key.foregroundColor, value: selectedColor as Any  , range: textRangeSelected)
+        attrsS.addAttribute(.font, value: iconFont, range: rangeIcon)
+        if let color = color, let normalColor = color.1 ?? color.0 {
+            attrsS.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor, range: rangeIcon)
+        }
+        base.setAttributedTitle(attrsS, for: .selected)
+        
     }
     
-    @objc private func leftIconClicked() {
-        self.isSelected = !self.isSelected
-    }
     
-    func aa_setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        self.clipsToBounds = true  // add this to maintain corner radius
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        base.clipsToBounds = true
         UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
         if let context = UIGraphicsGetCurrentContext() {
             context.setFillColor(color.cgColor)
             context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
             let colorImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            self.setBackgroundImage(colorImage, for: forState)
+            base.setBackgroundImage(colorImage, for: forState)
         }
     }
+    
+    func animateSelection(_ animation: @escaping (() -> ())) {
+        UIView.transition(with: base, duration: 0.3,
+                          options: base.isSelected ? .transitionFlipFromBottom : .transitionFlipFromTop,
+                          animations: {
+                            self.base.isSelected.aa_toggle()
+                            animation()
+        }, completion: nil)
+    }
+    
 }
-
 
 public extension UIBarButtonItem {
     

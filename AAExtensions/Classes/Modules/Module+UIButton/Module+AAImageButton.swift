@@ -162,8 +162,6 @@ public extension AAImageButton {
         contentHorizontalAlignment = .left
         setTitle(text, for: .normal)
         setTitleColor(.black, for: .normal)
-        setImage(normalImage, for: .normal)
-        setImage(selectedImage, for: .selected)
         
     }
     

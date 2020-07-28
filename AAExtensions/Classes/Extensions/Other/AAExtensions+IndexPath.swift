@@ -1,8 +1,8 @@
 //
-//  AAExtension+Bool.swift
+//  AAExtensions+IndexPath.swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Muhammad Ahsan Ali on 2020/07/17.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,14 +23,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-// MARK:- Bool
-public extension Bool {
+public extension IndexPath {
     
-    mutating func aa_toggle()  {
-        self = !self
-    }
-    
-    var aa_intValue: Int {
-        return self ? 1 : 0
+    var aa_nextRow: IndexPath {
+        IndexPath(row: row + 1, section: section)
     }
 }

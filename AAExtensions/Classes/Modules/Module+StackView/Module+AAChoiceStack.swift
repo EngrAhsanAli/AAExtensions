@@ -25,17 +25,19 @@ public struct AAStackedChoices {
     let isSingle: Bool
     let choices: [String]
     let selections: [Int]?
-    let normalImage: UIImage
-    let selectedImage: UIImage
-    let height: CGFloat
+    let choiceImages: (UIImage, UIImage)
+    let font: UIFont
     
-    public init(isSingle: Bool, choices: [String], selections: [Int]?, normalImage: UIImage, selectedImage: UIImage, height: CGFloat = 30) {
+    public init(isSingle: Bool,
+                choices: [String],
+                selections: [Int]?,
+                font: UIFont,
+                choiceImages: (UIImage, UIImage)) {
         self.isSingle = isSingle
         self.choices = choices
         self.selections = selections
-        self.normalImage = normalImage
-        self.selectedImage = selectedImage
-        self.height = height
+        self.font = font
+        self.choiceImages = choiceImages
     }
     
 }
@@ -44,46 +46,75 @@ public struct AAStackedChoices {
 @available(iOS 9.0, *)
 fileprivate class WrappedChoices {
     
-    lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.alignment = .leading
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
     let model: AAStackedChoices
     var totalChoices: Int = -1
     var choices = [UIButton]()
     var selectionDidChange: (([Int]) -> ())?
+    let view: UIView
+    
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
     
     init(_ model: AAStackedChoices, view: UIView) {
         self.model = model
-        view.aa_addAndFitSubview(stackView)
+        self.view = view
+        
+        
     }
     
     func addChoices(_ choices: [String], config: ((UIButton) -> ())?) {
+        view.aa_removeSubViews()
         choices.forEach {
             let choice = makeChoice($0)
+            choice.sizeToFit()
             config?(choice)
-            choice.aa_constantConstaint(attr: .height, constant: model.height)
-            self.stackView.addArrangedSubview(choice)
+            
+            var height: CGFloat = 30
+            let calculatedHeight = $0.aa_height(withConstrainedWidth: view.frame.size.width, font: model.font)
+            if calculatedHeight > height {
+                height = calculatedHeight
+            }
+            choice.aa_constantConstaint(attr: .height, constant: height)
+            stackView.addArrangedSubview(choice)
         }
+        view.aa_addAndFitSubview(stackView, insets: .init(top: 10, left: 0, bottom: 0, right: 0))
+        view.aa_findConstraint(.bottom)?.priority = .defaultLow
     }
     
     func makeChoice(_ text: String) -> UIButton {
         totalChoices += 1
         
-        let choice = AAImageButton()
-        choice.choiceButton(model.isSingle, text: text, normalImage: model.normalImage, selectedImage: model.selectedImage)
+        let choice: UIButton = {
+            let btn = UIButton()
+            btn.setImage(model.choiceImages.0, for: .normal)
+            btn.setImage(model.choiceImages.1, for: .selected)
+            
+            btn.titleEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
+            btn.imageView?.contentMode = .scaleAspectFit
+            btn.contentHorizontalAlignment = .left
+            btn.setTitle(text, for: .normal)
+            btn.setTitleColor(.black, for: .normal)
+            btn.titleLabel?.lineBreakMode = .byWordWrapping
+            btn.titleLabel?.numberOfLines = 0
+            btn.titleLabel?.font = model.font
+            btn.sizeToFit()
+            
+            return btn
+        }()
         choice.tag = totalChoices
         
         choice.aa_addAction {
             self.makeSingleSelection()
             
-            UIView.transition(with: $0.imageView!, duration: 0.3, options: .transitionFlipFromBottom,
+            UIView.transition(with: $0.imageView!,
+                              duration: 0.3,
+                              options: .transitionFlipFromBottom,
                               animations: {
                                 choice.isSelected.aa_toggle()
             }, completion: nil)

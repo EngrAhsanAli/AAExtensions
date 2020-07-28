@@ -89,3 +89,25 @@ public extension UITabBar {
     
 }
 
+
+public extension UITabBarController {
+    func aa_visibility(_ isHidden: Bool, animated: Bool = true, duration: TimeInterval = 0.3) {
+        if (tabBar.isHidden == isHidden) {
+            return
+        }
+        
+        if !isHidden {
+            tabBar.isHidden = false
+        }
+        let height = tabBar.frame.size.height
+        let offsetY = view.frame.height - (isHidden ? 0 : height)
+        let duration = (animated ? duration : 0.0)
+        
+        let frame = CGRect(origin: CGPoint(x: tabBar.frame.minX, y: offsetY), size: tabBar.frame.size)
+        UIView.animate(withDuration: duration, animations: {
+            self.tabBar.frame = frame
+        }) { _ in
+            self.tabBar.isHidden = isHidden
+        }
+    }
+}

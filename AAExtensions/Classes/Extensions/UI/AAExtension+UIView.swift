@@ -229,6 +229,13 @@ public extension UIView {
         return NSKeyedUnarchiver.unarchiveObject(with: archivedData)
     }
 
+    func aa_findConstraint(_ attr: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
+        if let constraint = constraints.first(where: { ($0.firstAttribute == attr && $0.firstItem === self) || ($0.secondAttribute == attr && $0.secondItem === self) }) {
+            return constraint
+        }
+        return nil
+    }
+    
     func aa_insertDottedLine(start: CGPoint, end: CGPoint, color: UIColor) {
         let lineDashPattern: [NSNumber]?  = [3, 3]
 
@@ -472,9 +479,9 @@ public extension UIView {
     func aa_setGradient(_ model: AAGradientModel) {
         aa_removeGradient()
         let gradientView = AAGradientView(model)
-        addSubview(gradientView)
-        gradientView.setupConstraints()
+        aa_addAndFitSubview(gradientView)
         sendSubviewToBack(gradientView)
+        gradientView.isUserInteractionEnabled = false
     }
     
     @available(iOS 9.0, *)
