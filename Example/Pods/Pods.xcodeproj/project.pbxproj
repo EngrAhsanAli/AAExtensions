@@ -27,6 +27,7 @@
 		2FB4A3772D92E9E514B194C762878505 /* Designable+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D1128D54D9E99B3CA0F2C7F54B5761 /* Designable+UITextField.swift */; };
 		410238BD2499D14100F05EE7 /* Module+AABindableBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410238BC2499D14100F05EE7 /* Module+AABindableBarButton.swift */; };
 		419B6FEB2CA6FFE59CD9B1528C9AE97E /* AAExtension+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC06A5E724A15A8BBFBDE78FD8FEC1A /* AAExtension+NSAttributedString.swift */; };
+		419F99A124F3E5BE002D32D8 /* Module+AABottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419F99A024F3E5BE002D32D8 /* Module+AABottomSheet.swift */; };
 		42E647216A34987EBC377DE7F52E2FE9 /* Module+AAGradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070247841636E22A9671DAEFB3F198F0 /* Module+AAGradientLabel.swift */; };
 		434A1846D032976DC37C2A46BD6F82E9 /* Module+AAUserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725C13BD96FCFE0A7C0E57470E55646 /* Module+AAUserNotification.swift */; };
 		446B8A16DF150CCC6BAACE6172651C90 /* Module+AARoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97902BC1913B9DC3C62B9EA7E3A7A28 /* Module+AARoundedButton.swift */; };
@@ -146,6 +147,7 @@
 		393523B2A007D5F4C1565B852FC36F8F /* Pods-AAExtensions_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AAExtensions_Example-frameworks.sh"; sourceTree = "<group>"; };
 		3A830983B782F050BAFC822802D321D4 /* Module+AAReversibleConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAReversibleConstraint.swift"; sourceTree = "<group>"; };
 		410238BC2499D14100F05EE7 /* Module+AABindableBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AABindableBarButton.swift"; sourceTree = "<group>"; };
+		419F99A024F3E5BE002D32D8 /* Module+AABottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AABottomSheet.swift"; sourceTree = "<group>"; };
 		4CFCD248D66B734951E67B1FD57166C4 /* AAExtension+UIBarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIBarButtonItem.swift"; sourceTree = "<group>"; };
 		51C4D166958023689CCACE481E6D3FF6 /* AAExtension+UICollectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UICollectionView.swift"; sourceTree = "<group>"; };
 		52D3449CB31B9B0013EABF5B4BD87F38 /* AAExtension+UIStackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIStackView.swift"; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				C725C13BD96FCFE0A7C0E57470E55646 /* Module+AAUserNotification.swift */,
 				6A61515601C38EE39DC06D8DCA69949A /* Module+AAWrappedCollectionView.swift */,
 				410238BC2499D14100F05EE7 /* Module+AABindableBarButton.swift */,
+				419F99A024F3E5BE002D32D8 /* Module+AABottomSheet.swift */,
 				6E054E1E9F7B14522A9F5F9FF01D744C /* Module+NSLayoutConstraint */,
 				AD6990E2E6A14B0C29FCD829EE3679A1 /* Module+StackView */,
 				B918A707743C7AD0FAD01FF53D21CD7F /* Module+UIButton */,
@@ -804,6 +807,7 @@
 				25C8B52A1688EE3338E929E80FACCC57 /* Module+AAKeyboardLayoutConstraint.swift in Sources */,
 				B7FAE764440755AD1CA08F1FDFE0EB77 /* Module+AAKeyPathListable.swift in Sources */,
 				0C8B06BDD573D174A09AF8A02A26CE46 /* Module+AALabelParagraph.swift in Sources */,
+				419F99A124F3E5BE002D32D8 /* Module+AABottomSheet.swift in Sources */,
 				8DE67E53EDEFD782F2D80F5EC4BCCAF8 /* Module+AALinedLabel.swift in Sources */,
 				6F9C7C72A4F2919BFFC2486D9500911C /* Module+AALoadingButton.swift in Sources */,
 				AA7C5C877AEE6CC237603E33E698598E /* Module+AAPlaceholderTextView.swift in Sources */,

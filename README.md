@@ -73,7 +73,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'AAExtensions', '0.1.5'
+pod 'AAExtensions', '1.1'
 end
 
 ```

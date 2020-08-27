@@ -50,8 +50,8 @@ public extension Array where Element: Equatable {
 }
 
 // MARK: - Array UIView
-public extension Array where Element == UIView {
-    func aa_setVisibility(isHidden: Bool) { forEach { $0.isHidden = isHidden } }
+public extension Sequence where Iterator.Element: UIView {
+    func aa_setVisibility(_ flag: Bool) { forEach { $0.isHidden = !flag } }
 }
 
 // MARK: - Array AAReversibleConstraint

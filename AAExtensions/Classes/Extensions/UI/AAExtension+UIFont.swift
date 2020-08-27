@@ -80,6 +80,22 @@ public extension UIFont {
         return fontDescriptor.object(forKey: .traits) as? [UIFontDescriptor.TraitKey: Any]
             ?? [:]
     }
+    
+    class func aa_fetchFont(from url: URL, completion: ((UIFont?) -> ())?) {
+        URLSession(configuration: .default).dataTask(with: url,
+                         completionHandler: { (data, response, error) in
+                            guard error == nil,
+                                let data = data,
+                                (response as? HTTPURLResponse)?.statusCode == 200,
+                                let ctFontDescriptor = CTFontManagerCreateFontDescriptorFromData(data as CFData) else {
+                                    completion?(nil)
+                                    return
+                            }
+                            // Create CTFont from the Font Descriptor and convert it to UIFont.
+                            let font: UIFont = CTFontCreateWithFontDescriptor(ctFontDescriptor, 0.0, nil) as UIFont
+                            completion?(font)
+        }).resume()
+    }
 }
 
 @available(iOS 8.2, *)

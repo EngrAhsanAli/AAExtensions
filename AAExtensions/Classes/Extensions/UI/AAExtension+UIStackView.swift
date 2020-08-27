@@ -33,4 +33,15 @@ public extension UIStackView {
         subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(subview, at: 0)
     }
+    
+    func aa_removeArrangedSubviews(removeConstraints: Bool) {
+        let removedSubviews = arrangedSubviews.reduce([]) { (sum, next) -> [UIView] in
+            self.removeArrangedSubview(next)
+            return sum + [next]
+        }
+        if removeConstraints {
+            NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        }
+        removedSubviews.forEach({ $0.removeFromSuperview() })
+    }
 }

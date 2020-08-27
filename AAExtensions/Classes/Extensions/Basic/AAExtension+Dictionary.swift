@@ -54,4 +54,10 @@ public extension Dictionary {
             return anEntry.key
         }
     }
+    
+    func aa_append(_ dict: [Key: Value]) -> [Key: Value] {
+        var result = self
+        dict.forEach { key, value in result[key] = value }
+        return result
+    }
 }
