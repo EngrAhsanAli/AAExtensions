@@ -25,14 +25,14 @@ public struct AAStackedChoices {
     let isSingle: Bool
     let choices: [String]
     let selections: [Int]?
-    let choiceImages: (UIImage, UIImage)
+    let choiceImages: (UIImage, UIImage)?
     let font: UIFont
     
     public init(isSingle: Bool,
                 choices: [String],
                 selections: [Int]?,
                 font: UIFont,
-                choiceImages: (UIImage, UIImage)) {
+                choiceImages: (UIImage, UIImage)?) {
         self.isSingle = isSingle
         self.choices = choices
         self.selections = selections
@@ -64,8 +64,6 @@ fileprivate class WrappedChoices {
     init(_ model: AAStackedChoices, view: UIView) {
         self.model = model
         self.view = view
-        
-        
     }
     
     func addChoices(_ choices: [String], config: ((UIButton) -> ())?) {
@@ -92,9 +90,10 @@ fileprivate class WrappedChoices {
         
         let choice: UIButton = {
             let btn = UIButton()
-            btn.setImage(model.choiceImages.0, for: .normal)
-            btn.setImage(model.choiceImages.1, for: .selected)
-            
+            if let choiceImages = model.choiceImages {
+                btn.setImage(choiceImages.0, for: .normal)
+                btn.setImage(choiceImages.1, for: .selected)
+            }
             btn.titleEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
             btn.imageView?.contentMode = .scaleAspectFit
             btn.contentHorizontalAlignment = .left

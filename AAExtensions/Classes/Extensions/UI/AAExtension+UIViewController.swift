@@ -81,7 +81,7 @@ public extension UIViewController {
         navigation?.popViewController(animated: true)
     }
     
-    func aa_pop(to n: Int, result: Any? = nil) {
+    func aa_pop(to n: Int = 1, result: Any? = nil) {
         
         guard let navigation = (self as? UINavigationController) ?? navigationController else {
             return

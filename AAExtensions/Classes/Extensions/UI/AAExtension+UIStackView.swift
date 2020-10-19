@@ -44,4 +44,20 @@ public extension UIStackView {
         }
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
+    
+    func aa_setClickListner(_ callback: @escaping ((Int) -> ())) {
+        isUserInteractionEnabled = true
+        aa_addTapGesture(self) {
+            guard let sender = self.gestureRecognizers?.filter({ ($0 as? UITapGestureRecognizer != nil) }).first else {
+                return
+            }
+            let view = sender.view
+            let loc = sender.location(in: view)
+            guard let subview = view?.hitTest(loc, with: nil) else { return }
+            callback(subview.tag)
+            
+        }
+        arrangedSubviews.enumerated().forEach { $0.element.tag = $0.offset }
+        
+    }
 }
