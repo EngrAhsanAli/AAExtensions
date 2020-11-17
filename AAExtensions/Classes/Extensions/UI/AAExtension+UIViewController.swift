@@ -114,31 +114,6 @@ public extension UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @discardableResult
-    func aa_addWebView(_ urlString: String) -> UIWebView {
-        let webView = UIWebView()
-        if #available(iOS 9.0, *) {
-            view.aa_addConstrainedSubview(webView)
-        } else {
-            view.aa_addAndFitSubview(webView)
-        }
-        let url = URL(string: urlString)!
-        let request = URLRequest(url: url)
-        webView.loadRequest(request)
-        return webView
-    }
-    
-    func aa_pushWebView(_ url: String, bgColor: UIColor, completion: ((UIViewController, UIWebView) -> ())) {
-        
-        let vc = UIViewController()
-        vc.view.backgroundColor = bgColor
-        let webView = vc.aa_addWebView(url)
-        webView.isOpaque = false
-        webView.backgroundColor = bgColor
-        completion(vc, webView)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
     /// Callbacks the value stored and removes the object immediately
     var aa_callBack: ((Any?) -> ())?  {
         get {
