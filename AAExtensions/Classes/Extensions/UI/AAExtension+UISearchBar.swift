@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 
 
-extension UISearchBar {
+public extension UISearchBar {
     
     /// Returns the`UITextField` that is placed inside the text field.
     var aa_textField: UITextField {

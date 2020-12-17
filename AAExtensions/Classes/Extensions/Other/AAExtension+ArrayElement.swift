@@ -84,7 +84,7 @@ public extension RangeReplaceableCollection where Element: Equatable {
     }
 }
 
-extension Array {
+public extension Array {
     mutating func aa_move(at oldIndex: Int, to newIndex: Int) {
         if newIndex >= count || newIndex < 0 { return }
         self.insert(self.remove(at: oldIndex), at: newIndex)
