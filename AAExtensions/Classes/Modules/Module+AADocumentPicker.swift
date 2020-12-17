@@ -56,6 +56,7 @@ fileprivate class WrappedFilePicker: NSObject, UIDocumentPickerDelegate {
         var fileTypes = [String]()
         let fileExtensions = allowdExtensions.replacingOccurrences(of: ".", with: "")
             .components(separatedBy: ",")
+            .filter { $0 != "" }
         
         fileExtensions.forEach { (ex) in
             

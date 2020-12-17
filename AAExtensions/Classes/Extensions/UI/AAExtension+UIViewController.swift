@@ -114,6 +114,18 @@ public extension UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func aa_dismiss(_ depth: Int) {
+        guard depth > 0 else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        var finalViewController = self.presentingViewController
+        (0...depth - 1).forEach { _ in
+            finalViewController = finalViewController?.presentingViewController
+        }
+        finalViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     /// Callbacks the value stored and removes the object immediately
     var aa_callBack: ((Any?) -> ())?  {
         get {
@@ -123,6 +135,34 @@ public extension UIViewController {
         }
         set {
             objc_setAssociatedObject(self, &AA_AssociationKeyAnyCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    var aa_any: Any?  {
+        get {
+            let value = objc_getAssociatedObject(self, &AA_AssociationKeyAnyData)
+            objc_removeAssociatedObjects(self)
+            return value
+        }
+        set {
+            objc_setAssociatedObject(self, &AA_AssociationKeyAnyData, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    var aa_anyCallback: (Any?, ((Any?) -> ())?)? {
+        get {
+            let value = objc_getAssociatedObject(self, &AA_AssociationKeyAnyDataWithCallback)
+            objc_removeAssociatedObjects(self)
+            return value as? (Any?, ((Any?) -> ())?)
+        }
+        set {
+            if newValue == nil {
+                objc_removeAssociatedObjects(self)
+            }
+            else {
+                objc_setAssociatedObject(self, &AA_AssociationKeyAnyDataWithCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
+            }
+            
         }
     }
     

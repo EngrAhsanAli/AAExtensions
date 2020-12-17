@@ -146,10 +146,6 @@ public extension String {
         }
     }
     
-    func aa_capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + self.lowercased().dropFirst()
-    }
-    
     var aa_htmlToAttributed: NSAttributedString? {
         guard
             let data = self.data(using: .utf8)
@@ -218,32 +214,24 @@ public extension String {
         
         return ceil(boundingBox.height)
     }
-}
-
-
-//MARK:- String Comparision
-public extension String {
     
-    static func ==(lhs: String, rhs: String) -> Bool {
-        return lhs.compare(rhs, options: .numeric) == .orderedSame
-    }
-    
-    static func <(lhs: String, rhs: String) -> Bool {
-        return lhs.compare(rhs, options: .numeric) == .orderedAscending
-    }
-    
-    static func <=(lhs: String, rhs: String) -> Bool {
-        return lhs.compare(rhs, options: .numeric) == .orderedAscending || lhs.compare(rhs, options: .numeric) == .orderedSame
-    }
-    
-    static func >(lhs: String, rhs: String) -> Bool {
-        return lhs.compare(rhs, options: .numeric) == .orderedDescending
-    }
-    
-    static func >=(lhs: String, rhs: String) -> Bool {
-        return lhs.compare(rhs, options: .numeric) == .orderedDescending || lhs.compare(rhs, options: .numeric) == .orderedSame
+    var aa_validUrls: [URL] {
+        let types: NSTextCheckingResult.CheckingType = .link
+        
+        do {
+            let detector = try NSDataDetector(types: types.rawValue)
+            
+            let matches = detector.matches(in: self, options: .reportCompletion, range: NSMakeRange(0, self.count))
+            
+            return matches.compactMap({$0.url})
+        } catch let error {
+            debugPrint(error.localizedDescription)
+        }
+        
+        return []
     }
 }
+
 
 public extension String {
     fileprivate var aa_fileURL: URL {

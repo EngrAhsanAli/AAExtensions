@@ -47,7 +47,7 @@ public extension UIStackView {
     
     func aa_setClickListner(_ callback: @escaping ((Int) -> ())) {
         isUserInteractionEnabled = true
-        aa_addTapGesture(self) {
+        aa_addTapGesture {
             guard let sender = self.gestureRecognizers?.filter({ ($0 as? UITapGestureRecognizer != nil) }).first else {
                 return
             }

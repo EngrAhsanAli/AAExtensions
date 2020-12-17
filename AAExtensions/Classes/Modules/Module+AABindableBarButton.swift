@@ -48,7 +48,7 @@ final class BindableGestureRecognizer: UITapGestureRecognizer {
     
     var _action: AACompletionVoid
     
-    init(_ target: Any, action: @escaping AACompletionVoid) {
+    init(_ action: @escaping AACompletionVoid) {
         self._action = action
         super.init(target: nil, action: nil)
         self.addTarget(self, action: #selector(execute))

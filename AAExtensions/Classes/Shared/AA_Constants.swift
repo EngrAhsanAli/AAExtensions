@@ -27,6 +27,8 @@
 /// Constant variables
 var AA_AssociationKeyMaxLength: Int = 0
 var AA_AssociationKeyAnyCallback: Int = 0
+var AA_AssociationKeyAnyData: Int = 1
+var AA_AssociationKeyAnyDataWithCallback: Int = 2
 
 let AA_TAG = "AAExtensions:- "
 
@@ -36,7 +38,7 @@ public typealias AACompletionAny   = ((Any) -> ())
 public typealias AAKeyValue        = [String: Any]
 
 /// Constant computations
-public var aa_rootVC: UIViewController { return UIApplication.shared.keyWindow!.rootViewController! }
+public var aa_rootVC: UIViewController { return UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController! }
 
 public let AAHelper = { return AA_Helper.shared }()
 

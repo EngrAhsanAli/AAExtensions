@@ -157,4 +157,65 @@ public extension UIImage {
         
         return img
     }
+    
+    func aa_save(at directory: FileManager.SearchPathDirectory,
+                 pathAndImageName: String,
+                 createSubdirectoriesIfNeed: Bool = true,
+                 compressionQuality: CGFloat = 1.0)  -> URL? {
+        do {
+            let documentsDirectory = try FileManager.default.url(for: directory, in: .userDomainMask,
+                                                                 appropriateFor: nil,
+                                                                 create: false)
+            return aa_save(at: documentsDirectory.appendingPathComponent(pathAndImageName),
+                           createSubdirectoriesIfNeed: createSubdirectoriesIfNeed,
+                           compressionQuality: compressionQuality)
+        } catch {
+            print("-- Error: \(error)")
+            return nil
+        }
+    }
+    
+    func aa_mask(_ color: UIColor) -> UIImage? {
+        let maskImage = cgImage!
+        
+        let width = (cgImage?.width)!
+        let height = (cgImage?.height)!
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        
+        context.clip(to: bounds, mask: maskImage)
+        context.setFillColor(color.cgColor)
+        context.fill(bounds)
+        
+        if let cgImage = context.makeImage() {
+            let coloredImage = UIImage.init(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+            return coloredImage
+        } else {
+            return nil
+        }
+    }
+}
+
+fileprivate extension UIImage {
+    
+    func aa_save(at url: URL,
+                 createSubdirectoriesIfNeed: Bool = true,
+                 compressionQuality: CGFloat = 1.0)  -> URL? {
+        do {
+            if createSubdirectoriesIfNeed {
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
+            }
+            guard let data = jpegData(compressionQuality: compressionQuality) else { return nil }
+            try data.write(to: url)
+            return url
+        } catch {
+            print("\(AA_TAG) aa_save error: \(error)")
+            return nil
+        }
+    }
 }

@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        self.view.aa_addTapGesture(self) {
+        self.view.aa_addTapGesture {
             self.aa_callBack?("Some Value")
         }
         

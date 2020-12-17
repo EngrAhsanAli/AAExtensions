@@ -350,12 +350,14 @@ public extension UIView {
         self.layer.addSublayer(shapeLayer)
     }
 
-    func aa_addTapGesture(_ target: Any, _ closure: @escaping ()->()) {
+    @discardableResult
+    func aa_addTapGesture( _ closure: @escaping ()->()) -> UITapGestureRecognizer {
         
-        let gestureRecognizer = BindableGestureRecognizer(target, action: closure)
+        let gestureRecognizer = BindableGestureRecognizer(closure)
         gestureRecognizer.numberOfTapsRequired = 1
         isUserInteractionEnabled = true
         self.addGestureRecognizer(gestureRecognizer)
+        return gestureRecognizer
     }
     
     func aa_dropShadow(scale: Bool = true) {
