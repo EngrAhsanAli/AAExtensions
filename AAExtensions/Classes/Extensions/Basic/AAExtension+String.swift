@@ -230,6 +230,19 @@ public extension String {
         
         return []
     }
+    
+    var aa_toDict: [String: Any]? {
+        
+        if let data = self.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
+            } catch {
+                print("AAExtensions:- JSON is not valid")
+            }
+        }
+        return nil
+        
+    }
 }
 
 
