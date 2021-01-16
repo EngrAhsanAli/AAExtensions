@@ -351,8 +351,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func aa_addTapGesture( _ closure: @escaping ()->()) -> UITapGestureRecognizer {
-        
+    func aa_addTapGesture(_ closure: @escaping ()-> ()) -> UITapGestureRecognizer {
         let gestureRecognizer = BindableGestureRecognizer(closure)
         gestureRecognizer.numberOfTapsRequired = 1
         isUserInteractionEnabled = true
@@ -494,13 +493,9 @@ public extension UIView {
         }
         gradientView.removeFromSuperlayer()
     }
-}
-
-public extension UIView {
-
-    static func fromNib<A: UIView> (nibName name: String, bundle: Bundle) -> A? {
+    
+    static func fromNib<A: UIView>(nibName name: String, bundle: Bundle) -> A? {
         let nibViews = bundle.loadNibNamed(name, owner: self, options: nil)
         return nibViews?.first as? A
     }
-    
 }

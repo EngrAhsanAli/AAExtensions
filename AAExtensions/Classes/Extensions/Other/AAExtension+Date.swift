@@ -35,7 +35,11 @@ public extension Date {
     }
     
     func aa_toString(fromFormat: AADateFormatters, currentTimeZone: Bool) -> String {
-        return aa_toString(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
+        aa_toString(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
+    }
+    
+    var aa_timeStamp: Int64 {
+        Int64(timeIntervalSince1970 * 1000)
     }
     
     func aa_timeAgo(numericDates: Bool) -> String {

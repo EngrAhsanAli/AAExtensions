@@ -86,6 +86,7 @@ public enum AADateFormatters: String {
     case format13 = "dd MMM, yyyy"                          // 06 June, 2019
     case format14 = "yyyy-MM-dd HH:mm:ss"                   // 2019-06-16 08:47:45
     case format15 = "MMM dd : HH:mm a"                      // Jun 16 : 08:47 AM
+    case format16 = "hh:mm a"                               // 12:00 AM
     
 }
 

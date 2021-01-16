@@ -81,7 +81,7 @@ public extension String {
     }
     
     func aa_toDate(fromFormat: AADateFormatters, currentTimeZone: Bool) -> Date? {
-        return aa_toDate(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
+        aa_toDate(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
     }
     
     subscript(_ aa_range: CountableRange<Int>) -> String {
@@ -96,7 +96,7 @@ public extension String {
     }
     
     func aa_replace(_ originalString: String, with newString: String) -> String {
-        return self.replacingOccurrences(of: originalString, with: newString)
+        self.replacingOccurrences(of: originalString, with: newString)
     }
     
     func aa_openURL() {
@@ -177,12 +177,11 @@ public extension String {
     }
     
     func aa_isValid(regex: AARegularExpressions) -> Bool {
-        return aa_isValid(regex: regex.rawValue)
+        aa_isValid(regex: regex.rawValue)
     }
     
     func aa_isValid(regex: String) -> Bool {
-        let matches = range(of: regex, options: .regularExpression)
-        return matches != nil
+        (range(of: regex, options: .regularExpression)) != nil
     }
     
     subscript (aa_range: CountableClosedRange<Int>) -> String {
@@ -192,26 +191,20 @@ public extension String {
     }
     
     func aa_width(usingFont font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.width
+        self.size(withAttributes: [NSAttributedString.Key.font: font]).width
     }
     
     func aa_height(usingFont font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.height
+        self.size(withAttributes: [NSAttributedString.Key.font: font]).height
     }
     
     func aa_size(usingFont font: UIFont) -> CGSize {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        return self.size(withAttributes: fontAttributes)
+        self.size(withAttributes: [NSAttributedString.Key.font: font])
     }
     
     func aa_height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
         return ceil(boundingBox.height)
     }
     
@@ -220,12 +213,10 @@ public extension String {
         
         do {
             let detector = try NSDataDetector(types: types.rawValue)
-            
             let matches = detector.matches(in: self, options: .reportCompletion, range: NSMakeRange(0, self.count))
-            
             return matches.compactMap({$0.url})
         } catch let error {
-            debugPrint(error.localizedDescription)
+            debugPrint("AAExtensions:- ", error.localizedDescription)
         }
         
         return []
@@ -237,25 +228,29 @@ public extension String {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
             } catch {
-                print("AAExtensions:- JSON is not valid")
+                debugPrint("AAExtensions:- ", error.localizedDescription)
             }
         }
         return nil
         
     }
+    
+    var aa_camelCaseToWords: String {
+        unicodeScalars.reduce("") {
+            if CharacterSet.uppercaseLetters.contains($1) { return ($0 + " " + String($1)) }
+            else { return $0 + String($1) }
+        }
+    }
 }
 
 
 public extension String {
-    fileprivate var aa_fileURL: URL {
-        return URL(fileURLWithPath: self)
-    }
-    var aa_pathExtension: String {
-        return aa_fileURL.pathExtension
-    }
-    var aa_lastPathComponent: String {
-        return aa_fileURL.lastPathComponent
-    }
+    
+    fileprivate var aa_fileURL: URL { URL(fileURLWithPath: self) }
+    
+    var aa_pathExtension: String { aa_fileURL.pathExtension }
+    
+    var aa_lastPathComponent: String { aa_fileURL.lastPathComponent }
     
     var aa_formattedFileSize: String? {
         guard let size = try? FileManager.default.attributesOfItem(atPath: self)[FileAttributeKey.size],

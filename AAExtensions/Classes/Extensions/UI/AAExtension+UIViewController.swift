@@ -368,7 +368,7 @@ public extension UIViewController {
 
 
 public extension AA where Base: UIViewController {
-
+    
     func setCurvedNavigation(_ model: AAGradientModel, curveRadius: CGFloat = 17,
                              shadowColor: UIColor = .darkGray, shadowRadius: CGFloat = 4,
                              heightOffset: CGFloat = 0, curveHeight: CGFloat) {
@@ -427,8 +427,4 @@ public extension AA where Base: UIViewController {
         navigationController.view.layer.insertSublayer(shadowLayer, at: 1)
         
     }
-    
-   
-    
-    
 }
