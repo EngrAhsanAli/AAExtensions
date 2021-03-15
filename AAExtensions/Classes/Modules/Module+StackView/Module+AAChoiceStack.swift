@@ -114,9 +114,7 @@ fileprivate class WrappedChoices {
             UIView.transition(with: $0.imageView!,
                               duration: 0.3,
                               options: .transitionFlipFromBottom,
-                              animations: {
-                                choice.isSelected.toggle()
-            }, completion: nil)
+                              animations: { choice.isSelected.toggle() }, completion: nil)
             
             self.selectionDidChange?(self.selections)
         }

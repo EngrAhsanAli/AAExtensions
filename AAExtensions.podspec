@@ -28,7 +28,7 @@ AAExtensions are a set of UI Extensions and Helper functions for iOS application
   s.source           = { :git => 'https://github.com/EngrAhsanAli/AAExtensions.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.swift_version = '5.0'
   s.source_files = 'AAExtensions/Classes/**/*'
   
