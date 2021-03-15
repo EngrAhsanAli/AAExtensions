@@ -96,7 +96,7 @@ public extension AA where Base: UIButton {
         UIView.transition(with: base, duration: 0.3,
                           options: base.isSelected ? .transitionFlipFromBottom : .transitionFlipFromTop,
                           animations: {
-                            self.base.isSelected.aa_toggle()
+                            self.base.isSelected.toggle()
                             animation()
         }, completion: nil)
     }

@@ -115,7 +115,7 @@ fileprivate class WrappedChoices {
                               duration: 0.3,
                               options: .transitionFlipFromBottom,
                               animations: {
-                                choice.isSelected.aa_toggle()
+                                choice.isSelected.toggle()
             }, completion: nil)
             
             self.selectionDidChange?(self.selections)
