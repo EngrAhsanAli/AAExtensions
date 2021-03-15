@@ -26,15 +26,16 @@
 // MARK: - NSAttributedString
 public extension NSAttributedString {
     
-    convenience init(aa_htmlString html: String, font: UIFont? = nil, useDocumentFontSize: Bool = true) throws {
+    convenience init?(htmlString html: String, font: UIFont? = nil, color: UIColor?, useDocumentFontSize: Bool = true) {
         let options: [NSAttributedString.DocumentReadingOptionKey : Any] = [
             .documentType: NSAttributedString.DocumentType.html,
             .characterEncoding: String.Encoding.utf8.rawValue
         ]
         
-        let data = html.data(using: .utf8, allowLossyConversion: true)
+        let string = html.replacingOccurrences(of: "\n", with: "<br>")
+        let data = string.data(using: .utf8, allowLossyConversion: true)
         guard (data != nil), let fontFamily = font?.familyName, let attr = try? NSMutableAttributedString(data: data!, options: options, documentAttributes: nil) else {
-            try self.init(data: data ?? Data(html.utf8), options: options, documentAttributes: nil)
+            try? self.init(data: data ?? Data(string.utf8), options: options, documentAttributes: nil)
             return
         }
         
@@ -54,6 +55,10 @@ public extension NSAttributedString {
                 }
                 
                 attr.addAttribute(.font, value: UIFont(descriptor: descrip, size: fontSize ?? htmlFont.pointSize), range: range)
+                if let color = color {
+                    attr.addAttribute(.foregroundColor, value: color, range: range)
+                }
+                
             }
         }
         
@@ -99,5 +104,57 @@ public extension NSAttributedString {
         
         
         self.init(attributedString: mutableAttributedString)
+    }
+}
+
+
+public extension NSMutableAttributedString {
+    
+    func aa_setAsLink(textToFind:String, linkURL:String, font: UIFont, color: UIColor = .blue) {
+        let foundRange = self.mutableString.range(of: textToFind)
+        if foundRange.location != NSNotFound {
+            _ = NSMutableAttributedString(string: textToFind)
+            
+            let urlAttributes: [NSAttributedString.Key: Any] = [
+                .attachment: URL(string: linkURL) as Any,
+                .font: font,
+                .foregroundColor: color,
+                .underlineColor: color,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ]
+            
+            self.setAttributes(urlAttributes, range: foundRange)
+        }
+    }
+    
+    func aa_embedIcon(image: UIImage, color: UIColor?, spacing: Int = 2, size: CGFloat?, baseline: Int? = nil, isLeft: Bool) {
+        let attachment = NSTextAttachment()
+        if let size = size {
+            let height = image.aa_height(forWidth: size)
+            attachment.bounds = .init(x: 0, y: 0, width: size, height: height)
+        }
+        var _image = image
+        if let color = color, let tintImage = image.aa_tint(with: color) {
+            _image = tintImage
+        }
+        attachment.image = _image
+        let attachmentString = NSAttributedString(attachment: attachment)
+        
+        if let baseline = baseline {
+            let text = string
+            let range = NSRange(text.startIndex..<text.endIndex, in: text)
+            addAttribute(.baselineOffset, value: baseline, range: range)
+        }
+        
+        let spacing = NSAttributedString(string: .init(repeating: " ", count: spacing))
+        if isLeft {
+            insert(spacing, at: 0)
+            insert(attachmentString, at: 0)
+        }
+        else {
+            append(spacing)
+            append(attachmentString)
+        }
+        
     }
 }

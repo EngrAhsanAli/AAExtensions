@@ -27,6 +27,7 @@
 		2FB4A3772D92E9E514B194C762878505 /* Designable+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D1128D54D9E99B3CA0F2C7F54B5761 /* Designable+UITextField.swift */; };
 		410238BD2499D14100F05EE7 /* Module+AABindableBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410238BC2499D14100F05EE7 /* Module+AABindableBarButton.swift */; };
 		410E9109258B262400D42E66 /* AAExtension+UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410E9108258B262400D42E66 /* AAExtension+UISearchBar.swift */; };
+		413963F825F9B7EB002AB51D /* AAExtensions+FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413963F725F9B7EB002AB51D /* AAExtensions+FileManager.swift */; };
 		418CEE6D25B37DDB00B2CA2C /* AAExtensions+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418CEE6C25B37DDB00B2CA2C /* AAExtensions+Encodable.swift */; };
 		419B6FEB2CA6FFE59CD9B1528C9AE97E /* AAExtension+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC06A5E724A15A8BBFBDE78FD8FEC1A /* AAExtension+NSAttributedString.swift */; };
 		419F99A124F3E5BE002D32D8 /* Module+AABottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419F99A024F3E5BE002D32D8 /* Module+AABottomSheet.swift */; };
@@ -150,6 +151,7 @@
 		3A830983B782F050BAFC822802D321D4 /* Module+AAReversibleConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAReversibleConstraint.swift"; sourceTree = "<group>"; };
 		410238BC2499D14100F05EE7 /* Module+AABindableBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AABindableBarButton.swift"; sourceTree = "<group>"; };
 		410E9108258B262400D42E66 /* AAExtension+UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UISearchBar.swift"; sourceTree = "<group>"; };
+		413963F725F9B7EB002AB51D /* AAExtensions+FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtensions+FileManager.swift"; sourceTree = "<group>"; };
 		418CEE6C25B37DDB00B2CA2C /* AAExtensions+Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtensions+Encodable.swift"; sourceTree = "<group>"; };
 		419F99A024F3E5BE002D32D8 /* Module+AABottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Module+AABottomSheet.swift"; sourceTree = "<group>"; };
 		4CFCD248D66B734951E67B1FD57166C4 /* AAExtension+UIBarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIBarButtonItem.swift"; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				861CFFAC9A74472224E894F516F48F36 /* AAExtension+StringProtocol.swift */,
 				F10D48EF286B1239ABCEE036A7A471BE /* AAExtensions+Mirror.swift */,
 				418CEE6C25B37DDB00B2CA2C /* AAExtensions+Encodable.swift */,
+				413963F725F9B7EB002AB51D /* AAExtensions+FileManager.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -821,6 +824,7 @@
 				AA7C5C877AEE6CC237603E33E698598E /* Module+AAPlaceholderTextView.swift in Sources */,
 				6916A10B1CB4FC665E7292EE79018079 /* Module+AAReversibleConstraint.swift in Sources */,
 				446B8A16DF150CCC6BAACE6172651C90 /* Module+AARoundedButton.swift in Sources */,
+				413963F825F9B7EB002AB51D /* AAExtensions+FileManager.swift in Sources */,
 				D84CC118A4637E145BEA6CD6AFDCF3AE /* Module+AASegmentButton.swift in Sources */,
 				0EF9B95F073FD52CA9272B9E8DA38C70 /* Module+AAStackViewSeparator.swift in Sources */,
 				BB843F2D4A86F4312A273A87BDB3392A /* Module+AATimer.swift in Sources */,

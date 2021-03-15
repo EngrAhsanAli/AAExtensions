@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+import AVFoundation
 
 public extension UIImage {
     var aa_toBase64: String? {
@@ -196,6 +197,28 @@ public extension UIImage {
         } else {
             return nil
         }
+    }
+    
+    func aa_tint(with fillColor: UIColor) -> UIImage? {
+        if #available(iOS 13.0, *) {
+            return withTintColor(fillColor, renderingMode: .alwaysTemplate)
+        }
+        let image = withRenderingMode(.alwaysTemplate)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        fillColor.set()
+        image.draw(in: CGRect(origin: .zero, size: size))
+        guard let imageColored = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return imageColored
+    }
+    
+    func aa_height(forWidth width: CGFloat) -> CGFloat {
+        let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
+        let rect = AVMakeRect(
+            aspectRatio: size,
+            insideRect: boundingRect
+        )
+        return rect.size.height
     }
 }
 

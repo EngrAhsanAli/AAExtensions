@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+import NaturalLanguage
 
 // MARK:- String
 public extension String {
@@ -240,6 +241,24 @@ public extension String {
             if CharacterSet.uppercaseLetters.contains($1) { return ($0 + " " + String($1)) }
             else { return $0 + String($1) }
         }
+    }
+    
+    @available(iOS 12.0, *)
+    var aa_detectedLanguage: NLLanguage? {
+        let recognizer = NLLanguageRecognizer()
+        recognizer.processString(self)
+        return recognizer.dominantLanguage
+    }
+    
+    @available(iOS 12.0, *)
+    var aa_recognizeLanguage: NLLanguage {
+        let recognizer = NLLanguageRecognizer()
+        recognizer.processString(self)
+        let hypotheses = recognizer.languageHypotheses(withMaximum: 5)
+        if let preferred = hypotheses.sorted(by: { $0.value > $1.value }).first {
+            return preferred.key
+        }
+        return .english
     }
 }
 

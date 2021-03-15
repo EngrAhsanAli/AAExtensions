@@ -65,6 +65,13 @@ public extension AA_Helper {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
     
+    var aa_udid: String {
+        if let string = UIDevice.current.identifierForVendor?.uuidString {
+            return string
+        }
+        return "iossimulator"
+    }
+    
     var aa_hasTopNotch: Bool {
         if #available(iOS 11.0,  *) {
             

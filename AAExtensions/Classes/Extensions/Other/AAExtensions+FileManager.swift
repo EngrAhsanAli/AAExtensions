@@ -1,8 +1,8 @@
 //
-//  AAExtension+Bool.swift
+//  AAExtensions+FileManager.swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Muhammad Ahsan Ali on 2021/03/11.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,10 +23,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-// MARK:- Bool
-public extension Bool {
-    
-    var aa_intValue: Int {
-        return self ? 1 : 0
+import Foundation
+
+public extension FileManager {
+    func aa_urls(for directory: FileManager.SearchPathDirectory, skipsHiddenFiles: Bool = true ) -> [URL]? {
+        let documentsURL = urls(for: directory, in: .userDomainMask)[0]
+        let fileURLs = try? contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil, options: skipsHiddenFiles ? .skipsHiddenFiles : [] )
+        return fileURLs
     }
 }

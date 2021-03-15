@@ -27,6 +27,7 @@ public class AABottomSheet: NSObject {
     
     // MARK: - Public properties
     
+    public var maskColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     public var defaultCornerRadius: CGFloat = 4
     public var position: SheetPosition = .bottom
     public func showInView(_ targetView: UIView, items: [SheetItem], closeBlock: (() -> Void)? = nil) {
@@ -41,7 +42,7 @@ public class AABottomSheet: NSObject {
         let maskViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(AABottomSheet.maskViewWasTapped))
         self.maskView.addGestureRecognizer(maskViewTapGesture)
         self.maskView.frame = targetBounds
-        self.maskView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        self.maskView.backgroundColor = maskColor
         targetView.addSubview(self.maskView)
         
         // set items
