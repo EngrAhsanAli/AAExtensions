@@ -26,7 +26,7 @@
 
 // MARK: - StringProtocol
 public extension StringProtocol {
-    func aa_nsRange(from range: Range<Index>) -> NSRange {
-        return .init(range, in: self)
-    }
+    
+    func aa_nsRange(from range: Range<Index>) -> NSRange { .init(range, in: self) }
+    
 }

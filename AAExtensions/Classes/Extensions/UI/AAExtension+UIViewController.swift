@@ -29,103 +29,6 @@ import AVKit
 // MARK:- UIViewController
 public extension UIViewController {
     
-    class func aa_replaceRootViewController (
-        to viewController: UIViewController,
-        animated: Bool = true,
-        duration: TimeInterval = 0.5,
-        options: UIView.AnimationOptions = .transitionFlipFromRight,
-        _ completion: AACompletionVoid? = nil) {
-        
-        let keyWindow = UIApplication.shared.keyWindow!
-        
-        guard animated else {
-            keyWindow.rootViewController = viewController
-            completion?()
-            return
-        }
-        
-        UIView.transition(with: keyWindow, duration: duration, options: options, animations: {
-            let oldState = UIView.areAnimationsEnabled
-            UIView.setAnimationsEnabled(false)
-            keyWindow.rootViewController = viewController
-            UIView.setAnimationsEnabled(oldState)
-        }, completion: { _ in
-            completion?()
-        })
-    }
-    
-    var aa_topViewController: UIViewController {
-        switch self {
-        case is UINavigationController:
-            return (self as! UINavigationController).visibleViewController?.aa_topViewController ?? self
-        case is UITabBarController:
-            return (self as! UITabBarController).selectedViewController?.aa_topViewController ?? self
-        default:
-            return presentedViewController?.aa_topViewController ?? self
-        }
-    }
-    
-    var aa_tabbarHeight: CGFloat {
-        return (self.tabBarController?.tabBar.frame.size.height)!
-    }
-
-    func aa_push(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
-        vc.aa_callBack = result
-        let navigation = (self as? UINavigationController) ?? navigationController
-        navigation?.pushViewController(vc, animated: true)
-    }
-    
-    func aa_pop(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
-        vc.aa_callBack = result
-        let navigation = (self as? UINavigationController) ?? navigationController
-        navigation?.popViewController(animated: true)
-    }
-    
-    func aa_pop(to n: Int = 1, result: Any? = nil) {
-        
-        guard let navigation = (self as? UINavigationController) ?? navigationController else {
-            return
-        }
-        
-        if let result = result, let callback = aa_callBack {
-            callback(result)
-        }
-        
-        let viewControllers = navigation.viewControllers
-        if let destination = viewControllers[aa_optional: viewControllers.count - (n + 1)] {
-            navigation.popToViewController(destination, animated: true)
-        }
-        else {
-            navigation.popToRootViewController(animated: true)
-        }
-        
-    }
-    
-    func aa_present(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
-        vc.aa_callBack = result
-        present(vc, animated: true, completion: nil)
-    }
-    
-    
-    func aa_dismiss(_ result: Any? = nil) {
-        if let result = result, let callback = aa_callBack {
-            callback(result)
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func aa_dismiss(_ depth: Int) {
-        guard depth > 0 else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        var finalViewController = self.presentingViewController
-        (0...depth - 1).forEach { _ in
-            finalViewController = finalViewController?.presentingViewController
-        }
-        finalViewController?.dismiss(animated: true, completion: nil)
-    }
-    
     /// Callbacks the value stored and removes the object immediately
     var aa_callBack: ((Any?) -> ())?  {
         get {
@@ -133,9 +36,7 @@ public extension UIViewController {
             objc_removeAssociatedObjects(self) // Enhanced to keep memory optimization
             return value
         }
-        set {
-            objc_setAssociatedObject(self, &AA_AssociationKeyAnyCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
-        }
+        set { objc_setAssociatedObject(self, &AA_AssociationKeyAnyCallback, newValue, .OBJC_ASSOCIATION_RETAIN) }
     }
     
     var aa_any: Any?  {
@@ -144,9 +45,7 @@ public extension UIViewController {
             objc_removeAssociatedObjects(self)
             return value
         }
-        set {
-            objc_setAssociatedObject(self, &AA_AssociationKeyAnyData, newValue, .OBJC_ASSOCIATION_RETAIN)
-        }
+        set { objc_setAssociatedObject(self, &AA_AssociationKeyAnyData, newValue, .OBJC_ASSOCIATION_RETAIN) }
     }
     
     var aa_anyCallback: (Any?, ((Any?) -> ())?)? {
@@ -156,33 +55,38 @@ public extension UIViewController {
             return value as? (Any?, ((Any?) -> ())?)
         }
         set {
-            if newValue == nil {
-                objc_removeAssociatedObjects(self)
-            }
-            else {
-                objc_setAssociatedObject(self, &AA_AssociationKeyAnyDataWithCallback, newValue, .OBJC_ASSOCIATION_RETAIN)
-            }
+            if newValue == nil { objc_removeAssociatedObjects(self) }
+            else { objc_setAssociatedObject(self, &AA_AssociationKeyAnyDataWithCallback, newValue, .OBJC_ASSOCIATION_RETAIN) }
             
         }
     }
     
-    func aa_selectTab(_ index: Int) {
-        guard let tabbar = self.tabBarController,
-            let nav = tabbar.viewControllers?[aa_optional: index] as? UINavigationController
-            else { return }
+}
+
+public extension AA where Base: UIViewController {
+    
+    var topViewController: UIViewController {
+        switch base {
+        case is UINavigationController:
+            return (base as! UINavigationController).visibleViewController?.aa.topViewController ?? base
+        case is UITabBarController:
+            return (base as! UITabBarController).selectedViewController?.aa.topViewController ?? base
+        default:
+            return base.presentedViewController?.aa.topViewController ?? base
+        }
+    }
+    
+    func selectTab(_ index: Int) {
+        guard let tabbar = base.tabBarController,
+              let nav = tabbar.viewControllers?[aa_optional: index] as? UINavigationController
+        else { return }
         tabbar.selectedIndex = index
         nav.popToRootViewController(animated: true)
     }
     
-    func aa_rightBarButton(_ image: String, selector: Selector) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: image),
-            style: .plain,
-            target: self,
-            action: selector)
-    }
-    
-    func aa_showActionSheet(_ title: String? = nil, message:String? = nil, actions: [[String:UIAlertAction.Style]], completion: @escaping (_ index: Int) -> ()) {
+    func showActionSheet(_ title: String? = nil, message:String? = nil,
+                            actions: [[String: UIAlertAction.Style]],
+                            completion: @escaping (_ index: Int) -> ()) {
         let alertViewController = UIAlertController(title:title, message: message, preferredStyle: .actionSheet)
         for (index,action) in actions.enumerated() {
             for actionContent in action {
@@ -192,29 +96,28 @@ public extension UIViewController {
                 alertViewController.addAction(action)
             }
         }
-        alertViewController.popoverPresentationController?.sourceView = self.view
-        self.present(alertViewController, animated: true, completion: nil)
+        alertViewController.popoverPresentationController?.sourceView = base.view
+        base.present(alertViewController, animated: true, completion: nil)
     }
     
-    func aa_showAlert(_ title: String, text: String,
-                      doneText: String, onDismiss: (() -> ())? = nil) {
+    func showAlert(_ title: String, text: String,
+                      doneText: String,
+                      onDismiss: (() -> ())? = nil) {
         let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: doneText, style: .default) {
             (action: UIAlertAction) in
             onDismiss?()
         }
         alertController.addAction(action)
-        self.present(alertController, animated: true, completion: nil)
+        base.present(alertController, animated: true, completion: nil)
     }
     
-    func aa_showAlert(title: String?, message: String?,
+    func showAlert(title: String?, message: String?,
                       doneText: String, cancelText: String,
                       textFields: Int, onTextFieldAdded:(([UITextField]) -> ())?,
                       onComplete: @escaping (([String]) -> ()), onDismiss: AACompletionVoid? = nil) {
         
-        guard textFields > 0 else {
-            return
-        }
+        guard textFields > 0 else { return }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancelText, style: .cancel, handler: { _ in
@@ -232,65 +135,46 @@ public extension UIViewController {
             alert.addTextField(configurationHandler: nil)
         }
         onTextFieldAdded?(alert.textFields!)
-        present(alert, animated: true, completion: nil)
+        base.present(alert, animated: true, completion: nil)
     }
     
     @discardableResult
-    func aa_playVideo(_ url: URL) -> AVPlayerViewController {
+    func playVideo(_ url: URL) -> AVPlayerViewController {
         let player = AVPlayer(url: url)
         let playerVC = AVPlayerViewController()
         playerVC.player = player
-        self.present(playerVC, animated: true) {
-            player.play()
-        }
+        base.present(playerVC, animated: true) { player.play() }
         return playerVC
     }
     
-    func aa_canPerformSegue(identifier: String, sender: Any? = nil) -> Bool {
-        guard let identifiers = value(forKey: "storyboardSegueTemplates") as? [NSObject] else {
-            return false
-        }
-        let canPerform = identifiers.contains { (object) -> Bool in
-            if let id = object.value(forKey: "_identifier") as? String {
-                return id == identifier
-            }else{
-                return false
-            }
-        }
-        return canPerform
-    }
-
-    func aa_presentThis(_ forced: Bool = false, result: ((Any?) -> ())?) {
-
+    func presentThis(_ forced: Bool = false, result: ((Any?) -> ())?) {
+        
         guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
-        self.aa_callBack = result
+        base.aa_callBack = result
         
         guard !forced else {
-            root.present(self, animated: true, completion: nil)
+            root.present(base, animated: true, completion: nil)
             return
         }
         
         if let _vc = root.presentedViewController as? UINavigationController {
-            _vc.pushViewController(self, animated: true)
+            _vc.pushViewController(base, animated: true)
         }
         else if let _vc = root as? UINavigationController {
-            _vc.pushViewController(self, animated: true)
+            _vc.pushViewController(base, animated: true)
         }
         else if let _vc = root.presentedViewController {
-             _vc.present(self, animated: true, completion: nil)
+            _vc.present(base, animated: true, completion: nil)
         }
         else {
-            root.present(self, animated: true, completion: nil)
+            root.present(base, animated: true, completion: nil)
         }
     }
     
-    func aa_dismissThis(_ result: Any? = nil) {
+    func dismissThis(_ result: Any? = nil) {
         
         guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
-        
-        if let result = result, let callback = aa_callBack {
-            callback(result)
-        }
+        if let result = result, let callback = base.aa_callBack { callback(result) }
         
         if let _vc = root.presentedViewController as? UINavigationController {
             _vc.popViewController(animated: true)
@@ -302,72 +186,114 @@ public extension UIViewController {
             _vc.dismiss(animated: true, completion: nil)
         }
         else {
-            self.dismiss(animated: true, completion: nil)
+            base.dismiss(animated: true, completion: nil)
         }
         
     }
     
-    func aa_rightBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
-        self.navigationItem.rightBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
+    func rightBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
+        base.navigationItem.rightBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
     }
     
-    func aa_leftBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
-        self.navigationItem.leftBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
+    func leftBarButton(_ image: UIImage, _ closure: @escaping AACompletionVoid) {
+        base.navigationItem.leftBarButtonItem = AABindableBarButton(image: image, actionHandler: closure)
     }
     
-    func aa_leftBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
-        let color = navigationController?.navigationBar.barTintColor ?? .white
-        self.navigationItem.leftBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
+    func leftBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
+        let color = base.navigationController?.navigationBar.barTintColor ?? .white
+        base.navigationItem.leftBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
     }
     
-    func aa_rightBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
-        let color = navigationController?.navigationBar.barTintColor ?? .white
-        self.navigationItem.rightBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
+    func rightBarButton(_ title: String, font: UIFont, _ closure: @escaping AACompletionVoid) {
+        let color = base.navigationController?.navigationBar.barTintColor ?? .white
+        base.navigationItem.rightBarButtonItem = AABindableBarButton(title: title, font: font, foregroundColor: color, actionHandler: closure)
     }
     
-}
-
-
-public extension UIViewController {
+    func push(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        ((base as? UINavigationController) ?? base.navigationController)?
+            .pushViewController(vc, animated: true)
+    }
+    
+    func pop(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        ((base as? UINavigationController) ?? base.navigationController)?
+            .popViewController(animated: true)
+    }
+    
+    func pop(to n: Int = 1, result: Any? = nil) {
+        guard let navigation = (base as? UINavigationController) ?? base.navigationController else { return }
+        if let result = result, let callback = base.aa_callBack { callback(result) }
+        
+        let viewControllers = navigation.viewControllers
+        if let destination = viewControllers[aa_optional: viewControllers.count - (n + 1)] {
+            navigation.popToViewController(destination, animated: true)
+        }
+        else {
+            navigation.popToRootViewController(animated: true)
+        }
+        
+    }
+    
+    func present(_ vc: UIViewController, result: ((Any) -> ())? = nil)  {
+        vc.aa_callBack = result
+        base.present(vc, animated: true, completion: nil)
+    }
+    
+    func dismiss(_ result: Any? = nil) {
+        if let result = result, let callback = base.aa_callBack { callback(result) }
+        base.dismiss(animated: true, completion: nil)
+    }
+    
+    func dismiss(_ depth: Int) {
+        if depth > 0 {
+            var finalViewController = base.presentingViewController
+            (0...depth - 1).forEach { _ in
+                finalViewController = finalViewController?.presentingViewController
+            }
+            finalViewController?.dismiss(animated: true, completion: nil)
+        }
+        else {
+            base.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func dismissToRoot() {
+        dismissThis()
+        var finalViewController = base.presentedViewController
+        while finalViewController != nil {
+            finalViewController = finalViewController?.presentingViewController
+        }
+        finalViewController?.dismiss(animated: true, completion: nil)
+    }
     
     // Self is Parent
-    func aa_embed(container:UIView,
-                         child:UIViewController,
-                         previous:UIViewController?) {
-        
-        if let previous = previous {
-            previous.aa_removeFromParent()
-        }
-        child.willMove(toParent: self)
-        self.addChild(child)
+    func embed(container:UIView,
+                  child:UIViewController,
+                  previous:UIViewController?) {
+        if let previous = previous { previous.aa.removeFromParent() }
+        child.willMove(toParent: base)
+        base.addChild(child)
         container.addSubview(child.view)
-        child.didMove(toParent: parent)
+        child.didMove(toParent: base.parent)
         child.view.frame = CGRect(x: 0, y: 0, width: container.frame.size.width, height: container.frame.size.height)
     }
     
-    func aa_embed(withIdentifier id:String,
-                         parent:UIViewController,
-                         container:UIView,
-                         completion:((UIViewController)->Void)? = nil) {
-        
+    func embed(withIdentifier id:String,
+                  parent:UIViewController,
+                  container:UIView,
+                  completion:((UIViewController)->Void)? = nil) {
         let vc = parent.storyboard!.instantiateViewController(withIdentifier: id)
-        self.aa_embed(
-            container: container,
-            child: vc,
-            previous: parent.children.first
-        )
+        embed(container: container, child: vc, previous: parent.children.first )
         completion?(vc)
     }
     
-    func aa_removeFromParent(){
-        self.willMove(toParent: nil)
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+    func removeFromParent(){
+        base.willMove(toParent: nil)
+        base.view.removeFromSuperview()
+        base.removeFromParent()
     }
-}
-
-
-public extension AA where Base: UIViewController {
+    
     
     func setCurvedNavigation(_ model: AAGradientModel, curveRadius: CGFloat = 17,
                              shadowColor: UIColor = .darkGray, shadowRadius: CGFloat = 4,
@@ -394,17 +320,21 @@ public extension AA where Base: UIViewController {
         gradient.mask = {
             
             let screenWidth = UIScreen.main.bounds.size.width
-            var totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
-            
-            totalHeight += instance.view.aa_statusBarSize.height
+            let totalHeight = UIApplication.shared.statusBarFrame.height + navigationController.navigationBar.frame.size.height + heightOffset
             
             let y1: CGFloat = totalHeight
             let y2: CGFloat = totalHeight + curveRadius
             
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 0.0, y: y1))
-            path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2), controlPoint1: CGPoint(x: 0, y: y1), controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
-            path.addCurve(to: CGPoint(x: screenWidth, y: y1), controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2), controlPoint2: CGPoint(x: screenWidth, y: y1))
+            path.addCurve(to: CGPoint(x: screenWidth / 2 , y: y2),
+                          controlPoint1: CGPoint(x: 0, y: y1),
+                          controlPoint2: CGPoint(x:screenWidth / 4, y: y2))
+            
+            path.addCurve(to: CGPoint(x: screenWidth, y: y1),
+                          controlPoint1: CGPoint(x: screenWidth * 0.75, y: y2),
+                          controlPoint2: CGPoint(x: screenWidth, y: y1))
+            
             path.addLine(to: CGPoint(x: screenWidth, y: 0))
             path.addLine(to: .zero)
             

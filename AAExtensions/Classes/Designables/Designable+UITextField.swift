@@ -101,7 +101,7 @@ public extension UITextField {
                 astericLabel.sizeToFit()
                 astericLabel.font = UIFont.boldSystemFont(ofSize: 20)
                 astericLabel.translatesAutoresizingMaskIntoConstraints = false
-                self.aa_bindConstraints(astericLabel, bindAttrs: [.centerY, .trailing])
+                self.aa.bindConstraints(astericLabel, bindAttrs: [.centerY, .trailing])
             }
         }
 

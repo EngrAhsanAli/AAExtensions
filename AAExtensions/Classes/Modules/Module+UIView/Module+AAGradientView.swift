@@ -23,7 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
+@available(iOS 9.0, *)
 public struct AAGradientModel {
     public let colors: [UIColor]
     public let startPoint, endPoint: AAPoint
@@ -36,8 +36,6 @@ public struct AAGradientModel {
         self.endPoint = endPoint
     }
 }
-
-
 
 @available(iOS 9.0, *)
 public class AAGradientView: UIView {

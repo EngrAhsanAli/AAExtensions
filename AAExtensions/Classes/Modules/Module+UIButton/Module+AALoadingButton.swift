@@ -28,11 +28,11 @@
 fileprivate var originalButtonText: String?
 fileprivate var activityIndicator: UIActivityIndicatorView!
 
-public extension UIButton {
+public extension AA where Base: UIButton {
     
-    func aa_showLoading(_ color: UIColor = .lightGray) {
-        originalButtonText = self.titleLabel?.text
-        self.setTitle("", for: .normal)
+    func showLoading(_ color: UIColor = .lightGray) {
+        originalButtonText = base.titleLabel?.text
+        base.setTitle("", for: .normal)
         
         if (activityIndicator == nil) {
             let _activityIndicator = UIActivityIndicatorView()
@@ -42,17 +42,17 @@ public extension UIButton {
         }
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(activityIndicator)
+        base.addSubview(activityIndicator)
         let xCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: activityIndicator, attribute: .centerX, multiplier: 1, constant: 0)
-        self.addConstraint(xCenterConstraint)
+        base.addConstraint(xCenterConstraint)
         
         let yCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: activityIndicator, attribute: .centerY, multiplier: 1, constant: 0)
-        self.addConstraint(yCenterConstraint)
+        base.addConstraint(yCenterConstraint)
         activityIndicator.startAnimating()
     }
     
-    func aa_hideLoading() {
-        self.setTitle(originalButtonText, for: .normal)
+    func hideLoading() {
+        base.setTitle(originalButtonText, for: .normal)
         activityIndicator.stopAnimating()
         originalButtonText = nil
         activityIndicator = nil

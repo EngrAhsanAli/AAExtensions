@@ -38,7 +38,10 @@ public typealias AACompletionAny   = ((Any) -> ())
 public typealias AAKeyValue        = [String: Any]
 
 /// Constant computations
-public var aa_rootVC: UIViewController { return UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController! }
+public var aa_rootVC: UIViewController
+{ UIApplication.shared.windows.filter {$0.isKeyWindow}.first!.rootViewController! }
+
+public var aa_topVC: UIViewController { aa_rootVC.aa.topViewController }
 
 public let AAHelper = { return AA_Helper.shared }()
 
@@ -89,12 +92,6 @@ public enum AADateFormatters: String {
     case format16 = "hh:mm a"                               // 12:00 AM
     
 }
-
-/// AATextType
-public enum AATextType {
-    case emailAddress, password, generic
-}
-
 
 /// AAPoint
 public enum AAPoint {

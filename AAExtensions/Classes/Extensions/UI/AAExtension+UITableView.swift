@@ -24,93 +24,52 @@
 //  THE SOFTWARE.
 
 
-
-//MARK:- UITableView
-public extension UITableView {
+public extension AA where Base: UITableView {
     
-    var aa_lastSection: Int {
-        return numberOfSections > 0 ? numberOfSections - 1 : 0
+    var lastSection: Int { base.numberOfSections > 0 ? base.numberOfSections - 1 : 0 }
+    
+    func safeScrollToRow(at indexPath: IndexPath, scrollPosition: UITableView.ScrollPosition, animated: Bool) {
+        guard indexPath.section < base.numberOfSections,
+              indexPath.row < base.numberOfRows(inSection: indexPath.section) else { return }
+        base.scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
     }
     
-    func aa_reloadData(_ completion: @escaping () -> Void) {
-        UIView.animate(withDuration: 0, animations: {
-            self.reloadData()
-        }, completion: { _ in
-            completion()
-        })
-    }
-    
-    func aa_safeScrollToRow(at indexPath: IndexPath, at scrollPosition: UITableView.ScrollPosition, animated: Bool) {
-        guard indexPath.section < numberOfSections else { return }
-        guard indexPath.row < numberOfRows(inSection: indexPath.section) else { return }
-        scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
-    }
-    
-    func aa_insertRowAtBottom(_ scrollToBottom: Bool = true) {
+    func insertRowAtBottom(_ scrollToBottom: Bool = true) {
         DispatchQueue.main.async {
-            let lastSection = self.numberOfSections - 1
-            let lastRowIndex = self.numberOfRows(inSection: lastSection)
+            let lastSection = base.numberOfSections - 1
+            let lastRowIndex = base.numberOfRows(inSection: lastSection)
             let indexPath = IndexPath(row: lastRowIndex, section: lastSection)
-            self.insertRows(at: [indexPath], with: .none)
-            if scrollToBottom {
-                self.scrollToRow(at: indexPath, at: .none, animated: false)
-            }
+            base.insertRows(at: [indexPath], with: .none)
+            if scrollToBottom {  base.scrollToRow(at: indexPath, at: .none, animated: false) }
         }
     }
     
-    func aa_reloadToLastRow(_ lastRow: Int) {
+    func reloadToLastRow(_ lastRow: Int) {
         DispatchQueue.main.async {
-            let lastSection = self.numberOfSections - 1
-            let lastRowIndex = self.numberOfRows(inSection: lastSection)
+            let lastSection = base.numberOfSections - 1
+            let lastRowIndex = base.numberOfRows(inSection: lastSection)
             guard lastRowIndex > lastRow else { return }
             let indexPath = IndexPath(row: lastRowIndex - lastRow, section: lastSection)
-            self.reloadRows(at: [indexPath], with: .automatic)
+            base.reloadRows(at: [indexPath], with: .automatic)
         }
     }
     
-    func aa_scrollToBottom(_ animated: Bool = true) {
+    func scrollToBottom(_ animated: Bool = true) {
         DispatchQueue.main.async {
-            if (self.numberOfSections > 0) {
-                let lastSection = self.numberOfSections - 1
-                let rows = self.numberOfRows(inSection: lastSection)
+            if (base.numberOfSections > 0) {
+                let lastSection = base.numberOfSections - 1
+                let rows = base.numberOfRows(inSection: lastSection)
                 if (rows > 0 ) {
                     let lastRowIndex = rows - 1
                     let indexPath = IndexPath(row: lastRowIndex, section: lastSection)
-                    self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+                    base.scrollToRow(at: indexPath, at: .bottom, animated: animated)
                 }
             }
         }
     }
     
-    func aa_setOffsetToBottom(animated: Bool) {
-        self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.frame.size.height), animated: true)
+    func setOffsetToBottom(animated: Bool) {
+        base.setContentOffset(CGPoint(x: 0, y: base.contentSize.height - base.frame.size.height), animated: true)
     }
-    
-    func aa_showMenuOnLongPress() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressMenuController))
-        longPressGesture.minimumPressDuration = 1.0
-        addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc private func onLongPressMenuController(_ gestureRecognizer: UIGestureRecognizer) {
-        let menu = UIMenuController.shared
-        if !menu.isMenuVisible && gestureRecognizer.state == .began {
-            let touchPoint = gestureRecognizer.location(in: self)
-            if let indexPath = indexPathForRow(at: touchPoint) {
-                self.becomeFirstResponder()
-                self.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                menu.setTargetRect(rectForRow(at: indexPath), in: self)
-                menu.setMenuVisible(true, animated: true)
-            }
-        }
-        
-    }
-    
-    func aa_setEstimatedHeight(_ estimatedHeight: CGFloat) {
-        estimatedRowHeight = estimatedHeight
-        rowHeight = UITableView.automaticDimension
-    }
-    
     
 }
-

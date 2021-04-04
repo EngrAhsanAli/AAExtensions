@@ -15,13 +15,9 @@ public class AADualConstantConstraint: NSLayoutConstraint {
     public var otherConstraint: CGFloat = 0
     
     override open var constant: CGFloat {
-        set {
-            super.constant = newValue
-        }
+        set { super.constant = newValue }
         get {
-            if super.constant != 0 {
-                _constant = super.constant
-            }
+            if super.constant != 0 { _constant = super.constant }
             return super.constant
         }
     }
@@ -30,12 +26,8 @@ public class AADualConstantConstraint: NSLayoutConstraint {
     ///
     /// - Parameter isDefault: NIB default constraint
     open func setConstraint(_ isDefault: Bool) {
-        if isDefault {
-            super.constant = _constant
-        }
-        else {
-            super.constant = otherConstraint
-        }
+        if isDefault { super.constant = _constant }
+        else { super.constant = otherConstraint }
     }
     
 }

@@ -27,23 +27,16 @@
 open class AAVerticalAlignLabel: UILabel {
     
     @IBInspectable var alignmentCode: Int = 0 {
-        didSet {
-            applyAlignmentCode()
-        }
+        didSet { applyAlignmentCode() }
     }
     
     func applyAlignmentCode() {
         switch alignmentCode {
-        case 0:
-            verticalAlignment = .top
-        case 1:
-            verticalAlignment = .topcenter
-        case 2:
-            verticalAlignment = .middle
-        case 3:
-            verticalAlignment = .bottom
-        default:
-            break
+        case 0: verticalAlignment = .top
+        case 1: verticalAlignment = .topcenter
+        case 2: verticalAlignment = .middle
+        case 3: verticalAlignment = .bottom
+        default: break
         }
     }
     
@@ -78,9 +71,7 @@ open class AAVerticalAlignLabel: UILabel {
     }
     
     var verticalAlignment : VerticalAlignment = .top {
-        didSet {
-            setNeedsDisplay()
-        }
+        didSet { setNeedsDisplay() }
     }
     
     override open func textRect(forBounds bounds: CGRect, limitedToNumberOfLines: Int) -> CGRect {

@@ -23,8 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
-
 public extension Mirror {
     
     static func aa_filterText(_ text: String, data: Any?, index: Int = 0) -> [Int]?  {

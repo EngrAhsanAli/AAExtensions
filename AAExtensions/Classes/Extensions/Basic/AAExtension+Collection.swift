@@ -25,8 +25,10 @@
 
 // MARK:- Collection
 public extension Collection {
+    
     subscript(aa_optional i: Index) -> Iterator.Element? {
         return self.indices.contains(i) ? self[i] : nil
     }
+    
 }
 

@@ -39,6 +39,12 @@ open class AA_Helper {
 // MARK: - AA_Helper methods
 public extension AA_Helper {
     
+    var aa_appVersion: String? { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String }
+    
+    var aa_udid: String { UIDevice.current.identifierForVendor?.uuidString ?? "iossimulator" }
+    
+    var aa_visibleViewController: UIViewController? { aa_rootVC.aa.topViewController }
+    
     var aa_isConnectedToNetwork: Bool {
         
         var zeroAddress = sockaddr_in()
@@ -61,15 +67,16 @@ public extension AA_Helper {
         
     }
     
-    var aa_appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    }
-    
-    var aa_udid: String {
-        if let string = UIDevice.current.identifierForVendor?.uuidString {
-            return string
+    var aa_safeAreaInsets: (CGFloat, CGFloat) {
+        var topSafeAreaHeight: CGFloat = 0
+        var bottomSafeAreaHeight: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.windows[0]
+            let safeFrame = window.safeAreaLayoutGuide.layoutFrame
+            topSafeAreaHeight = safeFrame.minY
+            bottomSafeAreaHeight = window.frame.maxY - safeFrame.maxY
         }
-        return "iossimulator"
+        return (topSafeAreaHeight, bottomSafeAreaHeight)
     }
     
     var aa_hasTopNotch: Bool {
@@ -90,10 +97,6 @@ public extension AA_Helper {
         return false
     }
     
-    var aa_visibleViewController: UIViewController? {
-        return aa_rootVC.aa_topViewController
-    }
-    
     var aa_isNetworkAvailable: Bool {
         
         var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
@@ -101,9 +104,7 @@ public extension AA_Helper {
         zeroAddress.sin_family = sa_family_t(AF_INET)
         
         let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-            }
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) { SCNetworkReachabilityCreateWithAddress(nil, $0) }
         }
         
         var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
@@ -187,32 +188,16 @@ public extension AA_Helper {
         appearance.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
     }
     
-    func aa_toolBarAppearance(bg: UIImage, barTintColor: UIColor, tintColor: UIColor) {
-        let appearance = UIToolbar.appearance()
-        
-        appearance.barTintColor = barTintColor
-        appearance.tintColor = tintColor
-        
-    }
-    
     func aa_tabBarAppearance(bg: UIImage, tintColor: UIColor, font: UIFont, foregroundColor: UIColor) {
         let appearance = UITabBarItem.appearance()
-        
-        appearance.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: tintColor as Any
-            ], for: .selected)
-        
-        appearance.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: tintColor as Any
-            ], for: .normal)
-        
-        
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font as Any, NSAttributedString.Key.foregroundColor: foregroundColor], for: .normal)
+        appearance.setTitleTextAttributes([.foregroundColor: tintColor as Any], for: .selected)
+        appearance.setTitleTextAttributes([.foregroundColor: tintColor as Any], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: font as Any, .foregroundColor: foregroundColor],
+                                                            for: .normal)
         
         if #available(iOS 11.0, *) {
-            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).setTitleTextAttributes([
-                .foregroundColor : tintColor as Any
-                ], for: .normal)
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self])
+                .setTitleTextAttributes([.foregroundColor : tintColor as Any], for: .normal)
         }
         
     }

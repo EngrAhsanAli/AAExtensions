@@ -30,13 +30,13 @@ import UIKit
 public extension UIStoryboard {
     
     static var aa_main: UIStoryboard? {
-        let bundle = Bundle.main
-        guard let name = bundle.object(forInfoDictionaryKey: "UIMainStoryboardFile") as? String else { return nil }
-        return UIStoryboard(name: name, bundle: bundle)
+        guard let name = Bundle.main.object(forInfoDictionaryKey: "UIMainStoryboardFile") as? String
+        else { return nil }
+        return UIStoryboard(name: name, bundle: .main)
     }
     
     func aa_viewController<T: UIViewController>(withClass name: T.Type) -> T? {
-        return instantiateViewController(withIdentifier: String(describing: name)) as? T
+        instantiateViewController(withIdentifier: String(describing: name)) as? T
     }
     
 }

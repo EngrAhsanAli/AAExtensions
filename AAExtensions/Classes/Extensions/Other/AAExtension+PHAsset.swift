@@ -28,6 +28,7 @@ import Photos
 
 //MARK:- PHAsset
 public extension PHAsset {
+    
     var aa_image: UIImage? {
         var img: UIImage?
         let manager = PHImageManager.default()
@@ -41,4 +42,5 @@ public extension PHAsset {
         }
         return img
     }
+    
 }

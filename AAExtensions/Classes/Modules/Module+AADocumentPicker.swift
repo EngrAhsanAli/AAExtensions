@@ -23,9 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
 import MobileCoreServices
-
 
 public extension AA where Base: UIViewController {
     
@@ -104,5 +102,26 @@ fileprivate class WrappedFilePicker: NSObject, UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         print("\(AA_TAG) AADocumentPicker URL:- \(urls)")
         self.callback?(urls.first)
+    }
+}
+
+public class AAFileViewer: NSObject, UIDocumentInteractionControllerDelegate {
+    
+    var interaction: UIDocumentInteractionController?
+    
+    open func show(for directory: FileManager.SearchPathDirectory, skipsHiddenFiles: Bool = true ) {
+        guard let url = FileManager.default.aa_urls(for: directory, skipsHiddenFiles: skipsHiddenFiles)?.first else {
+            return
+        }
+        self.interaction = UIDocumentInteractionController(url: url)
+        self.interaction?.delegate = self
+        self.interaction?.presentPreview(animated: true) // IF SHOW DIRECT
+    }
+    
+    public func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        aa_rootVC.aa.topViewController
+    }
+    public func documentInteractionControllerDidEndPreview(_ controller: UIDocumentInteractionController) {
+        self.interaction = nil
     }
 }

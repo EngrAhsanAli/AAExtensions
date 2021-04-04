@@ -25,18 +25,19 @@
 
 import AVFoundation
 
-public extension UIImage {
-    var aa_toBase64: String? {
-        guard let imageData = self.pngData() else { return nil }
-        return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+public extension AA where Base: UIImage {
+    
+    var toBase64: String? {
+        guard let imageData = base.pngData() else { return nil }
+        return imageData.base64EncodedString(options: .lineLength64Characters)
     }
     
-    func aa_resizeImage(_ dimension: CGFloat, opaque: Bool, contentMode: UIView.ContentMode = .scaleAspectFit) -> UIImage {
+    func resizeImage(_ dimension: CGFloat, opaque: Bool, contentMode: UIView.ContentMode = .scaleAspectFit) -> UIImage {
         var width: CGFloat
         var height: CGFloat
         var newImage: UIImage
         
-        let size = self.size
+        let size = base.size
         let aspectRatio =  size.width/size.height
         
         switch contentMode {
@@ -59,11 +60,11 @@ public extension UIImage {
             let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: renderFormat)
             newImage = renderer.image {
                 (context) in
-                self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+                base.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
             }
         } else {
             UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), opaque, 0)
-            self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+            base.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
             newImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
         }
@@ -71,23 +72,21 @@ public extension UIImage {
         return newImage
     }
     
-    var aa_fixOrientation: UIImage {
+    var fixOrientation: UIImage {
         
-        guard let cgImage = self.cgImage else {
+        guard let cgImage = base.cgImage, let colorSpace = cgImage.colorSpace else {
             print("AAExtensions:- Couldn't fix the orientation. Returning same image")
-            return self
+            return base
         }
         
-        if self.imageOrientation == .up {
-            return self
-        }
+        if base.imageOrientation == .up { return base }
         
-        let width  = self.size.width
-        let height = self.size.height
+        let width  = base.size.width
+        let height = base.size.height
         
         var transform = CGAffineTransform.identity
         
-        switch self.imageOrientation {
+        switch base.imageOrientation {
         case .down, .downMirrored:
             transform = transform.translatedBy(x: width, y: height)
             transform = transform.rotated(by: CGFloat.pi)
@@ -100,13 +99,11 @@ public extension UIImage {
             transform = transform.translatedBy(x: 0, y: height)
             transform = transform.rotated(by: -0.5*CGFloat.pi)
             
-        case .up, .upMirrored:
-            break
-        @unknown default:
-            break
+        case .up, .upMirrored: break
+        @unknown default: break
         }
         
-        switch self.imageOrientation {
+        switch base.imageOrientation {
         case .upMirrored, .downMirrored:
             transform = transform.translatedBy(x: width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
@@ -119,12 +116,6 @@ public extension UIImage {
             break;
         }
         
-        // Now we draw the underlying CGImage into a new context, applying the transform
-        // calculated above.
-        guard let colorSpace = cgImage.colorSpace else {
-            return self
-        }
-        
         guard let context = CGContext(
             data: nil,
             width: Int(width),
@@ -133,33 +124,25 @@ public extension UIImage {
             bytesPerRow: 0,
             space: colorSpace,
             bitmapInfo: UInt32(cgImage.bitmapInfo.rawValue)
-            ) else {
-                return self
-        }
+            ) else { return base }
         
         context.concatenate(transform);
         
-        switch self.imageOrientation {
+        switch base.imageOrientation {
             
         case .left, .leftMirrored, .right, .rightMirrored:
-            // Grr...
             context.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
-            
         default:
             context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         }
         
         // And now we just create a new UIImage from the drawing context
-        guard let newCGImg = context.makeImage() else {
-            return self
-        }
-        
+        guard let newCGImg = context.makeImage() else { return base }
         let img = UIImage(cgImage: newCGImg)
-        
         return img
     }
     
-    func aa_save(at directory: FileManager.SearchPathDirectory,
+    func save(at directory: FileManager.SearchPathDirectory,
                  pathAndImageName: String,
                  createSubdirectoriesIfNeed: Bool = true,
                  compressionQuality: CGFloat = 1.0)  -> URL? {
@@ -167,7 +150,7 @@ public extension UIImage {
             let documentsDirectory = try FileManager.default.url(for: directory, in: .userDomainMask,
                                                                  appropriateFor: nil,
                                                                  create: false)
-            return aa_save(at: documentsDirectory.appendingPathComponent(pathAndImageName),
+            return base.aa_save(at: documentsDirectory.appendingPathComponent(pathAndImageName),
                            createSubdirectoriesIfNeed: createSubdirectoriesIfNeed,
                            compressionQuality: compressionQuality)
         } catch {
@@ -176,13 +159,11 @@ public extension UIImage {
         }
     }
     
-    func aa_mask(_ color: UIColor) -> UIImage? {
-        let maskImage = cgImage!
-        
-        let width = (cgImage?.width)!
-        let height = (cgImage?.height)!
+    func mask(_ color: UIColor) -> UIImage? {
+        let maskImage = base.cgImage!
+        let width = maskImage.width
+        let height = maskImage.height
         let bounds = CGRect(x: 0, y: 0, width: width, height: height)
-        
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
@@ -192,30 +173,28 @@ public extension UIImage {
         context.fill(bounds)
         
         if let cgImage = context.makeImage() {
-            let coloredImage = UIImage.init(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+            let coloredImage = UIImage.init(cgImage: cgImage, scale: base.scale, orientation: base.imageOrientation)
             return coloredImage
         } else {
             return nil
         }
     }
     
-    func aa_tint(with fillColor: UIColor) -> UIImage? {
-        if #available(iOS 13.0, *) {
-            return withTintColor(fillColor, renderingMode: .alwaysTemplate)
-        }
-        let image = withRenderingMode(.alwaysTemplate)
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+    func tint(with fillColor: UIColor) -> UIImage? {
+        if #available(iOS 13.0, *) { return base.withTintColor(fillColor, renderingMode: .alwaysTemplate) }
+        let image = base.withRenderingMode(.alwaysTemplate)
+        UIGraphicsBeginImageContextWithOptions(base.size, false, base.scale)
         fillColor.set()
-        image.draw(in: CGRect(origin: .zero, size: size))
+        image.draw(in: CGRect(origin: .zero, size: base.size))
         guard let imageColored = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
         UIGraphicsEndImageContext()
         return imageColored
     }
     
-    func aa_height(forWidth width: CGFloat) -> CGFloat {
+    func height(forWidth width: CGFloat) -> CGFloat {
         let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
         let rect = AVMakeRect(
-            aspectRatio: size,
+            aspectRatio: base.size,
             insideRect: boundingRect
         )
         return rect.size.height

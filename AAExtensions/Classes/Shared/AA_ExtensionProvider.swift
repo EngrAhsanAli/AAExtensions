@@ -13,18 +13,15 @@ public protocol AAExtensionsProvider: class {
 
 extension AAExtensionsProvider {
     /// A proxy which hosts reactive extensions for `self`.
-    public var aa: AA<Self> {
-        return AA(self)
-    }
-
+    public var aa: AA<Self> { AA(self) }
 }
 
 public struct AA<Base> {
     public let base: Base
-    fileprivate init(_ base: Base) {
-        self.base = base
-    }
+    fileprivate init(_ base: Base) { self.base = base }
 }
 
-extension UIView: AAExtensionsProvider {}
-extension UIViewController: AAExtensionsProvider {}
+extension UIView:               AAExtensionsProvider {}
+extension UIImage:              AAExtensionsProvider {}
+extension UIFont:               AAExtensionsProvider {}
+extension UIViewController:     AAExtensionsProvider {}

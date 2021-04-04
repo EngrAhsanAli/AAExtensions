@@ -23,16 +23,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-public extension UISearchBar {
+public extension AA where Base: UISearchBar {
     
     /// Returns the`UITextField` that is placed inside the text field.
-    var aa_textField: UITextField {
-        if #available(iOS 13, *) {
-            return searchTextField
-        } else {
-            return self.value(forKey: "_searchField") as! UITextField
-        }
+    var textField: UITextField {
+        if #available(iOS 13, *) { return base.searchTextField }
+        else { return base.value(forKey: "_searchField") as! UITextField }
     }
     
 }

@@ -27,26 +27,14 @@
 //MARK:- Int
 public extension Int {
     
-    var aa_to_mmss : String {
-        return "\(((self % 3600) / 60).aa_twoDigit):\(((self % 3600) % 60).aa_twoDigit)"
-    }
+    var aa_to_mmss : String { "\(((self % 3600) / 60).aa_twoDigit):\(((self % 3600) % 60).aa_twoDigit)" }
     
-    var aa_twoDigit: String {
-        return String(format: "%02d", self)
-    }
+    var aa_twoDigit: String { String(format: "%02d", self) }
     
-    var aa_toString: String {
-        return String(self)
-    }
+    var aa_toString: String { String(self) }
     
-    var aa_boolValue: Bool {
-        return self != 0
-    }
-    
-    var aa_kiloMeters: Int {
-        return self/1000
-    }
-    
+    var aa_boolValue: Bool { self != 0 }
+        
     func aa_toLocalizedString(locale: Locale = .current) -> String {
         let formatter = NumberFormatter()
         formatter.locale = locale // Locale(identifier: "ar")

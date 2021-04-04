@@ -25,16 +25,14 @@
 
 
 // MARK:- UIScrollView
-public extension UIScrollView {
+public extension AA where Base: UIScrollView {
+    
     @discardableResult
-    func aa_addRefreshControl(_ completion: @escaping (() -> ())) -> UIRefreshControl {
+    func addRefreshControl(_ completion: @escaping (() -> ())) -> UIRefreshControl {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .gray
-        if #available(iOS 10.0, *) {
-            self.refreshControl = refreshControl
-        } else {
-            self.addSubview(refreshControl)
-        }
+        if #available(iOS 10.0, *) { base.refreshControl = refreshControl }
+        else { base.addSubview(refreshControl) }
         
         refreshControl.aa_addAction(for: .valueChanged) {
             guard $0.isRefreshing else {
@@ -47,15 +45,15 @@ public extension UIScrollView {
         return refreshControl
     }
     
-    func aa_scrollToBottomOffset(_ animated: Bool) {
-        if self.contentSize.height < self.bounds.size.height { return }
-        let bottomOffset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
-        self.setContentOffset(bottomOffset, animated: animated)
+    func scrollToBottomOffset(_ animated: Bool) {
+        if base.contentSize.height < base.bounds.size.height { return }
+        let bottomOffset = CGPoint(x: 0, y: base.contentSize.height - base.bounds.size.height)
+        base.setContentOffset(bottomOffset, animated: animated)
     }
     
-    func aa_isOnBottom(with distance: Float = 10) -> Bool {
-        let y: Float = Float(contentOffset.y) + Float(bounds.size.height) + Float(contentInset.bottom)
-        let height = Float(contentSize.height)
+    func isOnBottom(with distance: Float = 10) -> Bool {
+        let y: Float = Float(base.contentOffset.y) + Float(base.bounds.size.height) + Float(base.contentInset.bottom)
+        let height = Float(base.contentSize.height)
         return y > height + distance
     }
 }

@@ -26,7 +26,6 @@
 // MARK:- Bool
 public extension Bool {
     
-    var aa_intValue: Int {
-        return self ? 1 : 0
-    }
+    var aa_intValue: Int { self ? 1 : 0 }
+    
 }

@@ -27,58 +27,38 @@
 // MARK:- UIButton
 public extension AA where Base: UIButton {
     
-    func setFontIcon(string: (String?, String?)?,
-                      icons: (String, String?),
-                      color: (UIColor?, UIColor?)?,
-                      textColor: (UIColor?, UIColor?)?,
-                      iconFont: UIFont,
-                      isLeft: Bool) {
+    func setFontIcon(string: String?,
+                        icon: String,
+                        iconColor: UIColor? = nil,
+                        textColor: UIColor?,
+                        iconFont: UIFont,
+                        textFont: UIFont,
+                        state: UIControl.State = .normal,
+                        baseline: Int = 3,
+                        isLeft: Bool) {
         
-        let buttonText = string?.0 ?? base.title(for: .normal) ?? ""
-        let selectedText = string?.1 ?? string?.0 ?? base.title(for: .selected) ?? buttonText
-        let normalColor = textColor?.0 ?? base.titleColor(for: .normal)
-        let selectedColor = textColor?.1 ?? textColor?.0 ?? base.titleColor(for: .selected)
-        
-        let titleString, selectedString: String
-        let icon = icons.0
-        let selectedIcon = icons.1 ?? icons.0
-        let textRange, textRangeSelected: NSRange
-        
-        if isLeft {
-            titleString = "\(icon) \(buttonText)"
-            selectedString = "\(selectedIcon) \(selectedText)"
-        }
-        else {
-            titleString = "\(buttonText) \(icon)"
-            selectedString = "\(selectedText) \(selectedIcon)"
-        }
-        
-        
-        textRange = NSRange(titleString.range(of: buttonText)!, in: titleString)
-        textRangeSelected = NSRange(selectedString.range(of: selectedText)!, in: selectedString)
-        
+        let buttonText = string ?? base.title(for: state) ?? " "
+        let normalColor = textColor ?? base.titleColor(for: state)
+        let titleString = isLeft ? "\(icon) \(buttonText)" : "\(buttonText) \(icon)"
+        let textRange = NSRange(titleString.range(of: buttonText)!, in: titleString)
         let rangeIcon = NSRange(titleString.range(of: icon)!, in: titleString)
         
         let attrs = NSMutableAttributedString(string: titleString)
-        attrs.addAttribute(.baselineOffset, value: 3, range: textRange)
+        attrs.addAttribute(.baselineOffset, value: baseline, range: textRange)
+        attrs.addAttribute(.font, value: textFont, range: textRange)
         attrs.addAttribute(.font, value: iconFont, range: rangeIcon)
-        if let color = color, let normalColor = color.0 {
-            attrs.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor , range: rangeIcon)
+        if let textColor = textColor {
+            attrs.addAttribute(.foregroundColor, value: textColor as Any , range: textRange)
         }
-        attrs.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor as Any , range: textRange)
-        base.setAttributedTitle(attrs, for: .normal)
-        
-        let attrsS = NSMutableAttributedString(string: selectedString)
-        attrsS.addAttribute(.baselineOffset, value: 3, range: textRangeSelected)
-        attrsS.addAttribute(NSAttributedString.Key.foregroundColor, value: selectedColor as Any  , range: textRangeSelected)
-        attrsS.addAttribute(.font, value: iconFont, range: rangeIcon)
-        if let color = color, let normalColor = color.1 ?? color.0 {
-            attrsS.addAttribute(NSAttributedString.Key.foregroundColor, value: normalColor, range: rangeIcon)
+        if let iconColor = iconColor {
+            attrs.addAttribute(.foregroundColor, value: iconColor , range: rangeIcon)
         }
-        base.setAttributedTitle(attrsS, for: .selected)
+        else {
+            attrs.addAttribute(.foregroundColor, value: normalColor as Any , range: .init(location: 0, length: buttonText.count))
+        }
+        base.setAttributedTitle(attrs, for: state)
         
     }
-    
     
     func setBackgroundColor(color: UIColor, forState: UIControl.State) {
         base.clipsToBounds = true
@@ -99,14 +79,6 @@ public extension AA where Base: UIButton {
                             self.base.isSelected.toggle()
                             animation()
         }, completion: nil)
-    }
-    
-}
-
-public extension UIBarButtonItem {
-    
-    var aa_view: UIView? {
-        value(forKey: "view") as? UIView
     }
     
 }

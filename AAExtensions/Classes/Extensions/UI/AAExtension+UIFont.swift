@@ -26,15 +26,6 @@
 
 // MARK:- UIFont
 public extension UIFont {
-    private func withTraits(traits:UIFontDescriptor.SymbolicTraits...) -> UIFont {
-        let descriptor = self.fontDescriptor
-            .withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
-        return UIFont(descriptor: descriptor!, size: 0)
-    }
-    
-    func bold() -> UIFont {
-        return withTraits(traits: .traitBold)
-    }
     
     class func registerFont(withFilenameString filenameString: String, bundle: Bundle) {
         
@@ -64,22 +55,8 @@ public extension UIFont {
         }
     }
     
-    func aa_changeFont(_ fontName: String) -> UIFont {
-        UIFont(name: fontName, size: self.pointSize) ?? self
-    }
     
-    @available(iOS 8.2, *)
-    var aa_weight: UIFont.Weight {
-        guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
-        let weightRawValue = CGFloat(weightNumber.doubleValue)
-        let weight = UIFont.Weight(rawValue: weightRawValue)
-        return weight
-    }
     
-    private var traits: [UIFontDescriptor.TraitKey: Any] {
-        return fontDescriptor.object(forKey: .traits) as? [UIFontDescriptor.TraitKey: Any]
-            ?? [:]
-    }
     
     class func aa_fetchFont(from url: URL, completion: ((UIFont?) -> ())?) {
         URLSession(configuration: .default).dataTask(with: url,
@@ -103,24 +80,32 @@ public extension UIFont.Weight {
     
     var aa_string: String? {
         switch self {
-        case .regular:
-            return "Regular"
-        case .bold:
-            return "Bold"
-        case .medium:
-            return "Medium"
-        case .light:
-            return "Light"
-        case .heavy:
-            return "Heavy"
-        case .semibold:
-            return "Semibold"
-        case .thin:
-            return "Thin"
-        case .ultraLight:
-            return "UltraLight"
-        default:
-            return nil
+        case .regular: return "Regular"
+        case .bold: return "Bold"
+        case .medium: return "Medium"
+        case .light: return "Light"
+        case .heavy: return "Heavy"
+        case .semibold: return "Semibold"
+        case .thin: return "Thin"
+        case .ultraLight: return "UltraLight"
+        default:  return nil
         }
+    }
+}
+
+public extension AA where Base: UIFont {
+    
+    
+    @available(iOS 8.2, *)
+    var weight: UIFont.Weight {
+        guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
+        let weightRawValue = CGFloat(weightNumber.doubleValue)
+        let weight = UIFont.Weight(rawValue: weightRawValue)
+        return weight
+    }
+    
+    private var traits: [UIFontDescriptor.TraitKey: Any] {
+        return base.fontDescriptor.object(forKey: .traits) as? [UIFontDescriptor.TraitKey: Any]
+            ?? [:]
     }
 }

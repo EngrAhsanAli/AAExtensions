@@ -39,13 +39,9 @@ public class AAReversibleConstraint: NSLayoutConstraint {
     var _constant: CGFloat = 0
     
     override public var constant: CGFloat {
-        set {
-            super.constant = newValue
-        }
+        set { super.constant = newValue }
         get {
-            if super.constant != 0 {
-                _constant = super.constant
-            }
+            if super.constant != 0 { _constant = super.constant }
             return super.constant
         }
     }
@@ -60,16 +56,10 @@ public class AAReversibleConstraint: NSLayoutConstraint {
         DispatchQueue.main.async { super.constant = 0 }
     }
     
-    open var isShowing: Bool {
-        return super.constant != 0
-    }
+    open var isShowing: Bool { super.constant != 0 }
     
-    open func toggle() {
-        isShowing ? hide() : show()
-    }
+    open func toggle() { isShowing ? hide() : show() }
     
-    open func showHide(_ isHidden: Bool) {
-        isHidden ? hide() : show()
-    }
+    open func showHide(_ isHidden: Bool) { isHidden ? hide() : show() }
     
 }

@@ -147,22 +147,3 @@ fileprivate extension UIEdgeInsets {
     }
     
 }
-
-public extension AAImageButton {
-    
-    func choiceButton(_ isSingle: Bool, text: String, normalImage: UIImage, selectedImage: UIImage) {
-        
-        imagePosition = .left
-        spacing = 10
-        imageEdgeInsets = .init(top: 5, left: 0, bottom: 5, right: 0)
-        
-        setImage(normalImage, for: .normal)
-        setImage(selectedImage, for: .selected)
-        imageView?.contentMode = .scaleAspectFit
-        contentHorizontalAlignment = .left
-        setTitle(text, for: .normal)
-        setTitleColor(.black, for: .normal)
-        
-    }
-    
-}

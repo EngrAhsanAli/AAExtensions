@@ -38,12 +38,4 @@ public extension UICollectionView {
         }
     }
     
-    func aa_setSelection(_ flag: Bool, at indexPath: IndexPath) {
-        if flag {
-            selectItem(at: indexPath, animated: true, scrollPosition: .init())
-        }
-        else {
-            deselectItem(at: indexPath, animated: true)
-        }
-    }
 }

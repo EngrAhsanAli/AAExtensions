@@ -297,3 +297,28 @@ public extension String {
     }
 }
 
+
+public extension String {
+    
+    //    "abcde"[0] --> "a"
+    //    "abcde"[0...2] --> "abc"
+    //    "abcde"[2..<4] --> "cd"
+    
+    subscript(aa i: Int) -> String {
+        let idx1 = index(startIndex, offsetBy: i)
+        let idx2 = index(idx1, offsetBy: 1)
+        return String(self[idx1..<idx2])
+    }
+    
+    subscript (aa r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return String(self[start ..< end])
+    }
+    
+    subscript (aa r: CountableClosedRange<Int>) -> String {
+        let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
+        let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
+        return String(self[startIndex...endIndex])
+    }
+}

@@ -38,9 +38,7 @@ public extension Date {
         aa_toString(fromFormat: fromFormat.rawValue, currentTimeZone: currentTimeZone)
     }
     
-    var aa_timeStamp: Int64 {
-        Int64(timeIntervalSince1970 * 1000)
-    }
+    var aa_timeStamp: Int64 { Int64(timeIntervalSince1970 * 1000) }
     
     func aa_timeAgo(numericDates: Bool) -> String {
         let calendar = Calendar.current

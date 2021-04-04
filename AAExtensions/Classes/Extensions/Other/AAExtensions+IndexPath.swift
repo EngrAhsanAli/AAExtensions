@@ -25,7 +25,8 @@
 
 public extension IndexPath {
     
-    var aa_nextRow: IndexPath {
-        IndexPath(row: row + 1, section: section)
-    }
+    var aa_nextRow: IndexPath { .init(row: row + 1, section: section) }
+    
+    var aa_prevRow: IndexPath { .init(row: row + -1, section: section) }
+
 }

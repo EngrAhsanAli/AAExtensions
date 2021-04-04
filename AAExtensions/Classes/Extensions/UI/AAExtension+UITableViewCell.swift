@@ -32,9 +32,7 @@ public extension UITableViewCell {
             view.backgroundColor = newValue
             self.selectedBackgroundView = view
         }
-        get {
-            return self.selectedBackgroundView?.backgroundColor ?? .clear
-        }
+        get { self.selectedBackgroundView?.backgroundColor ?? .clear }
     }
 }
 

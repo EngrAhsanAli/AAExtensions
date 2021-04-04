@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 public extension Encodable {
+    
     var aa_dictionary: [String: Any] {
         (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
     }

@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 
 // MARK:- Array
-public extension Array{
+public extension Array {
+    
     mutating func aa_prepend(_ newItem : Element){
         let copy = self
         self = []

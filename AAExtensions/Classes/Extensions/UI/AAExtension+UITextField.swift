@@ -23,56 +23,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-public extension UITextField {
+public extension AA where Base: UITextField {
     
-    func aa_textIfNil(_ defaultText: String = "") -> String {
-        return text ?? defaultText
+    func hintColor(_ color: UIColor) {
+        guard let holder = base.placeholder, !holder.isEmpty else { return }
+        base.attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
     }
     
-    var aa_textType: AATextType {
-        get {
-            if keyboardType == .emailAddress {
-                return .emailAddress
-            } else if isSecureTextEntry {
-                return .password
-            }
-            return .generic
-        }
-        set {
-            switch newValue {
-            case .emailAddress:
-                keyboardType = .emailAddress
-                autocorrectionType = .no
-                autocapitalizationType = .none
-                isSecureTextEntry = false
-                
-            case .password:
-                keyboardType = .asciiCapable
-                autocorrectionType = .no
-                autocapitalizationType = .none
-                isSecureTextEntry = true
-                
-            case .generic:
-                isSecureTextEntry = false
-            }
-        }
-    }
-    
-    var aa_isEmpty: Bool {
-        return text?.isEmpty == true
-    }
-    
-    var aa_trimmedText: String? {
-        return text?.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    func aa_hintColor(_ color: UIColor) {
-        guard let holder = placeholder, !holder.isEmpty else { return }
-        attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
-    }
-    
-    func aa_setIcon(with size: CGFloat = 18, padding: CGFloat = 8, image: UIImage, isRight: Bool = true) {
+    func setIcon(with size: CGFloat = 18, padding: CGFloat = 8, image: UIImage, isRight: Bool = true) {
         
         let outerView = UIView(frame: CGRect(x: 0, y: 0, width: size+padding, height: size))
         let iconView  = UIImageView(frame: CGRect(x: padding, y: 0, width: size, height: size))
@@ -80,52 +38,39 @@ public extension UITextField {
         outerView.addSubview(iconView)
         
         if isRight {
-            rightView = outerView
-            rightViewMode = .always
+            base.rightView = outerView
+            base.rightViewMode = .always
         }
         else {
-            leftView = outerView
-            leftViewMode = .always
+            base.leftView = outerView
+            base.leftViewMode = .always
         }
     }
     
-    func aa_inputDatePicker(_ onComplete: ((String) -> ())?) {
+    func inputDatePicker(completion: ((String) -> ())?) {
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
-        inputView = datePicker
+        base.inputView = datePicker
         
         let toolBar = UIToolbar()
         
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancel = AABindableBarButton(systemItem: .cancel) {
-            self.tapCancel()
+            base.resignFirstResponder()
         }
         let doneBtn = AABindableBarButton(systemItem: .done) {
-            self.tapDone(onComplete)
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .medium
+            base.text = dateformatter.string(from: datePicker.date)
+            base.resignFirstResponder()
+            completion?(base.text ?? "")
         }
         
         toolBar.setItems([cancel, flexible, doneBtn], animated: false)
         toolBar.sizeToFit()
-        inputAccessoryView = toolBar
+        base.inputAccessoryView = toolBar
         
     }
     
-}
-
-fileprivate extension UITextField {
-    
-    func tapCancel() {
-        resignFirstResponder()
-    }
-    
-    func tapDone(_ onComplete: ((String) -> ())?) {
-        if let datePicker = inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.dateStyle = .medium
-            text = dateformatter.string(from: datePicker.date)
-        }
-        resignFirstResponder()
-        onComplete?(text ?? "")
-    }
 }

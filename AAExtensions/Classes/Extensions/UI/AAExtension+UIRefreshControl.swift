@@ -24,15 +24,15 @@
 //  THE SOFTWARE.
 
 // MARK: - UIRefreshControl
-public extension UIRefreshControl {
+public extension AA where Base: UIRefreshControl {
     
     /// Trigger the refresh control programmatically
-    func aa_trigger() {
-        if let scrollView = superview as? UIScrollView {
-            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - frame.height), animated: false)
+    func trigger() {
+        if let scrollView = base.superview as? UIScrollView {
+            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - base.frame.height), animated: false)
         }
-        beginRefreshing()
-        sendActions(for: .valueChanged)
+        base.beginRefreshing()
+        base.sendActions(for: .valueChanged)
     }
     
 }

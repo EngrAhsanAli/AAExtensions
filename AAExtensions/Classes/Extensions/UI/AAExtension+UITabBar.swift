@@ -25,24 +25,24 @@
 
 
 // MARK:- UITabBar
-public extension UITabBar {
+public extension AA where Base: UITabBar {
     
-    func aa_setColors(
+    func setColors(
         background: UIColor? = nil,
         selectedBackground: UIColor? = nil,
         item: UIColor? = nil,
         selectedItem: UIColor? = nil) {
         
-        barTintColor = background ?? barTintColor
-        tintColor = selectedItem ?? tintColor
-        backgroundImage = UIImage()
-        isTranslucent = false
+        if let color = background { base.barTintColor = color }
+        if let color = selectedItem { base.tintColor = color }
+        base.backgroundImage = UIImage()
+        base.isTranslucent = false
         
-        guard let barItems = items else { return }
+        guard let barItems = base.items else { return }
         
         if let selectedbg = selectedBackground {
-            let rect = CGSize(width: frame.width/CGFloat(barItems.count), height: frame.height)
-            selectionIndicatorImage = { (color: UIColor, size: CGSize) -> UIImage in
+            let rect = CGSize(width: base.frame.width/CGFloat(barItems.count), height: base.frame.height)
+            base.selectionIndicatorImage = { (color: UIColor, size: CGSize) -> UIImage in
                 UIGraphicsBeginImageContextWithOptions(size, false, 1)
                 color.setFill()
                 UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -89,25 +89,21 @@ public extension UITabBar {
     
 }
 
+public extension AA where Base: UITabBarController {
 
-public extension UITabBarController {
-    func aa_visibility(_ isHidden: Bool, animated: Bool = true, duration: TimeInterval = 0.3) {
-        if (tabBar.isHidden == isHidden) {
-            return
-        }
-        
-        if !isHidden {
-            tabBar.isHidden = false
-        }
+    func visibility(_ isHidden: Bool, animated: Bool = true, duration: TimeInterval = 0.3) {
+        let tabBar = base.tabBar
+        let view = base.view!
+        if (tabBar.isHidden == isHidden) { return }
+        if !isHidden { tabBar.isHidden = false }
         let height = tabBar.frame.size.height
         let offsetY = view.frame.height - (isHidden ? 0 : height)
         let duration = (animated ? duration : 0.0)
-        
         let frame = CGRect(origin: CGPoint(x: tabBar.frame.minX, y: offsetY), size: tabBar.frame.size)
         UIView.animate(withDuration: duration, animations: {
-            self.tabBar.frame = frame
+            tabBar.frame = frame
         }) { _ in
-            self.tabBar.isHidden = isHidden
+            tabBar.isHidden = isHidden
         }
     }
 }

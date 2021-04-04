@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        self.view.aa_addTapGesture {
+        self.view.aa.onTap {
             self.aa_callBack?("Some Value")
         }
         
@@ -44,8 +44,8 @@ class ViewController: UIViewController {
     func aa_presentDocumentPicker() {
         let extensions = ".pdf,.jpeg,.png,.gif,.doc,.docx,.rtf,.txt,.odf,.xlsx,.ppt"
 
-        aa.presentDocumentPicker(extensions) {
-             print($0)
-        }
+//        aa.presentDocumentPicker(extensions) {
+//             print($0)
+//        }
     }
 }

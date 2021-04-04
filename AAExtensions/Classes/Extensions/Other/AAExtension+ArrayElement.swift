@@ -26,6 +26,7 @@
 
 // MARK: - Array UITextField
 public extension Array where Element == UITextField {
+    
     func aa_clear() {
         forEach {
             $0.text = String()
@@ -35,27 +36,29 @@ public extension Array where Element == UITextField {
     
     func aa_enabled(_ isEnabled: Bool) { forEach { $0.isEnabled = isEnabled } }
     
-    var aa_validateEmpty: Bool {
-        return (filter { $0.text?.isEmpty ?? false }.count > 0)
-    }
+    var aa_validateEmpty: Bool { (filter { $0.text?.isEmpty ?? false }.count > 0) }
     
 }
 
 // MARK: - Array Equatable
 public extension Array where Element: Equatable {
+    
     func aa_indexes(of item: Element) -> [Int]  {
-        return enumerated().compactMap { $0.element == item ? $0.offset : nil }
+        enumerated().compactMap { $0.element == item ? $0.offset : nil }
     }
     
 }
 
 // MARK: - Array UIView
 public extension Sequence where Iterator.Element: UIView {
+    
     func aa_setVisibility(_ flag: Bool) { forEach { $0.isHidden = !flag } }
+    
 }
 
 // MARK: - Array AAReversibleConstraint
 public extension Array where Element == AAReversibleConstraint {
+    
     func setVisibility(_ isHidden: Bool) { forEach { $0.showHide(isHidden) } }
     
 }
@@ -64,18 +67,13 @@ public extension Array where Element == AAReversibleConstraint {
 public extension RangeReplaceableCollection where Element: Equatable {
     
     mutating func aa_appendOrRemove(_ element: Element) {
-        if let index = firstIndex(of: element) {
-            remove(at: index)
-        }
-        else {
-            insert(element, at: endIndex)
-        }
+        if let index = firstIndex(of: element) { remove(at: index) }
+        else { insert(element, at: endIndex) }
     }
     
     mutating func aa_appendUnique(_ element: Element) {
-        if firstIndex(of: element) == nil {
-            insert(element, at: endIndex)
-        }
+        guard firstIndex(of: element) == nil else { return }
+        insert(element, at: endIndex)
     }
     
     mutating func aa_remove(_ element: Element) {
@@ -85,8 +83,10 @@ public extension RangeReplaceableCollection where Element: Equatable {
 }
 
 public extension Array {
+    
     mutating func aa_move(at oldIndex: Int, to newIndex: Int) {
         if newIndex >= count || newIndex < 0 { return }
         self.insert(self.remove(at: oldIndex), at: newIndex)
     }
+    
 }

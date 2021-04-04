@@ -31,9 +31,8 @@ public extension DispatchQueue {
         DispatchQueue.global(qos: .background).async {
             background?()
             if let completion = completion {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-                    completion()
-                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay,
+                                              execute: { completion() })
             }
         }
     }

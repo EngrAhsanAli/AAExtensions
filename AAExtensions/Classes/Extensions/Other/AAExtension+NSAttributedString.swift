@@ -130,11 +130,11 @@ public extension NSMutableAttributedString {
     func aa_embedIcon(image: UIImage, color: UIColor?, spacing: Int = 2, size: CGFloat?, baseline: Int? = nil, isLeft: Bool) {
         let attachment = NSTextAttachment()
         if let size = size {
-            let height = image.aa_height(forWidth: size)
+            let height = image.aa.height(forWidth: size)
             attachment.bounds = .init(x: 0, y: 0, width: size, height: height)
         }
         var _image = image
-        if let color = color, let tintImage = image.aa_tint(with: color) {
+        if let color = color, let tintImage = image.aa.tint(with: color) {
             _image = tintImage
         }
         attachment.image = _image

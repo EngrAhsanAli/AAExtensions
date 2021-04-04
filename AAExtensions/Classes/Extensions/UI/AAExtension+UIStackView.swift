@@ -26,17 +26,11 @@
 
 // MARK:- StackView
 @available(iOS 9.0, *)
-public extension UIStackView {
-    func aa_addBackgroundColor(_ color: UIColor) {
-        let subview = UIView(frame: bounds)
-        subview.backgroundColor = color
-        subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(subview, at: 0)
-    }
+public extension AA where Base: UIStackView {
     
-    func aa_removeArrangedSubviews(removeConstraints: Bool) {
-        let removedSubviews = arrangedSubviews.reduce([]) { (sum, next) -> [UIView] in
-            self.removeArrangedSubview(next)
+    func removeArrangedSubviews(removeConstraints: Bool) {
+        let removedSubviews = base.arrangedSubviews.reduce([]) { (sum, next) -> [UIView] in
+            base.removeArrangedSubview(next)
             return sum + [next]
         }
         if removeConstraints {
@@ -45,19 +39,16 @@ public extension UIStackView {
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
     
-    func aa_setClickListner(_ callback: @escaping ((Int) -> ())) {
-        isUserInteractionEnabled = true
-        aa_addTapGesture {
-            guard let sender = self.gestureRecognizers?.filter({ ($0 as? UITapGestureRecognizer != nil) }).first else {
-                return
-            }
+    func setClickListner(_ callback: @escaping ((Int) -> ())) {
+        base.isUserInteractionEnabled = true
+        base.aa.onTap {
+            guard let sender = base.gestureRecognizers?.filter({ ($0 as? UITapGestureRecognizer != nil) }).first else { return }
             let view = sender.view
             let loc = sender.location(in: view)
             guard let subview = view?.hitTest(loc, with: nil) else { return }
             callback(subview.tag)
-            
         }
-        arrangedSubviews.enumerated().forEach { $0.element.tag = $0.offset }
+        base.arrangedSubviews.enumerated().forEach { $0.element.tag = $0.offset }
         
     }
 }
