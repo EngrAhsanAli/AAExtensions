@@ -28,31 +28,31 @@ import NaturalLanguage
 // MARK:- String
 public extension String {
 
-    var aa_toDateTimeOffset: Date? { return self.trimMillisecond.aa_toDate(fromFormat: "", currentTimeZone: true) }
+    var aa_toDateTimeOffset: Date? { trimMillisecond.aa_toDate(fromFormat: "", currentTimeZone: true) }
     
-    var aa_url: URL { return URL(string: addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)! }
+    var aa_url: URL { URL(string: addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)! }
     
-    var aa_trimmed: String { return trimmingCharacters(in: .whitespaces) }
+    var aa_trimmed: String { trimmingCharacters(in: .whitespaces) }
     
-    var aa_toInt: Int { return Int(self) ?? 0 }
+    var aa_toInt: Int { Int(self) ?? 0 }
     
-    var aa_toFloat: Float { return Float(self) ?? 0 }
+    var aa_toFloat: Float { Float(self) ?? 0 }
     
-    var aa_toDouble: Double { return Double(self) ?? 0 }
+    var aa_toDouble: Double { Double(self) ?? 0 }
     
-    var aa_encryptBase64: String { return self.data(using: String.Encoding.utf8)!.base64EncodedString(options: .init(rawValue: 0)) }
+    var aa_encryptBase64: String { data(using: String.Encoding.utf8)!.base64EncodedString(options: .init(rawValue: 0)) }
     
-    var aa_decryptDataBase64: Data { return Data(base64Encoded: self, options: .ignoreUnknownCharacters)! }
+    var aa_decryptDataBase64: Data { Data(base64Encoded: self, options: .ignoreUnknownCharacters)! }
     
-    var aa_decryptBase64: String? { return String(data: aa_decryptDataBase64, encoding: .utf8) }
+    var aa_decryptBase64: String? { String(data: aa_decryptDataBase64, encoding: .utf8) }
     
-    func aa_left(_ to: Int) -> String { return "\(self[..<self.index(startIndex, offsetBy: to)])" }
+    func aa_left(_ to: Int) -> String { "\(self[..<index(startIndex, offsetBy: to)])" }
     
-    func aa_right(_ from: Int) -> String { return "\(self[self.index(startIndex, offsetBy: self.count-from)...])" }
+    func aa_right(_ from: Int) -> String { "\(self[index(startIndex, offsetBy: count-from)...])" }
     
-    func aa_mid(_ from: Int, amount: Int) -> String { return "\(self[self.index(startIndex, offsetBy: from)...])".aa_left(amount) }
+    func aa_mid(_ from: Int, amount: Int) -> String { "\(self[index(startIndex, offsetBy: from)...])".aa_left(amount) }
     
-    func aa_rangeOfString(find: String) -> Range<String.Index>? { return self.range(of: find, options: .caseInsensitive) }
+    func aa_rangeOfString(find: String) -> Range<String.Index>? { range(of: find, options: .caseInsensitive) }
     
     var aa_initialLetters: String {
         let components = self.components(separatedBy: " ")
@@ -96,10 +96,6 @@ public extension String {
         return nil
     }
     
-    func aa_replace(_ originalString: String, with newString: String) -> String {
-        self.replacingOccurrences(of: originalString, with: newString)
-    }
-    
     func aa_openURL() {
         guard let url = URL(string: self) else { return }
         if #available(iOS 10.0, *) {
@@ -122,16 +118,14 @@ public extension String {
         return ext
     }
     
-    var aa_localized: String {
-        return NSLocalizedString(self, comment:"")
-    }
+    var aa_localized: String { NSLocalizedString(self, comment:"") }
     
     func aa_localized(withComment comment: String? = nil) -> String {
-        return NSLocalizedString(self, comment: comment ?? "")
+        NSLocalizedString(self, comment: comment ?? "")
     }
     
-    func aa_localized(lang:String) -> String {
-        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+    func aa_localized(lang:String, bundle: Bundle = .main) -> String {
+        let path = bundle.path(forResource: lang, ofType: "lproj")
         let bundle = Bundle(path: path!)
         return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
@@ -153,8 +147,8 @@ public extension String {
             else { return nil }
         do {
             return try NSAttributedString(data: data, options: [
-                NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
-                NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: String.Encoding.utf8.rawValue
                 ], documentAttributes: nil)
         } catch let error as NSError {
             print(error.localizedDescription)
@@ -217,7 +211,7 @@ public extension String {
             let matches = detector.matches(in: self, options: .reportCompletion, range: NSMakeRange(0, self.count))
             return matches.compactMap({$0.url})
         } catch let error {
-            debugPrint("AAExtensions:- ", error.localizedDescription)
+            debugPrint("AAExtensions:- Invalid URLs -- ", error.localizedDescription)
         }
         
         return []
@@ -229,7 +223,7 @@ public extension String {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
             } catch {
-                debugPrint("AAExtensions:- ", error.localizedDescription)
+                debugPrint("AAExtensions:- Invalid json -- ", error.localizedDescription)
             }
         }
         return nil

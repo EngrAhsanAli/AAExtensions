@@ -27,9 +27,7 @@
 @IBDesignable
 public extension UIView {
     @IBInspectable var AABorderColor: UIColor? {
-        set {
-            layer.borderColor = newValue!.cgColor
-        }
+        set { layer.borderColor = newValue!.cgColor }
         get {
             if let color = layer.borderColor {
                 return UIColor(cgColor: color)
@@ -39,30 +37,21 @@ public extension UIView {
     }
     
     @IBInspectable var AABorderWidth: CGFloat {
-        set {
-            layer.borderWidth = newValue
-        }
-        get {
-            return layer.borderWidth
-        }
+        set { layer.borderWidth = newValue }
+        get { layer.borderWidth }
     }
+    
     @IBInspectable var AACornerRadius: CGFloat {
         set {
             layer.cornerRadius = newValue
             clipsToBounds = newValue > 0
         }
-        get {
-            return layer.cornerRadius
-        }
+        get { layer.cornerRadius }
     }
     
     @IBInspectable var AACornerPercent: CGFloat {
-        get {
-            return self.AACornerPercent
-        }
-        set (value) {
-            layer.cornerRadius = frame.width * value
-        }
+        get { self.AACornerPercent }
+        set { layer.cornerRadius = frame.width * newValue }
     }
     
     @IBInspectable var AABackground: UIImage? {
@@ -88,11 +77,10 @@ public extension UIView {
     }
     
     @IBInspectable var AALeftBorder: CGFloat {
-        get {
-            return 0.0   // Just to satisfy property
-        }
+        get { 0.0 } // Just to satisfy property
         set {
             let line = UIView(frame: CGRect(x: 0.0, y: 0.0, width: newValue, height: bounds.height))
+            line.tag = 9991
             line.translatesAutoresizingMaskIntoConstraints = false
             line.backgroundColor = UIColor(cgColor: layer.borderColor!)
             self.addSubview(line)
@@ -105,11 +93,10 @@ public extension UIView {
     }
     
     @IBInspectable var AATopBorder: CGFloat {
-        get {
-            return 0.0   // Just to satisfy property
-        }
+        get { 0.0 } // Just to satisfy property
         set {
             let line = UIView(frame: CGRect(x: 0.0, y: 0.0, width: bounds.width, height: newValue))
+            line.tag = 9992
             line.translatesAutoresizingMaskIntoConstraints = false
             line.backgroundColor = UIColor(cgColor: layer.borderColor!)
             self.addSubview(line)
@@ -122,11 +109,10 @@ public extension UIView {
     }
     
     @IBInspectable var AARightBorder: CGFloat {
-        get {
-            return 0.0   // Just to satisfy property
-        }
+        get { 0.0 } // Just to satisfy property
         set {
             let line = UIView(frame: CGRect(x: bounds.width, y: 0.0, width: newValue, height: bounds.height))
+            line.tag = 9993
             line.translatesAutoresizingMaskIntoConstraints = false
             line.backgroundColor = UIColor(cgColor: layer.borderColor!)
             self.addSubview(line)
@@ -138,11 +124,10 @@ public extension UIView {
         }
     }
     @IBInspectable var AABottomBorder: CGFloat {
-        get {
-            return 0.0   // Just to satisfy property
-        }
+        get { 0.0 } // Just to satisfy property
         set {
             let line = UIView(frame: CGRect(x: 0.0, y: bounds.height, width: bounds.width, height: newValue))
+            line.tag = 9994
             line.translatesAutoresizingMaskIntoConstraints = false
             line.backgroundColor = UIColor(cgColor: layer.borderColor!)
             self.addSubview(line)

@@ -39,7 +39,9 @@ public extension AA where Base: UIButton {
         
         let buttonText = string ?? base.title(for: state) ?? " "
         let normalColor = textColor ?? base.titleColor(for: state)
-        let titleString = isLeft ? "\(icon) \(buttonText)" : "\(buttonText) \(icon)"
+        let titleString: String
+        if isLeft { titleString = .localizedStringWithFormat("%@ \(icon)", buttonText) }
+        else { titleString = .localizedStringWithFormat("\(icon) %@", buttonText) }
         let textRange = NSRange(titleString.range(of: buttonText)!, in: titleString)
         let rangeIcon = NSRange(titleString.range(of: icon)!, in: titleString)
         

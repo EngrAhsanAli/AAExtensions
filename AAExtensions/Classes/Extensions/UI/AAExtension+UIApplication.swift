@@ -29,7 +29,7 @@ import UIKit
 // MARK:- UIApplication
 public extension UIApplication {
     var aa_visibleViewController : UIViewController? {
-        return keyWindow?.rootViewController?.aa.topViewController
+        keyWindow?.rootViewController?.aa.topViewController
     }
     
 }

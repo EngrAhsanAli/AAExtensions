@@ -65,12 +65,6 @@ public extension Dictionary {
         return self[index(startIndex, offsetBy: i)]
     }
     
-    var aa_keys: [Any] {
-        return self.compactMap { (anEntry) -> Any? in
-            return anEntry.key
-        }
-    }
-    
     func aa_append(_ dict: [Key: Value]) -> [Key: Value] {
         var result = self
         dict.forEach { key, value in result[key] = value }

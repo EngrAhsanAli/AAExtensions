@@ -29,9 +29,7 @@
 public extension UITextField {
     
     @IBInspectable var AAPaddingLeft: CGFloat {
-        get {
-            return leftView!.frame.size.width
-        }
+        get { leftView!.frame.size.width }
         set {
             leftView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
             leftViewMode = .always
@@ -39,9 +37,7 @@ public extension UITextField {
     }
     
     @IBInspectable var AAPaddingRight: CGFloat {
-        get {
-            return rightView!.frame.size.width
-        }
+        get { rightView!.frame.size.width }
         set {
             rightView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
             rightViewMode = .always
@@ -50,9 +46,7 @@ public extension UITextField {
     
     @IBInspectable
     var AAShouldDismiss: Bool {
-        get {
-            return self.AAShouldDismiss
-        }
+        get { self.AAShouldDismiss }
         set (value)  {
             if value {
                 self.addTarget(nil, action:#selector(UIView.endEditing(_ :)), for:.editingDidEndOnExit)
@@ -77,9 +71,8 @@ public extension UITextField {
     @objc private func checkMaxLength(textField: UITextField) {
         guard let prospectiveText = self.text,
             prospectiveText.count > AAMaxLength
-            else {
-                return
-        }
+            else { return }
+        
         let selection = selectedTextRange
         let indexEndOfText = prospectiveText.index(prospectiveText.startIndex, offsetBy: AAMaxLength)
         let substring = prospectiveText[..<indexEndOfText]
@@ -89,9 +82,7 @@ public extension UITextField {
     
     @IBInspectable
     var AAMandatoryView: Bool {
-        get {
-            return self.AAMandatoryView
-        }
+        get { self.AAMandatoryView }
         set (value)  {
             if value {
                 let astericLabel = UILabel()

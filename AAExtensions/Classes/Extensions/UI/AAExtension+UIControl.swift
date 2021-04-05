@@ -23,11 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public protocol ActionableControl {
-    associatedtype T = Self
-    func aa_addAction(for controlEvent: UIControl.Event, _ closure: ((T) -> Void)?)
-}
-
 private class ClosureSleeve<T> {
     let closure: ((T) -> Void)?
     let sender: T
@@ -42,16 +37,17 @@ private class ClosureSleeve<T> {
     }
 }
 
-public extension ActionableControl where Self: UIControl {
-    func aa_addAction(for controlEvent: UIControl.Event = .touchUpInside, _ closure: ((Self) -> Void)?) {
-        let previousSleeve = objc_getAssociatedObject(self, String(controlEvent.rawValue))
+public extension AA where Base: UIControl {
+    
+    func addAction(for controlEvent: UIControl.Event = .touchUpInside, _ closure: ((UIControl) -> Void)?) {
+        let previousSleeve = objc_getAssociatedObject(base, String(controlEvent.rawValue))
         objc_removeAssociatedObjects(previousSleeve as Any)
-        removeTarget(previousSleeve, action: nil, for: controlEvent)
+        base.removeTarget(previousSleeve, action: nil, for: controlEvent)
         
-        let sleeve = ClosureSleeve(sender: self, closure)
-        addTarget(sleeve, action: #selector(ClosureSleeve<Self>.invoke), for: controlEvent)
-        objc_setAssociatedObject(self, String(controlEvent.rawValue), sleeve, .OBJC_ASSOCIATION_RETAIN)
+        let sleeve = ClosureSleeve<UIControl>(sender: base, closure)
+        base.addTarget(sleeve, action: #selector(ClosureSleeve<Self>.invoke), for: controlEvent)
+        objc_setAssociatedObject(base, String(controlEvent.rawValue), sleeve, .OBJC_ASSOCIATION_RETAIN)
     }
+    
 }
 
-extension UIControl: ActionableControl {}

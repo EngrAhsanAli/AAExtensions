@@ -33,14 +33,9 @@ public extension AA where Base: UIScrollView {
         refreshControl.tintColor = .gray
         if #available(iOS 10.0, *) { base.refreshControl = refreshControl }
         else { base.addSubview(refreshControl) }
-        
-        refreshControl.aa_addAction(for: .valueChanged) {
-            guard $0.isRefreshing else {
-                $0.endRefreshing()
-                return
-            }
-            $0.endRefreshing()
-            completion()
+        refreshControl.aa.addAction(for: .valueChanged) { _ in
+            refreshControl.endRefreshing()
+            if refreshControl.isRefreshing { completion() }
         }
         return refreshControl
     }
