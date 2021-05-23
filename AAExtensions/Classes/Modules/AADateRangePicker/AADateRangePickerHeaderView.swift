@@ -1,8 +1,8 @@
 //
-//  AAExtension+Int.swift
+//  AADateRangePickerHeaderView.swift
 //  AAExtensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by Muhammad Ahsan Ali on 2021/05/23.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,25 +23,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-//MARK:- Int
-public extension Int {
+class AADateRangePickerHeaderView: UICollectionReusableView {
     
-    var aa_to_mmss : String { "\(((self % 3600) / 60).aa_twoDigit):\(((self % 3600) % 60).aa_twoDigit)" }
+    var label: UILabel!
     
-    var aa_twoDigit: String { String(format: "%02d", self) }
-    
-    var aa_toString: String { String(self) }
-    
-    var aa_boolValue: Bool { self != 0 }
-    
-    var aa_nonNegative: Int { self > 0 ? self : 0 }
-        
-    func aa_toLocalizedString(locale: Locale = .current) -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = locale // Locale(identifier: "ar")
-        return formatter.string(from: NSNumber(integerLiteral: self)) ?? aa_toString
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initLabel()
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        initLabel()
+    }
+    
+    func initLabel() {
+        label = UILabel(frame: frame)
+        label.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        label.textAlignment = .center
+        self.addSubview(label)
+    }
+    
 }
 

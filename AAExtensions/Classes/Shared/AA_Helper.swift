@@ -39,13 +39,13 @@ open class AA_Helper {
 // MARK: - AA_Helper methods
 public extension AA_Helper {
     
-    var aa_appVersion: String? { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String }
+    var appVersion: String? { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String }
     
-    var aa_udid: String { UIDevice.current.identifierForVendor?.uuidString ?? "iossimulator" }
+    var udid: String { UIDevice.current.identifierForVendor?.uuidString ?? "iossimulator" }
     
-    var aa_visibleViewController: UIViewController? { aa_rootVC.aa.topViewController }
+    var visibleViewController: UIViewController? { aa_rootVC.aa.topViewController }
     
-    var aa_isConnectedToNetwork: Bool {
+    var isConnectedToNetwork: Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -67,7 +67,7 @@ public extension AA_Helper {
         
     }
     
-    var aa_safeAreaInsets: (CGFloat, CGFloat) {
+    var safeAreaInsets: (CGFloat, CGFloat) {
         var topSafeAreaHeight: CGFloat = 0
         var bottomSafeAreaHeight: CGFloat = 0
         if #available(iOS 11.0, *) {
@@ -79,7 +79,7 @@ public extension AA_Helper {
         return (topSafeAreaHeight, bottomSafeAreaHeight)
     }
     
-    var aa_hasTopNotch: Bool {
+    var hasTopNotch: Bool {
         if #available(iOS 11.0,  *) {
             
             var safeAreaInset: CGFloat?
@@ -97,7 +97,7 @@ public extension AA_Helper {
         return false
     }
     
-    var aa_isNetworkAvailable: Bool {
+    var isNetworkAvailable: Bool {
         
         var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -118,7 +118,7 @@ public extension AA_Helper {
         return ret
     }
     
-    var aa_isJailBroken: Bool {
+    var isJailBroken: Bool {
         #if arch(i386) || arch(x86_64)
         return true // true for simulators
         #else
@@ -137,7 +137,7 @@ public extension AA_Helper {
         #endif
     }
     
-    func aa_isfileExist(fileName : String) -> String? {
+    func isfileExist(fileName : String) -> String? {
         
         var documentsUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
         documentsUrl = documentsUrl.appendingPathComponent(fileName)
@@ -148,7 +148,7 @@ public extension AA_Helper {
         return nil
     }
     
-    var aa_deviceModel: String {
+    var deviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -159,7 +159,7 @@ public extension AA_Helper {
         return identifier
     }
     
-    func aa_videoThumb(videoURL: String,
+    func videoThumb(videoURL: String,
                        completion: @escaping ((UIImage) -> ())) {
         DispatchQueue.global(qos: .userInitiated).async {
             let asset = AVAsset(url: URL(string: videoURL)!)
@@ -178,7 +178,7 @@ public extension AA_Helper {
         }
     }
     
-    func aa_navBarAppearance(bg: UIImage, tintColor: UIColor, height: CGFloat) {
+    func navBarAppearance(bg: UIImage, tintColor: UIColor, height: CGFloat) {
         let appearance = UINavigationBar.appearance()
         appearance.setBackgroundImage(bg, for: .default)
         appearance.isTranslucent = false
@@ -188,7 +188,7 @@ public extension AA_Helper {
         appearance.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
     }
     
-    func aa_tabBarAppearance(bg: UIImage, tintColor: UIColor, font: UIFont, foregroundColor: UIColor) {
+    func tabBarAppearance(bg: UIImage, tintColor: UIColor, font: UIFont, foregroundColor: UIColor) {
         let appearance = UITabBarItem.appearance()
         appearance.setTitleTextAttributes([.foregroundColor: tintColor as Any], for: .selected)
         appearance.setTitleTextAttributes([.foregroundColor: tintColor as Any], for: .normal)
@@ -202,7 +202,7 @@ public extension AA_Helper {
         
     }
     
-    func aa_mapObject<T: Codable>(_ jsonString: String, type: T.Type) -> T? {
+    func mapObject<T: Codable>(_ jsonString: String, type: T.Type) -> T? {
         do {
             let objectData: Data = jsonString.data(using: .utf8)!
             let jsonArray = try JSONSerialization.jsonObject(with: objectData, options: .mutableContainers)
@@ -213,6 +213,15 @@ public extension AA_Helper {
             print(AA_TAG, error.localizedDescription)
         }
         return nil
+    }
+    
+    func logDecoder<T: Codable>(_ type: T.Type, response: Any) {
+        guard let response = response as? Data else { return }
+        do {
+            _ = try JSONDecoder().decode(T.self, from: response)
+        }catch let jsonError {
+            print(jsonError)
+        }
     }
     
 }

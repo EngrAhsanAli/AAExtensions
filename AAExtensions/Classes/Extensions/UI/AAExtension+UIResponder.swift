@@ -1,8 +1,8 @@
 //
-//  AAExtension+Int.swift
-//  AAExtensions
+//  AAExtension+UIResponder.swift
+//  Extensions
 //
-//  Created by MacBook Pro on 17/03/2019.
+//  Created by M. Ahsan Ali on 23/05/2021.
 //
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,25 +23,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-//MARK:- Int
-public extension Int {
+// MARK:- UIResponder
+public extension UIResponder {
+    private weak static var _currentFirstResponder: UIResponder? = nil
     
-    var aa_to_mmss : String { "\(((self % 3600) / 60).aa_twoDigit):\(((self % 3600) % 60).aa_twoDigit)" }
-    
-    var aa_twoDigit: String { String(format: "%02d", self) }
-    
-    var aa_toString: String { String(self) }
-    
-    var aa_boolValue: Bool { self != 0 }
-    
-    var aa_nonNegative: Int { self > 0 ? self : 0 }
-        
-    func aa_toLocalizedString(locale: Locale = .current) -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = locale // Locale(identifier: "ar")
-        return formatter.string(from: NSNumber(integerLiteral: self)) ?? aa_toString
+    static var aa_current: UIResponder? {
+        UIResponder._currentFirstResponder = nil
+        UIApplication.shared.sendAction(#selector(findFirstResponder(sender:)), to: nil, from: nil, for: nil)
+        return UIResponder._currentFirstResponder
     }
-
+    
+    @objc internal func findFirstResponder(sender: AnyObject) {
+        UIResponder._currentFirstResponder = self
+    }
 }
-

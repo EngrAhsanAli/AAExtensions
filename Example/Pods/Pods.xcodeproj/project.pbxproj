@@ -30,6 +30,10 @@
 		3B10144C611773E5A78BC899FB88D7F3 /* AAExtension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35515508B436BE2E306052BE1A36FB6 /* AAExtension+UIViewController.swift */; };
 		3C9B655FBDF299646F154D59C4CE871E /* Module+AALabelParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44297A8265E4C605A9E978A02504FD8 /* Module+AALabelParagraph.swift */; };
 		3F13B0679CB3A04020CF97C3BE96BAE8 /* AAExtension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F722925B8DD56FD7826A023AA0DABBD /* AAExtension+Data.swift */; };
+		41B28194265A6E9D00A4E750 /* AAExtension+UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B28193265A6E9D00A4E750 /* AAExtension+UIResponder.swift */; };
+		41B2819B265A74B900A4E750 /* AADateRangePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2819A265A74B900A4E750 /* AADateRangePickerCell.swift */; };
+		41B281A0265A74C400A4E750 /* AADateRangePickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2819F265A74C400A4E750 /* AADateRangePickerHeaderView.swift */; };
+		41B281A5265A74CD00A4E750 /* AADateRangePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B281A4265A74CD00A4E750 /* AADateRangePickerViewController.swift */; };
 		41D9E7CC1B7196D21C91D48EF2FAA6A3 /* Module+AAPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD82D661380813E37DDE2DDC510D368 /* Module+AAPlaceholderTextView.swift */; };
 		45DF5586C9F46EFBF039711D2814CADA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 		524E16E62BCB7B9CACC9018EAFBBD25A /* Pods-AAExtensions_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E86AD77CFDF03C383506B8EA9EE091 /* Pods-AAExtensions_Example-dummy.m */; };
@@ -112,7 +116,7 @@
 
 /* Begin PBXFileReference section */
 		0012ECC1A78C834CE00F08200AD8B04C /* AAExtension+ArrayElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+ArrayElement.swift"; sourceTree = "<group>"; };
-		04849BEA5EC01D3C9D5BB54D2BBA7EF2 /* Pods_AAExtensions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AAExtensions_Example.framework; path = "Pods-AAExtensions_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04849BEA5EC01D3C9D5BB54D2BBA7EF2 /* Pods_AAExtensions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AAExtensions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BF9E4A8C955968EF9AC45F4FCD4D7D /* AAExtensions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AAExtensions-dummy.m"; sourceTree = "<group>"; };
 		089436057EC59970A83537F196893ADB /* Module+AAPaddingLabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAPaddingLabel.swift"; sourceTree = "<group>"; };
 		11768B86262A7F377A125CCDEFE36F65 /* AAExtension+Collection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+Collection.swift"; sourceTree = "<group>"; };
@@ -140,6 +144,10 @@
 		3AA9C12D8FAA487DC679643B0CA3CDD4 /* AAExtension+UITabBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UITabBar.swift"; sourceTree = "<group>"; };
 		3CD2987F15C9327E89AE68D9A71CCAB5 /* Module+AALoadingButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AALoadingButton.swift"; sourceTree = "<group>"; };
 		3F722925B8DD56FD7826A023AA0DABBD /* AAExtension+Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+Data.swift"; sourceTree = "<group>"; };
+		41B28193265A6E9D00A4E750 /* AAExtension+UIResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIResponder.swift"; sourceTree = "<group>"; };
+		41B2819A265A74B900A4E750 /* AADateRangePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AADateRangePickerCell.swift; sourceTree = "<group>"; };
+		41B2819F265A74C400A4E750 /* AADateRangePickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AADateRangePickerHeaderView.swift; sourceTree = "<group>"; };
+		41B281A4265A74CD00A4E750 /* AADateRangePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AADateRangePickerViewController.swift; sourceTree = "<group>"; };
 		42996B1304E32047ACA9077878199096 /* AAExtension+Int.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+Int.swift"; sourceTree = "<group>"; };
 		450BAC4EAD8EEBDC67A543A4F1580618 /* AA_Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AA_Helper.swift; sourceTree = "<group>"; };
 		4DF50561899483E046A53A2490307427 /* AAExtensions-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AAExtensions-Info.plist"; sourceTree = "<group>"; };
@@ -161,10 +169,10 @@
 		72080DA886C2DEB421C8355ED1DC110F /* AAExtension+DispatchQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+DispatchQueue.swift"; sourceTree = "<group>"; };
 		721B1D5F8F77DDA2E832E4A457468D36 /* AAExtensions.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AAExtensions.modulemap; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		75365FBD01FF75E66EA19CCE95DBE311 /* AAExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AAExtensions.framework; path = AAExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75365FBD01FF75E66EA19CCE95DBE311 /* AAExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AAExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7694AC4FEA4F47F7F17A8965287D537D /* AAExtension+UIScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UIScrollView.swift"; sourceTree = "<group>"; };
 		799CAD8A49EA28E7D9AE4515B2190503 /* AAExtensions+URL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtensions+URL.swift"; sourceTree = "<group>"; };
-		7A05BC18BEF1BB277B07E9843BB9DC7E /* Pods_AAExtensions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AAExtensions_Tests.framework; path = "Pods-AAExtensions_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A05BC18BEF1BB277B07E9843BB9DC7E /* Pods_AAExtensions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AAExtensions_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7FEA79253549C4B38C81E47CC48C74 /* AAExtension+UISearchBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UISearchBar.swift"; sourceTree = "<group>"; };
 		7CD82D661380813E37DDE2DDC510D368 /* Module+AAPlaceholderTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAPlaceholderTextView.swift"; sourceTree = "<group>"; };
 		7D51C3DD4E94C4987C60786FAF806B28 /* Pods-AAExtensions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AAExtensions_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -172,17 +180,17 @@
 		85D3E60720B7F20053555547BBC5C739 /* Pods-AAExtensions_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AAExtensions_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		882358E511345AAC28E1C6575802653B /* AAExtension+UITableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+UITableViewCell.swift"; sourceTree = "<group>"; };
 		896E894F9D6BB6247B4481E7B385F06B /* AAExtensions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AAExtensions-prefix.pch"; sourceTree = "<group>"; };
-		8BD9E62878A238E41C243A1496D7468D /* AAExtensions.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = AAExtensions.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8BD9E62878A238E41C243A1496D7468D /* AAExtensions.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = AAExtensions.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		920381108251A748A63F82281EC3952B /* AAExtension+Sequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+Sequence.swift"; sourceTree = "<group>"; };
 		95528CC1641919E421C14ECC5A48A2C9 /* Module+AATimerLabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AATimerLabel.swift"; sourceTree = "<group>"; };
 		96412D5BCD2239C35AE3AEFC80C15AEA /* AA_Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AA_Constants.swift; sourceTree = "<group>"; };
 		97D041546380FC22FA80374D9C13F093 /* AAExtensions+IndexPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtensions+IndexPath.swift"; sourceTree = "<group>"; };
 		989C7BCF977B1BB624F9826D8D567772 /* Module+AABackButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AABackButton.swift"; sourceTree = "<group>"; };
 		9D4C84D2FB8BFFC77DD21A65DEB158D8 /* Designable+UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Designable+UIViewController.swift"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A17E2B5EDB59E3DC4A809A7A38C24FE0 /* Module+AAFloatingTextField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAFloatingTextField.swift"; sourceTree = "<group>"; };
 		A7F899B13003C5397EC3857D460EF6CA /* Module+AAUserNotification.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AAUserNotification.swift"; sourceTree = "<group>"; };
-		AA672C623FEBB04CED42B13F2E48D092 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		AA672C623FEBB04CED42B13F2E48D092 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AC744CC57882017D95EC5D7EBF9873C1 /* Pods-AAExtensions_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AAExtensions_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC41944DD14DF140D66BFF84C5810D1 /* AAExtensions+UIColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtensions+UIColor.swift"; sourceTree = "<group>"; };
 		AD987596B1B34181F7762E72FDC1952E /* Module+LoadImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+LoadImage.swift"; sourceTree = "<group>"; };
@@ -212,7 +220,7 @@
 		E44297A8265E4C605A9E978A02504FD8 /* Module+AALabelParagraph.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AALabelParagraph.swift"; sourceTree = "<group>"; };
 		F157E4497992D0A2F91230CA9349C0E9 /* Pods-AAExtensions_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AAExtensions_Example.modulemap"; sourceTree = "<group>"; };
 		F48BB6C3ED9B881E8045E580198C8A4D /* Module+AATimer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Module+AATimer.swift"; sourceTree = "<group>"; };
-		F571DB53194A00B625376A947CF2808C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		F571DB53194A00B625376A947CF2808C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F61D4E0651EC30C6A107EB3CD7824D37 /* AAExtension+Double.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtension+Double.swift"; sourceTree = "<group>"; };
 		F6935FC474410EA48DADB575201037A0 /* AAExtensions+Encodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AAExtensions+Encodable.swift"; sourceTree = "<group>"; };
 		F9378D0446F3D59971F956716FE3B82C /* Pods-AAExtensions_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AAExtensions_Example-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -253,7 +261,6 @@
 			children = (
 				A17E2B5EDB59E3DC4A809A7A38C24FE0 /* Module+AAFloatingTextField.swift */,
 			);
-			name = "Module+UITextFeild";
 			path = "Module+UITextFeild";
 			sourceTree = "<group>";
 		};
@@ -262,7 +269,6 @@
 			children = (
 				B8DE3A5DD6188CF4D4E7E57DD4ACED4D /* Module+AACarouselFlowLayout.swift */,
 			);
-			name = "Module+UICollection";
 			path = "Module+UICollection";
 			sourceTree = "<group>";
 		};
@@ -289,6 +295,16 @@
 			path = AAExtensions/Classes/Shared;
 			sourceTree = "<group>";
 		};
+		41B28199265A74AC00A4E750 /* AADateRangePicker */ = {
+			isa = PBXGroup;
+			children = (
+				41B281A4265A74CD00A4E750 /* AADateRangePickerViewController.swift */,
+				41B2819A265A74B900A4E750 /* AADateRangePickerCell.swift */,
+				41B2819F265A74C400A4E750 /* AADateRangePickerHeaderView.swift */,
+			);
+			path = AADateRangePicker;
+			sourceTree = "<group>";
+		};
 		4C8BD07C94B74BBC7ECA390001434056 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +326,7 @@
 		62326FCB761001E9D36ACD4E14A83017 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				41B28199265A74AC00A4E750 /* AADateRangePicker */,
 				AEFC415F38EE9D96E829EDA97F4A8600 /* Module+AABindableBarButton.swift */,
 				4F374728FAB83997629593CD979E20DC /* Module+AABottomSheet.swift */,
 				D05079D2B69D98804F7F4968F6038B53 /* Module+AADocumentPicker.swift */,
@@ -338,7 +355,6 @@
 				5B41BCA4228B3CF86247FD1B29693569 /* Module+AAImageButton.swift */,
 				3CD2987F15C9327E89AE68D9A71CCAB5 /* Module+AALoadingButton.swift */,
 			);
-			name = "Module+UIButton";
 			path = "Module+UIButton";
 			sourceTree = "<group>";
 		};
@@ -367,7 +383,6 @@
 				95528CC1641919E421C14ECC5A48A2C9 /* Module+AATimerLabel.swift */,
 				16F3404419F8D32551B2A749676CD17C /* Module+AAVerticalAlignLabel.swift */,
 			);
-			name = "Module+UILabel";
 			path = "Module+UILabel";
 			sourceTree = "<group>";
 		};
@@ -383,7 +398,6 @@
 				E410EF4A1D8995EA5EB31332D4D105BE /* AAExtension+String.swift */,
 				799CAD8A49EA28E7D9AE4515B2190503 /* AAExtensions+URL.swift */,
 			);
-			name = Basic;
 			path = Basic;
 			sourceTree = "<group>";
 		};
@@ -407,7 +421,6 @@
 				68F32C6117AE9BE6463B3C8E050A1164 /* Module+AAImageAlligned.swift */,
 				AD987596B1B34181F7762E72FDC1952E /* Module+LoadImage.swift */,
 			);
-			name = "Modules+UIImageView";
 			path = "Modules+UIImageView";
 			sourceTree = "<group>";
 		};
@@ -417,7 +430,6 @@
 				1972358734F75EAB26DD44999FDDA3F6 /* Module+AABorderLinesView.swift */,
 				1BE8247A31B79F9EFC34565E205F137C /* Module+AAGradientView.swift */,
 			);
-			name = "Module+UIView";
 			path = "Module+UIView";
 			sourceTree = "<group>";
 		};
@@ -428,7 +440,6 @@
 				F61D4E0651EC30C6A107EB3CD7824D37 /* AAExtension+Double.swift */,
 				42996B1304E32047ACA9077878199096 /* AAExtension+Int.swift */,
 			);
-			name = DataTypes;
 			path = DataTypes;
 			sourceTree = "<group>";
 		};
@@ -459,7 +470,6 @@
 				5A1120DFE7302040AFBC665783970D09 /* Module+AAKeyboardLayoutConstraint.swift */,
 				304BA8AA58FB66436E8B467445AF1212 /* Module+AAReversibleConstraint.swift */,
 			);
-			name = "Module+NSLayoutConstraint";
 			path = "Module+NSLayoutConstraint";
 			sourceTree = "<group>";
 		};
@@ -475,6 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				340CF3410B535EE1799926458D44FF69 /* AAExtension+UIApplication.swift */,
+				41B28193265A6E9D00A4E750 /* AAExtension+UIResponder.swift */,
 				E40C110327792165DAF6D76F23437550 /* AAExtension+UIBarButtonItem.swift */,
 				512B00626976274F895CD5570EA904D6 /* AAExtension+UIButton.swift */,
 				34D681CF4879680A866320E4A503C70E /* AAExtension+UICollectionView.swift */,
@@ -496,7 +507,6 @@
 				B35515508B436BE2E306052BE1A36FB6 /* AAExtension+UIViewController.swift */,
 				ACC41944DD14DF140D66BFF84C5810D1 /* AAExtensions+UIColor.swift */,
 			);
-			name = UI;
 			path = UI;
 			sourceTree = "<group>";
 		};
@@ -514,7 +524,6 @@
 				97D041546380FC22FA80374D9C13F093 /* AAExtensions+IndexPath.swift */,
 				6AB49379F82444C15DF1176D8E7C5931 /* AAExtensions+Mirror.swift */,
 			);
-			name = Other;
 			path = Other;
 			sourceTree = "<group>";
 		};
@@ -523,7 +532,6 @@
 			children = (
 				7CD82D661380813E37DDE2DDC510D368 /* Module+AAPlaceholderTextView.swift */,
 			);
-			name = "Module+UITextView";
 			path = "Module+UITextView";
 			sourceTree = "<group>";
 		};
@@ -747,6 +755,7 @@
 				27911ABFFD5D9E1A3979A08B82623A00 /* AAExtension+Double.swift in Sources */,
 				2E86771B00BD8410C306A02835192D5D /* AAExtension+Int.swift in Sources */,
 				5EDA1B902C923100E25E2E40D96B7593 /* AAExtension+Locale.swift in Sources */,
+				41B28194265A6E9D00A4E750 /* AAExtension+UIResponder.swift in Sources */,
 				DEAEA690FA410E0CE80ACFB2881913FF /* AAExtension+NSAttributedString.swift in Sources */,
 				903D6FD578229E44D4D9A1004D035A25 /* AAExtension+PHAsset.swift in Sources */,
 				B9C2F33646B73F3762668771DD38E60E /* AAExtension+Sequence.swift in Sources */,
@@ -763,6 +772,7 @@
 				0A71B3027020A8AE4A233278C5CA0442 /* AAExtension+UINavigationController.swift in Sources */,
 				5A6A24A20A547D30B09109ACE6DE691B /* AAExtension+UIRefreshControl.swift in Sources */,
 				6B07D901D3C2B670D370D07207CBA582 /* AAExtension+UIScrollView.swift in Sources */,
+				41B281A0265A74C400A4E750 /* AADateRangePickerHeaderView.swift in Sources */,
 				CF09CF3252F14F79EE3C39B6476233C0 /* AAExtension+UISearchBar.swift in Sources */,
 				235202755ED38B8BFBB64B7614D77AC5 /* AAExtension+UIStackView.swift in Sources */,
 				B07C56B4E90A19FCA144BE4FEB37EAD2 /* AAExtension+UIStoryboard.swift in Sources */,
@@ -789,6 +799,7 @@
 				881DBD3B51D4106781DBAD1ED56D72B3 /* Module+AACarouselFlowLayout.swift in Sources */,
 				74E6A8DAC8227DAD1440025DE6DC8F8E /* Module+AADocumentPicker.swift in Sources */,
 				C831A25D00D9975D304A60D114D4FE75 /* Module+AADualConstantConstraint.swift in Sources */,
+				41B281A5265A74CD00A4E750 /* AADateRangePickerViewController.swift in Sources */,
 				ACD81A6F746DCADC8DEC639699DE64C6 /* Module+AAFloatingTextField.swift in Sources */,
 				0FD210D222E20F3F6663252652246AF8 /* Module+AAGradientLabel.swift in Sources */,
 				62F3D4ACF6B6E3955D857F288B43A368 /* Module+AAGradientView.swift in Sources */,
@@ -803,6 +814,7 @@
 				41D9E7CC1B7196D21C91D48EF2FAA6A3 /* Module+AAPlaceholderTextView.swift in Sources */,
 				A4040186AD73303D4EF43951C705252A /* Module+AAReversibleConstraint.swift in Sources */,
 				BC4BE15DDAB0A1181886B5952FA1611B /* Module+AATimer.swift in Sources */,
+				41B2819B265A74B900A4E750 /* AADateRangePickerCell.swift in Sources */,
 				7D56A3608736F758A586933943097C0E /* Module+AATimerLabel.swift in Sources */,
 				8722CF8F66A92369656662B8D734340A /* Module+AAUpdateModule.swift in Sources */,
 				1E03406D37A3CABC79B0111B5D04B101 /* Module+AAUserNotification.swift in Sources */,
@@ -901,8 +913,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};

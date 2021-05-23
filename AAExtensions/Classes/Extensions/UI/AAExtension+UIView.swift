@@ -238,6 +238,87 @@ public extension AA where Base: UIView {
         return border
     }
     
+    @discardableResult
+    func addBorderView(to edges: UIRectEdge, color: UIColor, thickness: CGFloat = 1, paddingX: CGFloat = 0, paddingY: CGFloat = 0) -> [UIView] {
+        
+        var borders = [UIView]()
+        let metricDict = ["paddingX": paddingX, "paddingY": paddingY, "thickness": thickness]
+        
+        func border() -> UIView {
+            let border = UIView(frame: .zero)
+            border.backgroundColor = color
+            border.translatesAutoresizingMaskIntoConstraints = false
+            return border
+        }
+        
+        if edges.contains(.top) || edges.contains(.all) {
+            let top = border()
+            base.addSubview(top)
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(paddingY)-[top(==thickness)]",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["top": top]))
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(paddingX)-[top]-(paddingX)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["top": top]))
+            borders.append(top)
+        }
+        
+        if edges.contains(.left) || edges.contains(.all) {
+            let left = border()
+            base.addSubview(left)
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(paddingX)-[left(==thickness)]",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["left": left]))
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(paddingY)-[left]-(paddingY)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["left": left]))
+            borders.append(left)
+        }
+        
+        if edges.contains(.right) || edges.contains(.all) {
+            let right = border()
+            base.addSubview(right)
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:[right(==thickness)]-(paddingX)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["right": right]))
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:|-(paddingY)-[right]-(paddingY)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["right": right]))
+            borders.append(right)
+        }
+        
+        if edges.contains(.bottom) || edges.contains(.all) {
+            let bottom = border()
+            base.addSubview(bottom)
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "V:[bottom(==thickness)]-(paddingY)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["bottom": bottom]))
+            base.addConstraints(
+                NSLayoutConstraint.constraints(withVisualFormat: "H:|-(paddingX)-[bottom]-(paddingX)-|",
+                                               options: [],
+                                               metrics: metricDict,
+                                               views: ["bottom": bottom]))
+            borders.append(bottom)
+        }
+        
+        return borders
+        
+    }
+    
     @available(iOS 9.0, *)
     func setGradient(_ model: AAGradientModel) {
         removeGradient()
@@ -299,7 +380,7 @@ public extension AA where Base: UIView {
         shapeLayer.strokeColor = strokeColor
         shapeLayer.lineWidth = lineWidth
         shapeLayer.lineJoin = .round
-        shapeLayer.lineDashPattern = [5,5] // adjust to your liking
+        shapeLayer.lineDashPattern = [5,5]
         shapeLayer.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: shapeRect.width, height: shapeRect.height), cornerRadius: base.layer.cornerRadius).cgPath
         base.layer.addSublayer(shapeLayer)
     }

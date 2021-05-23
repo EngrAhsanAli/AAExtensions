@@ -95,8 +95,12 @@ public extension UIFont.Weight {
 
 public extension AA where Base: UIFont {
     
+    var bold: UIFont { with(.traitBold) }
     
-    @available(iOS 8.2, *)
+    var italic: UIFont { with(.traitItalic) }
+    
+    var boldItalic: UIFont { with([.traitBold, .traitItalic]) }
+    
     var weight: UIFont.Weight {
         guard let weightNumber = traits[.weight] as? NSNumber else { return .regular }
         let weightRawValue = CGFloat(weightNumber.doubleValue)
@@ -107,5 +111,19 @@ public extension AA where Base: UIFont {
     private var traits: [UIFontDescriptor.TraitKey: Any] {
         return base.fontDescriptor.object(forKey: .traits) as? [UIFontDescriptor.TraitKey: Any]
             ?? [:]
+    }
+    
+    private func with(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        guard let descriptor = base.fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits).union(base.fontDescriptor.symbolicTraits)) else {
+            return base
+        }
+        return UIFont(descriptor: descriptor, size: 0)
+    }
+    
+    private func without(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        guard let descriptor = base.fontDescriptor.withSymbolicTraits(base.fontDescriptor.symbolicTraits.subtracting(UIFontDescriptor.SymbolicTraits(traits))) else {
+            return base
+        }
+        return UIFont(descriptor: descriptor, size: 0)
     }
 }

@@ -51,4 +51,20 @@ public extension AA where Base: UIStackView {
         base.arrangedSubviews.enumerated().forEach { $0.element.tag = $0.offset }
         
     }
+    
+    func removeView<T: UIView>(of type: T.Type) {
+        guard let index = base.arrangedSubviews.firstIndex(where: {($0 as? T) != nil }) else { return }
+        let view = base.arrangedSubviews[index] as! T
+        view.removeFromSuperview()
+        base.layoutIfNeeded()
+    }
+    
+    func appendUniqueView<T: UIView>(view: T?, at index: Int? = nil) {
+        if let view = view {
+            removeView(of: T.self)
+            if let index = index { base.insertArrangedSubview(view, at: index) }
+            else { base.addArrangedSubview(view) }
+        }
+        else { removeView(of: T.self) }
+    }
 }

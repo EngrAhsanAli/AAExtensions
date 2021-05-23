@@ -28,8 +28,15 @@ import UIKit
 
 // MARK:- UIApplication
 public extension UIApplication {
-    var aa_visibleViewController : UIViewController? {
-        keyWindow?.rootViewController?.aa.topViewController
+    
+    var aa_visibleViewController : UIViewController? { aa_keyWindow?.rootViewController?.aa.topViewController }
+    
+    var aa_keyWindow: UIWindow? { UIApplication.shared.windows.first { $0.isKeyWindow } }
+    
+    var aa_isKeyboardPresented: Bool {
+        if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
+           self.windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) { return true }
+        else { return false }
     }
     
 }
