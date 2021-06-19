@@ -1,6 +1,6 @@
 {
   "name": "AAExtensions",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "summary": "AAExtensions are a set of UI Extensions and Helper functions for iOS applications which is written in Swift 5.0",
   "description": "AAExtensions are a set of UI Extensions and Helper functions for iOS applications which is written in Swift 5.0.",
   "homepage": "https://github.com/EngrAhsanAli/AAExtensions",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/EngrAhsanAli/AAExtensions.git",
-    "tag": "1.2.4"
+    "tag": "1.2.6"
   },
   "platforms": {
     "ios": "9.0"

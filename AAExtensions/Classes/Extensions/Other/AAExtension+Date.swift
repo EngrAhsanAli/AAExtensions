@@ -27,6 +27,10 @@
 // MARK:- Date
 public extension Date {
 
+    func aa_hasSame(_ components: Calendar.Component..., as date: Date, using calendar: Calendar = .autoupdatingCurrent) -> Bool {
+        return components.filter { calendar.component($0, from: date) != calendar.component($0, from: self) }.isEmpty
+    }
+    
     func aa_toString(fromFormat: String, currentTimeZone: Bool) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = fromFormat

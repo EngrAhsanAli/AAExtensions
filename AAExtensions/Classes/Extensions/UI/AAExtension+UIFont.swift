@@ -55,9 +55,6 @@ public extension UIFont {
         }
     }
     
-    
-    
-    
     class func aa_fetchFont(from url: URL, completion: ((UIFont?) -> ())?) {
         URLSession(configuration: .default).dataTask(with: url,
                          completionHandler: { (data, response, error) in

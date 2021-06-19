@@ -31,12 +31,37 @@ public extension UIApplication {
     
     var aa_visibleViewController : UIViewController? { aa_keyWindow?.rootViewController?.aa.topViewController }
     
-    var aa_keyWindow: UIWindow? { UIApplication.shared.windows.first { $0.isKeyWindow } }
+    var aa_keyWindow: UIWindow? { windows.first { $0.isKeyWindow } }
     
     var aa_isKeyboardPresented: Bool {
         if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
-           self.windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) { return true }
+           windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) { return true }
         else { return false }
+    }
+    
+    func aa_replaceRootViewController (
+        to viewController: UIViewController,
+        animated: Bool = true,
+        duration: TimeInterval = 0.5,
+        options: UIView.AnimationOptions = .transitionFlipFromRight,
+        _ completion: AACompletionVoid? = nil) {
+        
+        guard let keyWindow = aa_keyWindow else { return }
+        
+        guard animated else {
+            keyWindow.rootViewController = viewController
+            completion?()
+            return
+        }
+        
+        UIView.transition(with: keyWindow, duration: duration, options: options, animations: {
+            let oldState = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(false)
+            keyWindow.rootViewController = viewController
+            UIView.setAnimationsEnabled(oldState)
+        }, completion: { _ in
+            completion?()
+        })
     }
     
 }

@@ -254,6 +254,28 @@ public extension String {
         }
         return .english
     }
+    
+    func aa_after(string: String) -> String? {
+        if let _range = range(of: string) { return String(self[_range.upperBound...]) }
+        return nil
+    }
+    
+    func aa_occurrences(_ text: String) -> Int {
+        var counter = 0
+        var searchRange = NSRange(location: 0, length: count)
+        var foundRange = NSRange()
+        while searchRange.location < count {
+            searchRange.length = count - searchRange.location
+            foundRange = (self as NSString).range(of: text, options: NSString.CompareOptions.caseInsensitive, range: searchRange)
+            if foundRange.location != NSNotFound {
+                searchRange.location = foundRange.location + foundRange.length
+                counter += 1
+            }
+            else { break }
+        }
+        return counter
+    }
+    
 }
 
 

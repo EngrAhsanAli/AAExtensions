@@ -6,7 +6,7 @@
 //
 
 
-public protocol AAExtensionsProvider: class {
+public protocol AAExtensionsProvider: AnyObject {
     associatedtype CompatibleType
     var aa: CompatibleType { get }
 }

@@ -526,4 +526,48 @@ public extension AA where Base: UIView {
     }
     
     //
+    
+    func addMaskView(maskColor: UIColor, duration: TimeInterval = 0.2, onHide: (() -> ())?) -> ((Bool) -> ()) {
+        let maskView = UIView()
+        maskView.frame = base.bounds
+        maskView.backgroundColor = maskColor
+        
+        func hide() {
+            maskView.alpha = 1
+            
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseOut,
+                           animations: { () -> Void in
+                            maskView.alpha = 0
+                           }) { (result: Bool) -> Void in
+                onHide?()
+                maskView.removeFromSuperview()
+            }
+        }
+        
+        func show() {
+            maskView.alpha = 0
+            base.addSubview(maskView)
+            maskView.aa.onTap { hide() }
+            UIView.animate(withDuration: duration*2,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseOut,
+                           animations: { () -> Void in
+                            maskView.alpha = 1
+                           }, completion: nil)
+        }
+        
+        func toggle(_ flag: Bool) {
+            if flag { show() }
+            else { hide() }
+        }
+        
+        return toggle(_:)
+        
+    }
 }
